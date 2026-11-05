@@ -63,3 +63,7 @@ Use a local publication owner, short transactions, bounded database threads, and
 ## Selection gates
 
 Measure filtered p95/p99 retrieval latency during concurrent ingestion, ANN recall, relevance, graph contribution, memory, checkpoint behavior, and update-to-searchable delay. Keep canonical IDs and evidence contracts independent of the vector extension. See [ADR 002](/decisions/002-retrieval-storage).
+
+## Study and compare
+
+Use the [concept guide](/research/concepts) for BM25, ANN, and rank fusion, [implementation resources](/research/implementation-resources) for concrete SQLite candidates, and [similar projects](/research/similar-projects) for alternative graph-retrieval designs.

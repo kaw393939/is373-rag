@@ -21,11 +21,13 @@ export default withMermaid(defineConfig({
       { text: 'Architecture', link: '/architecture/overview' },
       { text: 'Decisions', link: '/decisions/' },
       { text: 'Design reviews', link: '/reviews/' },
+      { text: 'Research', link: '/research/' },
     ],
     sidebar: [
       { text: 'Start here', items: [
         { text: 'System overview', link: '/architecture/overview' },
         { text: 'Status and scope', link: '/status' },
+        { text: 'IS373 assignment roadmap', link: '/course-roadmap' },
       ] },
       { text: 'Architecture', items: [
         { text: 'Frontend', link: '/architecture/frontend' },
@@ -47,7 +49,14 @@ export default withMermaid(defineConfig({
         { text: 'Gang of Four patterns', link: '/reviews/design-patterns' },
         { text: 'Rust design and Graydon Hoare', link: '/reviews/rust-design' },
       ] },
-      { text: 'References', items: [{ text: 'Sources and terminology', link: '/sources' }] },
+      { text: 'Research library', items: [
+        { text: 'Research hub', link: '/research/' },
+        { text: 'Similar projects', link: '/research/similar-projects' },
+        { text: 'Implementation resources', link: '/research/implementation-resources' },
+        { text: 'Concept reading guide', link: '/research/concepts' },
+        { text: 'Recent developments', link: '/research/recent-developments' },
+        { text: 'Sources and terminology', link: '/sources' },
+      ] },
     ],
     search: { provider: 'local' },
     outline: { level: [2, 3] },

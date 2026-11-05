@@ -35,4 +35,4 @@ No fixed vector-count limit, latency promise, or framework speed ranking is esta
 
 The current deliverable is a documentation site, architecture drafts, decision records, and analytical reviews. Rust services, Svelte application code, model integrations, databases, brokers, and workflow deployments are future implementation work. Example API envelopes and schemas are design proposals.
 
-The [planning Page](https://chatgpt.com/space/page_0deeebca930c819182eb5a0e80cfb057) records earlier discussion. This repository is the versioned technical draft and includes the later frontend and pipeline recommendations.
+This repository is the versioned technical draft. The [decision register](/decisions/) records the current recommendations, and the [IS373 roadmap](/course-roadmap) connects research and implementation evidence to the course milestones.

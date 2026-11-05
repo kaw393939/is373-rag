@@ -61,3 +61,7 @@ The knowledge graph may contain cycles. Refinement uses a bounded extraction/val
 ## Orchestrator decision
 
 Evaluate Dagster's asset/dependency model for ETL lineage and backfills and Temporal's durable workflows for long-lived per-document execution. Select one progression owner. Workflow state storage is an operational decision separate from SQLite retrieval storage. [Dagster ETL](https://dagster.io/docs/guides/build/assets/modeling-etl-pipelines), [Temporal workflows](https://docs.temporal.io/workflow-execution)
+
+## Study and compare
+
+The [implementation resources](/research/implementation-resources) link parsing, extraction, and orchestration repositories. The [concept guide](/research/concepts) explains entity linking and workflow durability. Read the [dated developments](/research/recent-developments) before choosing an upstream dependency or assuming a release is stable.

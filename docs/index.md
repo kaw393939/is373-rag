@@ -13,8 +13,8 @@ hero:
       text: Explore the architecture
       link: /architecture/overview
     - theme: alt
-      text: Read the design reviews
-      link: /reviews/
+      text: Browse the research
+      link: /research/
 features:
   - title: Conversation
     details: A reactive Svelte interface and a direct Rust stream, designed around grounded first text and responsive interruption.
@@ -37,5 +37,5 @@ features:
 
 This is a design repository. The documentation site works; the RAG application has not been built. Proposed choices and unresolved decisions are recorded explicitly. The three design reviews are independent analyses applying published ideas, with no author participation or endorsement.
 
-[Decision register](/decisions/) · [Review findings](/reviews/) · [Validation gates](/validation)
+[IS373 assignment roadmap](/course-roadmap) · [Decision register](/decisions/) · [Review findings](/reviews/) · [Validation gates](/validation)
 </div>
