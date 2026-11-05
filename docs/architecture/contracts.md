@@ -11,7 +11,7 @@ These contracts describe required behavior for future implementation. They are n
 | `POST /v1/conversations/{id}/runs` | Authorize, deduplicate an idempotency key, persist an accepted run, return run identity and cursor |
 | `GET /v1/runs/{id}/events?after={cursor}` | Authorize subscription, replay retained events when available, then deliver live events |
 | `POST /v1/runs/{id}/cancel` | Idempotently record cancellation intent and notify the current run owner |
-| `GET /v1/conversations/{id}` | Return a bounded authorized snapshot and its event cursor |
+| `GET /v1/conversations/{id}` | Return a bounded authorized snapshot with per-run checkpoints |
 
 Choose cookie or token authentication before implementation. Native EventSource and fetch-based SSE have different header and reconnection behavior. The browser client must implement the behavior of its chosen transport explicitly. Browser subscriptions terminate at the authorized gateway, not at internal broker subjects.
 
@@ -30,7 +30,7 @@ Choose cookie or token authentication before implementation. Native EventSource 
 }
 ```
 
-A cursor identifies a position in the retained run history. Its encoding remains open. Deliver deltas, source records, retrieval status, terminal state, and errors as distinct typed events. Source records include document revision, source anchors, and evidence IDs.
+A cursor identifies a position in one retained run attempt's history. Its encoding remains open. A conversation snapshot includes a checkpoint `{run_id, attempt, cursor}` for each resumable run; a cursor must never be reused for a different run or attempt. A start command supplies the checkpoint for the newly accepted run. Deliver deltas, source records, retrieval status, terminal state, and errors as distinct typed events. Source records include document revision, source anchors, and evidence IDs.
 
 ## Run authority
 
@@ -60,7 +60,7 @@ Cancellation intent is separate from transport disconnect. The run owner seriali
 1. Accepted commands are durable before success is acknowledged.
 2. Each append is authorized for the current run attempt and ordered by sequence.
 3. Clients deduplicate replay overlap, detect gaps, and reject stale attempts.
-4. Snapshot and live subscription share a cursor boundary. Catch-up handles the interval between them.
+4. Each run snapshot and its live subscription share a run-scoped checkpoint boundary. Catch-up handles the interval between them.
 5. Retention expiry returns an explicit resynchronization result and a new snapshot.
 6. Terminal status is authoritative. A completed record cannot be silently changed by a late delta.
 7. No reconnect silently starts a second model generation.

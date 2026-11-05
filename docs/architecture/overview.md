@@ -27,7 +27,7 @@ These are responsibility boundaries, not a requirement to deploy every box separ
 
 The browser submits an idempotent message command. Rust authorizes access, creates a run, retrieves eligible evidence, builds bounded context, and streams model output as structured events. One authoritative run owner decides ordering, cancellation, completion, and failure. UI event order is scoped by run and attempt.
 
-SvelteKit may render the initial page and a bounded history snapshot. Active tokens travel directly from Rust to the browser. No frontend server proxy is required in that path. The snapshot includes a cursor so the client can catch up without a replay/live subscription gap.
+SvelteKit may render the initial page and a bounded history snapshot. Active tokens travel directly from Rust to the browser. No frontend server proxy is required in that path. The snapshot includes a checkpoint per resumable run so the client can catch up without a replay/live subscription gap; cursors are scoped to that run and attempt.
 
 Direct SSE is the default. A retained run-output log and separate generation workers are justified if independent generation, multiple viewers, or cross-device catch-up become required. Replaying recorded text does not resume a failed inference process.
 

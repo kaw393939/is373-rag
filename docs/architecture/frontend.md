@@ -45,7 +45,7 @@ Svelte's reactive object properties support granular updates. That mechanism is 
 
 The proposed interaction creates a run through an HTTP command, then subscribes to its event stream. Cancellation is a separate authenticated, idempotent command. A browser disconnect follows an explicit server policy; it does not implicitly establish cancellation.
 
-Initial rendered state includes a snapshot cursor. After hydration, the client requests events after that cursor, deduplicates overlap, and verifies run/attempt identifiers before applying deltas. Missing sequences trigger replay when retained history exists. If replay is unavailable, the server returns an explicit resynchronization response and the client loads a current snapshot. Reconnect support is a server/client protocol feature, not an automatic consequence of using SSE.
+Initial rendered state includes a `{run_id, attempt, cursor}` checkpoint for each resumable run. After hydration, the client attaches to each selected run stream using its own checkpoint, deduplicates overlap, and verifies run/attempt identifiers before applying deltas. A new start command returns its run checkpoint; cursors never transfer between runs. Missing sequences trigger replay when retained history exists. If replay is unavailable, the server returns an explicit resynchronization response and the client loads a current snapshot. Reconnect support is a server/client protocol feature, not an automatic consequence of using SSE.
 
 Proposed event categories are run status, retrieval progress, sources, text delta, terminal completion, cancellation, and error. A terminal event closes that attempt's transition path; late events from an older attempt cannot append to a replacement answer.
 
