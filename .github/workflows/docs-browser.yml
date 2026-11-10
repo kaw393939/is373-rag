@@ -1,0 +1,40 @@
+name: Documentation browser review
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: docs-browser-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DOCS_BASE: /is373-rag/
+      DOCS_ORIGIN: https://kaw393939.github.io
+      BROWSER_REVIEW_DIR: ${{ runner.temp }}/docs-browser-review
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Record runner browser version
+        run: google-chrome --version
+      - name: Review desktop, mobile, dark mode, search and navigation
+        run: node scripts/review-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: documentation-browser-review
+          path: ${{ runner.temp }}/docs-browser-review
+          retention-days: 14
+          if-no-files-found: warn

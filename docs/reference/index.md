@@ -16,6 +16,7 @@ Use this section to investigate a decision. Use [Start](../guide/index.md), [Des
 | [Source map](../project/sources.md) | Repository roles and primary technical references |
 | [Current decisions](../project/decisions.md) | Accepted directions and open choices |
 | [Documentation map](documentation-map.md) | Where each question belongs and how to contribute |
+| [Browser verification](browser-review.md) | Rendered-site checks, screenshots and their limits |
 
 ## Historical context
 
