@@ -11,7 +11,7 @@
 | E | `kaw393939/ordo_executor` · `c417ab21e390796e1e57b534488deca13d866b10` | Owner-only executor review; no source copied into this repository |
 | W | `kaw393939/is373-ai-chat` · `aea8dc003975d11dfb978f637887400ff646b55d` | Browser stream decoding and session ownership |
 
-The [machine-readable ledger](../public/source-ledger.json) records blob identities and inspection scope. Commit pins establish which source was reviewed; they do not establish correctness, execution results or permission to relicense it.
+The [machine-readable ledger](/source-ledger.json) records blob identities and inspection scope. Commit pins establish which source was reviewed; they do not establish correctness, execution results or permission to relicense it.
 
 ## H-01 · Durable task kernel — adapt first
 

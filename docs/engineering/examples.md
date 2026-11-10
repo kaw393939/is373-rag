@@ -35,11 +35,11 @@ node --test docs/examples/stream.test.mjs
 ```
 
 ::: details Inspect the bounded synthetic stream decoder
-<<< @/examples/stream.mjs
+<<< @/examples/stream.mjs{javascript}
 :::
 
 ::: details Inspect the ten transport tests
-<<< @/examples/stream.test.mjs
+<<< @/examples/stream.test.mjs{javascript}
 :::
 
 This intentionally narrow wire example uses `schemaVersion`, `runId` and a contiguous per-run `sequence`. It is not a general-purpose SSE parser or a resumable subscriber. An authorized replay protocol may begin from a later cursor and must use an explicit snapshot/resume contract rather than pretending this from-start test covers reconnection.
