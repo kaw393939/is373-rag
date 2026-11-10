@@ -18,7 +18,7 @@ export default withMermaid(defineConfig({
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}mark.svg` }],
     ['meta', { name: 'theme-color', content: '#244c3e' }],
   ],
-  sitemap: { hostname: origin },
+  sitemap: { hostname: new URL(base, origin).href },
   themeConfig: {
     logo: '/mark.svg',
     siteTitle: 'Ordo Knowledge Lab',
