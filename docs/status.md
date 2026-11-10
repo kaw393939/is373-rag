@@ -1,31 +1,40 @@
+---
+title: Status and evidence
+description: What exists, what is planned, and what each verification result establishes.
+---
+
 # Status and evidence
 
-**Review baseline: November 10, 2026.**
+**Review baseline: November 10, 2026.** Software availability and publication are separate claims.
 
-## Present in this repository
+## Available in this repository
 
-A VitePress documentation site; a pinned, scoped Ordo source audit; an extraction roadmap; twelve-factor decisions and gates; and original synthetic Rust, JavaScript and SQLite transaction examples. The Documentation workflow runs example checks, plan consistency checks, the site build and generated-path checks.
+| Deliverable | Scope |
+| --- | --- |
+| VitePress documentation | Vision, guides, current design, build roadmap and reference library |
+| Ordo source audit | Exact inspected revisions, reuse decisions and known gaps—not donor test results |
+| Synthetic contract labs | Seven Rust, ten JavaScript and eight SQLite/Python tests |
+| Static Svelte welcome scaffold | A separately tested container-ready landing page; no research backend |
+| Validation and CI | Plan traceability, documentation build, links, anchors, assets, sitemap and navigation |
 
-The separate `welcome/` package compiles a static Svelte page. Its container and dev/prod definitions are a hosting scaffold, not the research application. The Welcome workflow validates that scope separately; Docker Hub publication and live deployment require their own receipts. See [hosting](project/hosting.md).
-
-Use actual workflow logs for execution results. The Rust lab has seven tests, the stream lab ten and the transaction lab eight. Their scope is documented in [examples](engineering/examples.md); even a passing run does not establish application implementation or live service behavior.
+Use actual workflow logs for execution results. Lab counts describe the suites; a passing run does not establish the full application's behavior. [Example scope](engineering/examples.md).
 
 ## Not implemented here
 
-The application Rust workspace, production schema, plugin host, interactive Svelte research interface, canonical entity-resolution service, durable hosted store, model adapters and DigitalOcean deployment remain planned. Donor code was inspected at pinned revisions; donor runtime suites were not executed or bulk imported. Native hardware processing, retrieval quality and production capacity have not been measured by this change.
+The research Rust workspace, production schema, plugin host, interactive Svelte research interface, canonical resolution service, durable hosted store and model adapters remain planned. Donor code was not bulk imported; donor runtime suites were not executed by this audit. Native hardware quality, retrieval quality and production capacity remain unmeasured.
 
-## Plan precedence
+## Publication is a separate gate
 
-Read [Project plan](project/index.md), [Reuse](reuse/index.md) and [Engineering](engineering/twelve-factor.md) together. The newer S-series roadmap supersedes the earlier G-series sequence. Earlier architecture/review/research pages remain historical reference and carry a reference notice.
+The Documentation workflow builds previews on PRs. On main it requires Pages activation, deploys and verifies actual public responses against the source revision. A blocked publication job does not invalidate a successful static build, but it does mean the site is not verified live. [Enable and publish Pages](project/setup.md).
 
-Key reconciliations: reuse the historical Rust kernel before writing a new scheduler; repair its identified gaps; defer a broker; separate the hosted stateless API from its private stateful store; keep the local appliance exception explicit. A prior design review does not automatically certify the revised design.
+Docker Hub publication, live application deployment, portfolio DNS and account settings require independent evidence. The welcome scaffold does not establish any of them. [Application hosting](project/hosting.md).
 
-## Publication and workspace
+## Which plan takes precedence?
 
-GitHub Pages publication still requires the repository's actual Pages source to be enabled for GitHub Actions and a successful deployment. The workflow records readiness and the real deployment URL. A green build or a skipped deploy action is not a live-site claim. [Setup](project/setup.md).
+[Start](guide/index.md) explains intent; [Design](design/index.md) and [Build](build/index.md) lead to the current contracts. The authoritative material remains in `project/`, `reuse/` and `engineering/`. Entry pages summarize and link, not replace it.
 
-An assistant checkout under `/mnt/data` is an isolated working environment, not the owner's Mac. A Mac checkout, local preview and platform-specific tests require observations from that machine. No DNS, portfolio, server, account credential or donor repository has been changed by the welcome preparation.
+The S0–S7 roadmap supersedes the earlier G-series ordering. Older architecture, reviews and research retain visible reference notices. Reuse the historical Rust kernel, repair its gaps, defer a broker, and separate the hosted API from the private stateful store. Local embedded storage remains an explicit twelve-factor exception.
 
 ## Next implementation gate
 
-Complete S0's rights/dependency/contract decisions, then begin the bounded S1 job/event extraction. Carry [requirement IDs](project/acceptance.md), pinned donor symbols and actual evidence into every implementation/test-plan issue. The public documentation must remain buildable without private source or real provider credentials.
+Complete S0's rights, dependency and contract decisions; then extract the bounded S1 job/event behavior. Carry requirement IDs, donor symbols and actual receipts into each issue and PR. Do not close runtime work because a page describes it.

@@ -11,8 +11,9 @@
     "preview": "vitepress preview docs --host 127.0.0.1",
     "check:plan": "node scripts/check-plan.mjs",
     "check:pages": "node scripts/check-pages.mjs",
+    "check:ia": "node scripts/check-ia.mjs",
     "test:examples": "node --test docs/examples/stream.test.mjs && python3 docs/examples/publication.py",
-    "test": "npm run check:plan && npm run test:examples && npm run build && npm run check:pages"
+    "test": "npm run check:plan && npm run test:examples && npm run build && npm run check:pages && npm run check:ia"
   },
   "devDependencies": {
     "debug": "^4.4.0",
