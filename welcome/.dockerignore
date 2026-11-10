@@ -1,0 +1,9 @@
+*
+!package.json
+!package-lock.json
+!Dockerfile
+!nginx.conf
+!scripts/
+!scripts/**
+!src/
+!src/**
