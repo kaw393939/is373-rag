@@ -1,0 +1,32 @@
+name: ordo-rag-${DEPLOY_ENV:?Set dev or prod}
+services:
+  welcome:
+    image: ${APP_IMAGE:?Set an approved immutable image digest}
+    restart: unless-stopped
+    user: "101:101"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=16m"]
+    mem_limit: 64m
+    cpus: 0.15
+    pids_limit: 64
+    stop_grace_period: 10s
+    networks: [web]
+    logging:
+      driver: json-file
+      options: {max-size: 5m, max-file: "2"}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${TRAEFIK_NETWORK:?Inspect the existing proxy network}"
+      - "traefik.http.routers.rag-${DEPLOY_ENV}.rule=Host(`${APP_HOST:?Set the exact environment hostname}`)"
+      - "traefik.http.routers.rag-${DEPLOY_ENV}.entrypoints=${TRAEFIK_HTTPS_ENTRYPOINT:?Inspect the HTTPS entrypoint}"
+      - "traefik.http.routers.rag-${DEPLOY_ENV}.tls=true"
+      - "traefik.http.routers.rag-${DEPLOY_ENV}.tls.certresolver=${TRAEFIK_TLS_RESOLVER:?Inspect the certificate resolver}"
+      - "traefik.http.routers.rag-${DEPLOY_ENV}.service=rag-${DEPLOY_ENV}"
+      - "traefik.http.services.rag-${DEPLOY_ENV}.loadbalancer.server.port=8080"
+      - "wud.watch=false"
+networks:
+  web:
+    external: true
+    name: ${TRAEFIK_NETWORK:?Inspect the existing proxy network}

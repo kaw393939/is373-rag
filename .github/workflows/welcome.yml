@@ -1,0 +1,91 @@
+name: Welcome
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: welcome-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Require committed input locks
+        run: |
+          test -f welcome/package-lock.json
+          test -f welcome/base-images.json
+          jq -e '.platform == "linux/amd64" and (.builder | test("@sha256:[a-f0-9]{64}$")) and (.runtime | test("@sha256:[a-f0-9]{64}$"))' welcome/base-images.json
+      - name: Source build and environment guards
+        run: |
+          npm ci --prefix welcome --ignore-scripts
+          npm test --prefix welcome
+          python3 deploy/test_env.py
+      - name: Validate both Compose environments (no deployment)
+        shell: bash
+        run: |
+          set -euo pipefail
+          for stage in dev prod; do
+            if [ "$stage" = dev ]; then host=dev-rag.keithwilliams.org; else host=rag.keithwilliams.org; fi
+            printf 'DEPLOY_ENV=%s\nAPP_HOST=%s\nAPP_IMAGE=docker.io/example/is373-rag@sha256:%064d\nTRAEFIK_NETWORK=web\nTRAEFIK_HTTPS_ENTRYPOINT=websecure\nTRAEFIK_TLS_RESOLVER=le\n' "$stage" "$host" 0 > "$RUNNER_TEMP/$stage.env"
+            if [ "$stage" = dev ]; then
+              echo 'DEV_ACCESS_MIDDLEWARE=fixture-private@file' >> "$RUNNER_TEMP/$stage.env"
+              python3 deploy/check-env.py "$RUNNER_TEMP/$stage.env" dev
+              docker compose --env-file "$RUNNER_TEMP/$stage.env" -f deploy/compose.yaml -f deploy/compose.dev.yaml config --quiet
+            else
+              python3 deploy/check-env.py "$RUNNER_TEMP/$stage.env" prod
+              docker compose --env-file "$RUNNER_TEMP/$stage.env" -f deploy/compose.yaml config --quiet
+            fi
+          done
+      - name: Build the digest-pinned image
+        shell: bash
+        run: |
+          set -euo pipefail
+          builder=$(jq -er '.builder | select(test("@sha256:[a-f0-9]{64}$"))' welcome/base-images.json)
+          runtime=$(jq -er '.runtime | select(test("@sha256:[a-f0-9]{64}$"))' welcome/base-images.json)
+          docker build --platform linux/amd64 --build-arg NODE_IMAGE="$builder" --build-arg WEB_IMAGE="$runtime" --build-arg SOURCE_REVISION="$GITHUB_SHA" -t ordo-rag-welcome:ci welcome
+      - name: Test non-root, read-only HTTP service
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(docker image inspect ordo-rag-welcome:ci --format '{{.Config.User}}')" = 101:101
+          docker run -d --name welcome-check --read-only --cap-drop ALL --security-opt no-new-privileges --tmpfs /tmp:rw,noexec,nosuid,nodev,size=16m --memory 64m --pids-limit 64 -p 127.0.0.1:18080:8080 ordo-rag-welcome:ci
+          trap 'docker logs welcome-check; docker rm -f welcome-check' EXIT
+          for attempt in $(seq 1 15); do
+            curl --fail --silent http://127.0.0.1:18080/healthz > "$RUNNER_TEMP/health" && break
+            sleep 1
+          done
+          grep -qx static-welcome "$RUNNER_TEMP/health"
+          curl --fail --silent http://127.0.0.1:18080/ > "$RUNNER_TEMP/welcome.html"
+          grep -q 'Backend not connected' "$RUNNER_TEMP/welcome.html"
+          curl --fail --silent http://127.0.0.1:18080/welcome.css > /dev/null
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:18080/api/chat)" = 404
+          curl --fail --silent -I http://127.0.0.1:18080/ | grep -qi content-security-policy
+      - name: Save tested candidate and receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir release
+          docker save ordo-rag-welcome:ci -o release/image.tar
+          archive=$(sha256sum release/image.tar | cut -d ' ' -f 1)
+          image=$(docker image inspect ordo-rag-welcome:ci --format '{{.Id}}')
+          jq -n --arg sha "$GITHUB_SHA" --arg archive "$archive" --arg image "$image" --arg run "$GITHUB_RUN_ID" '{source_revision:$sha,archive_sha256:$archive,image_id:$image,ci_run:$run,platform:"linux/amd64",scope:"static welcome only; not deployed"}' > release/receipt.json
+          echo 'Passed: Svelte source tests, deployment guards, Compose parsing, non-root read-only container HTTP checks. No DNS/account change or host deployment.' >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: welcome-image
+          path: release/
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        with:
+          name: welcome-static-preview
+          path: welcome/build/
+          retention-days: 14

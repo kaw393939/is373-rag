@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+const html = await readFile('build/index.html', 'utf8');
+const css = await readFile('build/welcome.css', 'utf8');
+test('states the capability boundary', () => { assert.match(html,/Backend not connected/); assert.match(html,/static Svelte welcome page/); });
+test('links repository, documentation and roadmap', () => { for (const href of ['https://github.com/kaw393939/is373-rag','https://github.com/kaw393939/is373-rag/blob/main/docs/project/index.md','https://github.com/kaw393939/is373-rag/blob/main/docs/project/roadmap.md']) assert.ok(html.includes(`href="${href}"`)); });
+test('accessible document structure', () => { assert.match(html,/<html lang="en">/); assert.equal((html.match(/<h1\b/g)||[]).length,1); assert.match(html,/href="#main"/); assert.match(html,/id="main"/); assert.match(css,/:focus-visible/); });
+test('no active model, analytics, inline code or forms', () => { assert.doesNotMatch(html,/<(?:script|iframe|form)\b/i); assert.doesNotMatch(html,/on(?:click|load)=/i); assert.doesNotMatch(html,/https?:\/\/(?:api\.|fonts\.|analytics\.)/i); });
+test('same static artifact for both environments', () => { assert.doesNotMatch(html,/dev-rag\.keithwilliams\.org|rag\.keithwilliams\.org/); assert.match(html,/href="\/welcome.css"/); assert.ok(css.length > 100); });
+test('welcome preview is not indexed', async () => { assert.match(html,/noindex, nofollow/); assert.match(await readFile('build/robots.txt','utf8'),/Disallow: \//); });

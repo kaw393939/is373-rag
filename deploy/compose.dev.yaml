@@ -1,0 +1,5 @@
+# Development must use an existing, verified access-control middleware.
+services:
+  welcome:
+    labels:
+      - "traefik.http.routers.rag-dev.middlewares=${DEV_ACCESS_MIDDLEWARE:?Set verified authentication or IP-allowlist middleware}"
