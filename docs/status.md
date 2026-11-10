@@ -6,11 +6,13 @@
 
 A VitePress documentation site; a pinned, scoped Ordo source audit; an extraction roadmap; twelve-factor decisions and gates; and original synthetic Rust, JavaScript and SQLite transaction examples. The Documentation workflow runs example checks, plan consistency checks, the site build and generated-path checks.
 
+The separate `welcome/` package compiles a static Svelte page. Its container and dev/prod definitions are a hosting scaffold, not the research application. The Welcome workflow validates that scope separately; Docker Hub publication and live deployment require their own receipts. See [hosting](project/hosting.md).
+
 Use actual workflow logs for execution results. The Rust lab has seven tests, the stream lab ten and the transaction lab eight. Their scope is documented in [examples](engineering/examples.md); even a passing run does not establish application implementation or live service behavior.
 
 ## Not implemented here
 
-The application Rust workspace, production schema, plugin host, Svelte research interface, canonical entity-resolution service, durable hosted store, model adapters and DigitalOcean deployment remain planned. Donor code was inspected at pinned revisions; donor runtime suites were not executed or bulk imported. Native hardware processing, retrieval quality and production capacity have not been measured by this documentation change.
+The application Rust workspace, production schema, plugin host, interactive Svelte research interface, canonical entity-resolution service, durable hosted store, model adapters and DigitalOcean deployment remain planned. Donor code was inspected at pinned revisions; donor runtime suites were not executed or bulk imported. Native hardware processing, retrieval quality and production capacity have not been measured by this change.
 
 ## Plan precedence
 
@@ -22,7 +24,7 @@ Key reconciliations: reuse the historical Rust kernel before writing a new sched
 
 GitHub Pages publication still requires the repository's actual Pages source to be enabled for GitHub Actions and a successful deployment. The workflow records readiness and the real deployment URL. A green build or a skipped deploy action is not a live-site claim. [Setup](project/setup.md).
 
-An assistant checkout under `/mnt/data` is an isolated working environment, not the owner's Mac. A Mac checkout, local preview and platform-specific tests require observations from that machine. No DNS, portfolio, server, account credential or donor repository is changed by this documentation review.
+An assistant checkout under `/mnt/data` is an isolated working environment, not the owner's Mac. A Mac checkout, local preview and platform-specific tests require observations from that machine. No DNS, portfolio, server, account credential or donor repository has been changed by the welcome preparation.
 
 ## Next implementation gate
 

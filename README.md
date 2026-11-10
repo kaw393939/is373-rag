@@ -2,7 +2,7 @@
 
 A code-grounded plan for a portable Rust knowledge library, streaming research chat and governed AI workflows, built by selectively reusing Ordo rather than importing its entire product.
 
-**Implemented here: documentation, validation scripts and synthetic teaching examples. Application runtime: pending.** No donor code was bulk imported and no production system was changed by this documentation review.
+**Implemented here: documentation, validation scripts, synthetic teaching examples and a static Svelte welcome scaffold. Research application runtime: pending.** No donor code was bulk imported and no production system was changed by this documentation review.
 
 ## Read first
 
@@ -48,3 +48,7 @@ Pages runs no chat API, model or scheduler. The professional portfolio and futur
 Future Rust modules and the Svelte client will be added only through reviewed implementation slices. The hosted API/workers are designed to be replaceable processes attached to a private durable Rust store; the local embedded-store appliance is an explicit twelve-factor exception.
 
 Work records: [reuse review #3](https://github.com/kaw393939/is373-rag/issues/3), [test plan #4](https://github.com/kaw393939/is373-rag/issues/4), and [remaining workspace/Pages setup #1](https://github.com/kaw393939/is373-rag/issues/1). Link each implementation issue, atomic commit and acceptance receipt to its requirement. Do not close runtime work because a document describes it.
+
+## Welcome deployment scaffold
+
+The separately tested [Svelte welcome page](welcome/README.md) and [dev/prod deployment definitions](deploy/README.md) support the requested `dev-rag.keithwilliams.org` and `rag.keithwilliams.org` routes. They do not enable chat or publish a live service. See [hosting and account-readiness gates](docs/project/hosting.md).

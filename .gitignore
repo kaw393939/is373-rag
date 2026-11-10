@@ -7,3 +7,6 @@ docs/.vitepress/cache/
 !.env.example
 *.log
 .DS_Store
+__pycache__/
+*.pyc
+deploy.env
