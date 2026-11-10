@@ -19,28 +19,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Prepare initial input locks (PR bootstrap only)
-        shell: bash
+      - name: Require committed input locks
         run: |
-          set -euo pipefail
-          if [ ! -f welcome/package-lock.json ]; then
-            test "$GITHUB_EVENT_NAME" = pull_request
-            npm install --prefix welcome --package-lock-only --ignore-scripts
-          fi
-          if [ ! -f welcome/base-images.json ]; then
-            test "$GITHUB_EVENT_NAME" = pull_request
-            docker pull --platform linux/amd64 node:24-alpine
-            docker pull --platform linux/amd64 nginxinc/nginx-unprivileged:stable-alpine
-            builder=$(docker image inspect node:24-alpine --format '{{index .RepoDigests 0}}')
-            runtime=$(docker image inspect nginxinc/nginx-unprivileged:stable-alpine --format '{{index .RepoDigests 0}}')
-            jq -n --arg builder "$builder" --arg runtime "$runtime" '{platform:"linux/amd64",builder:$builder,runtime:$runtime}' > welcome/base-images.json
-          fi
-      - uses: actions/upload-artifact@v4
-        with:
-          name: welcome-input-locks
-          path: |
-            welcome/package-lock.json
-            welcome/base-images.json
+          test -f welcome/package-lock.json
+          test -f welcome/base-images.json
+          jq -e '.platform == "linux/amd64" and (.builder | test("@sha256:[a-f0-9]{64}$")) and (.runtime | test("@sha256:[a-f0-9]{64}$"))' welcome/base-images.json
       - name: Source build and environment guards
         run: |
           npm ci --prefix welcome --ignore-scripts
