@@ -1,27 +1,29 @@
-# Status and scope
+# Status and evidence
 
-Planning baseline: November 10, 2026.
+**Review baseline: November 10, 2026.**
 
-## What exists
+## Present in this repository
 
-This repository contains a VitePress documentation site, earlier architecture research and reviews, and the current [Ordo Knowledge Lab plan](project/index.md). Documentation build and publishing support are separate from application implementation.
+A VitePress documentation site; a pinned, scoped Ordo source audit; an extraction roadmap; twelve-factor decisions and gates; and original synthetic Rust, JavaScript and SQLite transaction examples. The Documentation workflow runs example checks, plan consistency checks, the site build and generated-path checks.
 
-## What is not implemented here
+Use actual workflow logs for execution results. The Rust lab has seven tests, the stream lab ten and the transaction lab eight. Their scope is documented in [examples](engineering/examples.md); even a passing run does not establish application implementation or live service behavior.
 
-The Rust knowledge runtime, SQLite schema, plugin host, streaming product frontend, identity-resolution service, durable scheduler, model adapters and DigitalOcean deployment remain proposed. No application performance, reliability or test-pass claims are made.
+## Not implemented here
 
-## Publication status
-
-The Documentation workflow validates the site and can publish it through GitHub Pages after the repository's Pages source is set to GitHub Actions. Consult the actual workflow run and deployment URL for live publication evidence. A successful build alone does not establish that the website is live.
-
-The current working environment may be an isolated assistant workspace rather than the owner's Mac. [Setup instructions](project/setup.md) create a real local checkout in the user's chosen Projects directory. Never claim a Mac path was created without observing it.
+The application Rust workspace, production schema, plugin host, Svelte research interface, canonical entity-resolution service, durable hosted store, model adapters and DigitalOcean deployment remain planned. Donor code was inspected at pinned revisions; donor runtime suites were not executed or bulk imported. Native hardware processing, retrieval quality and production capacity have not been measured by this documentation change.
 
 ## Plan precedence
 
-The current baseline is [docs/project/](project/index.md). Earlier architecture pages remain reference material. In particular, NATS/JetStream is not required for the proposed first local implementation; [the decision register](project/decisions.md) records that change of direction.
+Read [Project plan](project/index.md), [Reuse](reuse/index.md) and [Engineering](engineering/twelve-factor.md) together. The newer S-series roadmap supersedes the earlier G-series sequence. Earlier architecture/review/research pages remain historical reference and carry a reference notice.
 
-A documentation change is not an approved production deployment, a change to course grading, or evidence that a proposed native capability exists.
+Key reconciliations: reuse the historical Rust kernel before writing a new scheduler; repair its identified gaps; defer a broker; separate the hosted stateless API from its private stateful store; keep the local appliance exception explicit. A prior design review does not automatically certify the revised design.
 
-## Immediate gate
+## Publication and workspace
 
-Review the requirements, storage and identity rules, plugin contract, streaming outcomes, and local-to-hosted publication boundary before starting application code. DNS and infrastructure changes require a separate inventory, change scope, and rollback record.
+GitHub Pages publication still requires the repository's actual Pages source to be enabled for GitHub Actions and a successful deployment. The workflow records readiness and the real deployment URL. A green build or a skipped deploy action is not a live-site claim. [Setup](project/setup.md).
+
+An assistant checkout under `/mnt/data` is an isolated working environment, not the owner's Mac. A Mac checkout, local preview and platform-specific tests require observations from that machine. No DNS, portfolio, server, account credential or donor repository is changed by this documentation review.
+
+## Next implementation gate
+
+Complete S0's rights/dependency/contract decisions, then begin the bounded S1 job/event extraction. Carry [requirement IDs](project/acceptance.md), pinned donor symbols and actual evidence into every implementation/test-plan issue. The public documentation must remain buildable without private source or real provider credentials.

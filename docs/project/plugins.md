@@ -1,33 +1,47 @@
-# Capability workers and realtime jobs
+# Capability workers and durable jobs
 
-Status: proposed contracts. Native workers and accelerator support are not implemented here.
+**Proposed contracts.** Existing Ordo executor behavior is a donor, not evidence that native plugins are already implemented here.
 
-## Capabilities belong to the machine
+## Capability versus implementation
 
-A workflow requests `speech.transcribe.v1`, `embedding.text.v1` or `media.inspect.v1`. An available worker implements that contract using CPU, NVIDIA or Mac-native facilities. Shared capability names do not guarantee identical models or compatible embedding spaces.
+A workflow requests a versioned capability, not an Apple class or CUDA library. CPU, NVIDIA and native Mac workers can implement that capability with declared model and resource requirements. Compatible interface shape does not guarantee equal inference quality or embedding compatibility.
 
-Keep the portable core independent of Apple frameworks. Swift can implement a native Mac worker; its Apple-dependent implementation is not expected to execute on Linux. Rust is the default for core coordination and suitable plugins, not a requirement to rewrite proven codecs or databases.
+Rust owns coordination and state. Swift is useful for Apple-native frameworks; such a worker is not expected to execute unchanged on Linux. Keep the application usable without a GPU through deterministic fixtures, structured imports, manual review and available retrieval paths.
 
-## Language-neutral execution contract
+## One result contract
 
-A worker announces its identity, version, capability versions, models, resource needs and readiness. A task includes input artifact references/hashes, parameters, deadline, cancellation identity and bounded output permissions. A result includes artifacts, source locations, execution receipt, limitations and a typed success/failure outcome.
+Reconcile the historical Rust envelope, current TypeScript envelope and private executor envelope before importing any of them. They currently differ in statuses, identity and output shape. The target contract needs these fields:
 
-Start by reviewing the existing Ordo HTTP/JSON envelope against these requirements. A later Protobuf transport is an alternative, not an approved replacement. Avoid exposing Rust trait-object ABI as a public plugin boundary; Rust's native ABI does not provide stability guarantees ([Rust reference](https://doc.rust-lang.org/reference/items/external-blocks.html)).
+| Group | Required information |
+| --- | --- |
+| Version/identity | Schema, capability/backend, job/task, worker, attempt/lease epoch |
+| Inputs | Immutable artifact IDs/hashes, parameter/model fingerprints and scope |
+| Execution | Deadline, cancellation, bounded resources, tool/model versions and outcome |
+| Outputs | Byte-verified artifacts, typed source locations, evidence links and limitations |
+| Acceptance | Authenticated worker identity, current lease, allowed outputs and idempotency receipt |
 
-Workers do not write canonical SQLite state. The core verifies outputs and advances jobs. Separate processes isolate crashes but are not automatically security sandboxes. Untrusted workers require an explicit isolation and permissions design.
+Do not fill a missing byte digest from an artifact label. Failed/blocked outcomes may have diagnostics without successful output evidence; successful evidence-producing capabilities must meet their explicit evidence contract. A worker cannot grant itself permission by setting a field in its result.
 
-## Missing capability is a state, not corruption
+## State and transport boundary
 
-Distinguish missing tool, missing model, unsupported host, unbound input, missing credentials, policy block and operator disablement. The library remains readable. Never silently swap an incompatible embedder to make a readiness check pass.
+Workers never write canonical tables. In the hosted profile they call the private Rust store's scoped acceptance command; in local mode the same contract may use an embedded adapter. The store checks the receipt and commits state/events in one transaction.
 
-Keep control messages small. Large media travels through artifacts or negotiated local buffers. GPU handles are ephemeral and never the only representation of evidence.
+Review the existing HTTP/JSON host-worker proposal before choosing a different serialization transport. Language-neutral contracts matter more than Protobuf versus JSON. Do not expose Rust's native trait-object ABI as a stable public plugin interface. [Rust ABI reference](https://doc.rust-lang.org/reference/items/external-blocks.html).
 
-## Durable execution
+Native process isolation is not a sandbox by itself. Define permitted directories/artifact handles, device access, network egress, executable identity and cancellation limits. Remote worker attachment requires explicit authorization; it is not an arbitrary public command runner.
 
-Use bounded queues, concurrency/resource admission, task leases, heartbeats, cancellation and retry classes. An old worker's lease/fencing identity must not commit after a replacement worker has taken ownership. Accept output once per task/result key; a replayed external computation is still possible.
+## Durable task state
 
-Human review is durable waiting state, not an open transaction or blocked worker. Source ingestion, publication events and consumer cursors survive restart. Add a broker only when measured multi-host requirements justify it.
+Plans are versioned snapshots. Validate dependency cycles, missing keys and required stages before creating a job. Human review is durable waiting state, not a worker holding an open transaction.
 
-## Future video
+Claims carry an epoch and deadline. Completion checks job, task, worker, epoch, expiry, input digest and expected status atomically. Retry classes distinguish safe deterministic processing from paid generation with partial output. A stale result cannot regain authority just because its worker name matches a newer attempt.
 
-Process bounded segments with source hash, track and presentation-time intervals. Distinguish narrated claims from visual detections and later inferences. Record skipped intervals and sampling policy. Under load, pause or spool within quotas; do not silently discard evidence while claiming full analysis.
+Bound queue depth, attempts, concurrency, output size and temporary storage. Use heartbeats and explicit blocked/dead-letter inspection. Preserve diagnostic failure events without converting corrupt evidence into an empty successful result. Historical kernel/event symbols and their missing tests are mapped in the [audit](../reuse/source-audit.md).
+
+## Readiness and large media
+
+Report missing tool/model, unsupported host, unbound source, missing credential, policy block and user disablement separately. No compatible encoder means no compatible semantic query—not permission to silently switch vector spaces.
+
+Control messages refer to durable artifacts; large media uses files or negotiated local buffers. GPU handles and shared memory are ephemeral execution details. Future video runs use bounded segments, source hashes and explicit timestamps. Record sampling/skipped intervals, and pause or spool within quotas under overload. Never claim full analysis of intervals that were dropped.
+
+See the [lease lab](../engineering/examples.md#lease-ownership), [factor gates](../engineering/twelve-factor.md) and S1/S6 in the [roadmap](roadmap.md).

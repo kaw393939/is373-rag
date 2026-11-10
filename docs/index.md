@@ -2,42 +2,42 @@
 layout: home
 hero:
   name: Ordo Knowledge Lab
-  text: Evidence first. Knowledge you can move.
-  tagline: A documentation-first IS373 example for a Rust knowledge library, streaming research chat, and reviewable AI workflows.
+  text: A clean build, grounded in evidence.
+  tagline: An IS373 roadmap from existing Ordo code to portable knowledge, streaming research chat and testable operational boundaries.
   actions:
     - theme: brand
-      text: Read the project plan
-      link: /project/
+      text: See what we can reuse
+      link: /reuse/
     - theme: alt
-      text: Explore the system
-      link: /project/system
+      text: Follow the roadmap
+      link: /project/roadmap
     - theme: alt
-      text: Requirements and tests
-      link: /project/acceptance
+      text: Run the examples
+      link: /engineering/examples
 features:
-  - title: One identity, many accounts
-    details: Resolve people, places and events without erasing conflicting testimony or treating semantic similarity as identity.
-    link: /project/knowledge
-  - title: Chat with the evidence
-    details: Plan live answers, inspectable citations, cancellation, and recorded outcomes—not an ungrounded chat box.
-    link: /project/streaming
-  - title: Portable by design
-    details: Keep the library useful across Mac and Linux while unsupported processing capabilities are explicitly unavailable.
-    link: /project/plugins
+  - title: Reuse deliberately
+    details: Inspect exact commits, files and functions. Keep useful behaviors; repair known gaps before importing code.
+    link: /reuse/source-audit
+  - title: Make operations testable
+    details: Apply all twelve factors to the hosted service and state the local appliance exceptions honestly.
+    link: /engineering/twelve-factor
+  - title: Learn through failure
+    details: Exercise stale leases, fragmented Unicode, conflicting identity and atomic publication with synthetic fixtures.
+    link: /engineering/examples
 ---
 
-::: warning Documentation, not a running application
-The site is the planning and review workspace. Backend services, native workers and cloud deployment are not implemented by this documentation setup.
+::: warning Documentation and teaching labs, not a running application
+The runtime, product frontend, native workers and hosted service remain planned. Source inspection, lab checks, application tests and live deployment are separate evidence levels.
 :::
 
-## Start with a small, complete example
+## The system we are building
 
-Import three synthetic UFO reports. Preserve their evidence, resolve an ambiguous identity, review a draft, publish one revision, and answer a question with citations. Then move the published library from Mac to Linux.
+Import conflicting reports. Preserve source evidence, resolve identities, review a draft and publish a revision. Ask a question, watch the answer stream and inspect its citations. Move that library from Mac to Linux without requiring every processing capability to move with it.
 
-The [roadmap](/project/roadmap) defines that first complete demonstration. The [decision register](/project/decisions) separates confirmed direction from proposed choices and earlier alternatives.
+Start with the [project brief](/project/), then use the [system breakdown](/project/system) and [requirements](/project/acceptance). The [source audit](/reuse/source-audit) recovers useful historical Rust code as well as current Ordo contracts; the [roadmap](/project/roadmap) links that evidence to implementation slices.
 
-## Keep three websites separate
+## Three websites, distinct responsibilities
 
-The professional portfolio belongs on its own GitHub Pages site. **This site holds project documentation.** The future chat application belongs on an explicitly selected application host and subdomain. See [hosting boundaries](/project/hosting).
+Your portfolio is a separate public identity site. **This Pages site is documentation.** The future streaming application belongs on an approved application host/subdomain. No DNS, portfolio or server changes are implied by building these docs. [Hosting boundaries](/project/hosting).
 
-Earlier [architecture](/architecture/overview), [research](/research/), and [design reviews](/reviews/) are preserved as reference material; the current project baseline is under [Project plan](/project/).
+Earlier architecture, research and reviews remain available with a reference notice. The current plan explicitly reconciles those alternatives rather than treating every historical proposal as a simultaneous requirement. [Status and evidence](/status).

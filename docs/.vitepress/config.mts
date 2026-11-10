@@ -8,11 +8,8 @@ if (!base.startsWith('/') || !base.endsWith('/')) throw new Error('DOCS_BASE mus
 
 export default withMermaid(defineConfig({
   title: 'Ordo Knowledge Lab · IS373',
-  description: 'Documentation for a portable Rust-first knowledge library, streaming research chat and evidence-backed AI workflows.',
-  lang: 'en-US',
-  base,
-  cleanUrls: true,
-  lastUpdated: true,
+  description: 'A code-grounded Ordo reuse roadmap: portable research knowledge, streaming chat and twelve-factor deployment boundaries.',
+  lang: 'en-US', base, cleanUrls: true, lastUpdated: true,
   outDir: fileURLToPath(new URL('../../dist', import.meta.url)),
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}mark.svg` }],
@@ -20,11 +17,11 @@ export default withMermaid(defineConfig({
   ],
   sitemap: { hostname: new URL(base, origin).href },
   themeConfig: {
-    logo: '/mark.svg',
-    siteTitle: 'Ordo Knowledge Lab',
+    logo: '/mark.svg', siteTitle: 'Ordo Knowledge Lab',
     nav: [
-      { text: 'Project plan', link: '/project/' },
-      { text: 'Requirements', link: '/project/acceptance' },
+      { text: 'Start here', link: '/project/' },
+      { text: 'Reuse Ordo', link: '/reuse/' },
+      { text: 'Twelve factors', link: '/engineering/twelve-factor' },
       { text: 'Roadmap', link: '/project/roadmap' },
       { text: 'Reference', items: [
         { text: 'Earlier architecture', link: '/architecture/overview' },
@@ -33,19 +30,29 @@ export default withMermaid(defineConfig({
       ] },
     ],
     sidebar: [
-      { text: 'Current project plan', items: [
+      { text: 'Read first', items: [
         { text: 'Project brief', link: '/project/' },
+        { text: 'Reuse map', link: '/reuse/' },
+        { text: 'Pinned source audit', link: '/reuse/source-audit' },
+        { text: 'Harvest plan', link: '/reuse/harvest-plan' },
+        { text: 'Implementation status', link: '/status' },
+      ] },
+      { text: 'Build and verify', items: [
+        { text: 'Twelve-factor matrix', link: '/engineering/twelve-factor' },
+        { text: 'Clean builds and releases', link: '/engineering/clean-build' },
+        { text: 'Executable examples', link: '/engineering/examples' },
+        { text: 'Requirements and acceptance', link: '/project/acceptance' },
+        { text: 'Delivery roadmap', link: '/project/roadmap' },
+      ] },
+      { text: 'System design', items: [
         { text: 'System breakdown', link: '/project/system' },
         { text: 'Knowledge and identity', link: '/project/knowledge' },
         { text: 'Streaming interface', link: '/project/streaming' },
         { text: 'Workers and durable jobs', link: '/project/plugins' },
         { text: 'Hosting boundaries', link: '/project/hosting' },
-        { text: 'Requirements and acceptance', link: '/project/acceptance' },
-        { text: 'Delivery roadmap', link: '/project/roadmap' },
-        { text: 'Decisions and open questions', link: '/project/decisions' },
+        { text: 'Decisions', link: '/project/decisions' },
         { text: 'Local folder and Pages', link: '/project/setup' },
         { text: 'Reference map', link: '/project/sources' },
-        { text: 'Implementation status', link: '/status' },
       ] },
       { text: 'Earlier architecture · reference', collapsed: true, items: [
         { text: 'System overview', link: '/architecture/overview' },
@@ -54,11 +61,11 @@ export default withMermaid(defineConfig({
         { text: 'Hybrid retrieval', link: '/architecture/retrieval' },
         { text: 'Ingestion DAG', link: '/architecture/ingestion' },
         { text: 'Contracts', link: '/architecture/contracts' },
-        { text: 'Original decision register', link: '/decisions/' },
+        { text: 'Original decisions', link: '/decisions/' },
         { text: 'Serving boundaries', link: '/decisions/001-serving-boundaries' },
         { text: 'Retrieval storage', link: '/decisions/002-retrieval-storage' },
         { text: 'Workflow ownership', link: '/decisions/003-workflow-ownership' },
-        { text: 'Original validation plan', link: '/validation' },
+        { text: 'Original validation', link: '/validation' },
         { text: 'IS373 assignment roadmap', link: '/course-roadmap' },
       ] },
       { text: 'Design reviews · reference', collapsed: true, items: [
@@ -67,7 +74,7 @@ export default withMermaid(defineConfig({
         { text: 'Gang of Four patterns', link: '/reviews/design-patterns' },
         { text: 'Rust design', link: '/reviews/rust-design' },
       ] },
-      { text: 'Research library', collapsed: true, items: [
+      { text: 'Research · reference', collapsed: true, items: [
         { text: 'Research hub', link: '/research/' },
         { text: 'Similar projects', link: '/research/similar-projects' },
         { text: 'Implementation resources', link: '/research/implementation-resources' },
@@ -76,11 +83,10 @@ export default withMermaid(defineConfig({
         { text: 'Sources and terminology', link: '/sources' },
       ] },
     ],
-    search: { provider: 'local' },
-    outline: { level: [2, 3] },
+    search: { provider: 'local' }, outline: { level: [2, 3] },
     socialLinks: [{ icon: 'github', link: 'https://github.com/kaw393939/is373-rag' }],
     editLink: { pattern: 'https://github.com/kaw393939/is373-rag/edit/main/docs/:path', text: 'Edit this document' },
-    footer: { message: 'Documentation only · Proposed application · Evidence before claims' },
+    footer: { message: 'Docs and synthetic labs · Runtime pending · Source → requirement → test → evidence' },
   },
   mermaid: { securityLevel: 'strict', theme: 'neutral' },
   vite: { optimizeDeps: { include: ['fastdom', 'fastdom/extensions/fastdom-promised.js'] } },
