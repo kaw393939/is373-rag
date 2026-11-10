@@ -1,50 +1,61 @@
 # Requirements and acceptance
 
-Application requirements below are **planned and not yet tested**. Documentation build checks are a separate concern. Each future issue should cite a requirement and scenario ID, then link actual test evidence.
+Application scenarios below are **planned, not yet verified in a runtime**. The [documentation labs](../engineering/examples.md) cover selected rules only. Each future implementation issue must link actual evidence, not merely this page.
 
 ## Requirements
 
-| ID | Requirement | Acceptance scenario |
+| ID | Requirement | Scenario |
 | --- | --- | --- |
 | R-01 | Rust owns authoritative state; workers cannot bypass validation | A-01 |
-| R-02 | Every published claim resolves to evidence or explicit derivation | A-02 |
-| R-03 | Ambiguous identity stays unresolved; aliases are not globally unique | A-03 |
-| R-04 | Merges/splits are auditable and reversible | A-04 |
-| R-05 | Drafts cannot leak into ordinary published retrieval | A-05 |
+| R-02 | Published claims resolve to immutable evidence or explicit derivation | A-02 |
+| R-03 | Ambiguity remains unresolved; aliases are not globally unique | A-03 |
+| R-04 | Merges/splits remain auditable and reversible | A-04 |
+| R-05 | Draft/private content cannot leak into published retrieval or export | A-05 |
 | R-06 | Repeated ingestion and result delivery do not duplicate acceptance | A-06 |
 | R-07 | Exports are consistent, integrity-checked and portable | A-07 |
-| R-08 | Missing workers/models degrade explicit capabilities, not evidence access | A-08 |
-| R-09 | Streaming distinguishes completion, cancellation and interruption | A-09 |
-| R-10 | Jobs recover from crashes without accepting stale worker results | A-10 |
-| R-11 | Answers preserve revision-pinned citations and access control | A-11 |
-| R-12 | Public deployment is bounded and separated from authoring | A-12 |
+| R-08 | Missing capabilities degrade operations, not access to stored evidence | A-08 |
+| R-09 | Streaming distinguishes completion, refusal, cancellation and interruption | A-09 |
+| R-10 | Jobs recover without accepting expired or stale-attempt results | A-10 |
+| R-11 | Answers preserve revision-pinned citations and session/library ownership | A-11 |
+| R-12 | Public deployment is bounded and separate from authoring | A-12 |
+| R-13 | Hosted releases follow tested twelve-factor boundaries; local exceptions are explicit | A-13 |
+| R-14 | Publication binds approved content, base revision and actor within an atomic command | A-14 |
+| R-15 | Reused source has immutable lineage, reviewed dependencies and reuse rights | A-15 |
 
 ## Acceptance scenarios
 
-**A-01 · Worker boundary.** Submit an artifact with the wrong hash and a proposal outside the granted scope. Neither becomes canonical state; an auditable rejection is recorded.
+**A-01 · Worker boundary.** Submit a wrong artifact hash, mismatched input receipt and proposal outside granted scope. None becomes canonical; rejection is auditable. Arbitrary paths and worker-supplied permissions are not authority.
 
-**A-02 · Evidence integrity.** Publish a sourced and a derived claim; follow each to immutable inputs and derivation receipts. A dangling source reference blocks promotion.
+**A-02 · Evidence integrity.** Publish sourced and derived claims; resolve each to immutable inputs, typed spans and execution receipts. Reject dangling, tampered and inaccessible evidence. Keep a speaker's statement separate from a sensor measurement.
 
-**A-03 · Identity traps.** Two people share a name; one event has two aliases; a report names a vessel and an incident similarly. Correct identities stay distinct and uncertain matches enter review.
+**A-03 · Identity traps.** Two people share a name; an event has aliases; a vessel and incident share words. Preserve distinct identities and unresolved candidates. New evidence must not duplicate the canonical entity merely because a candidate hash changes.
 
-**A-04 · Undo a bad merge.** Merge two fixtures, then split them. Original mentions, prior decisions, and affected claim assignments remain inspectable.
+**A-04 · Undo a bad merge.** Merge and then split fixtures. Original mentions, prior decisions and revised assignments remain inspectable. Old published revisions and citations remain reproducible under retention policy.
 
-**A-05 · Draft isolation.** Add a distinctive secret-free fixture phrase only to a draft. Published lexical/vector/graph retrieval and chat cannot surface it. Authorized draft retrieval can.
+**A-05 · Draft isolation.** Put a unique fixture phrase in a draft/private source. Public lexical/vector/graph queries, answer text, caches, facets and edge endpoints must not disclose it. Inspect public export files, indexes and metadata—not just UI filters.
 
-**A-06 · Retry.** Import the same source version twice and deliver one task result twice. Accepted counts and published relationships remain stable while attempts remain recorded.
+**A-06 · Retry.** Import the same source version twice and deliver a task result twice. Accepted records remain stable; attempts remain visible. Reusing a request key with changed inputs produces conflict rather than accidental reuse.
 
-**A-07 · Portable snapshot.** Export during active writes using the supported snapshot path, verify all referenced objects, then import on another OS. A missing/tampered object is rejected, not silently ignored.
+**A-07 · Portable snapshot.** Export during writes through a supported snapshot operation. Verify every referenced object, package version and migration compatibility. Open on another OS; missing/tampered objects fail explicitly. Import never starts bundled executables or external jobs automatically.
 
-**A-08 · Missing Mac worker.** Open a Mac-created library on Linux. Existing evidence remains accessible; incompatible generation/embedding operations show an actionable state and never fabricate substitute results.
+**A-08 · Missing worker/model.** Open a Mac-created library on Linux. Existing evidence remains readable. Query embeddings require a compatible embedding space; unsupported generation is blocked with a reason. Deterministic mock output is visibly labelled and never masquerades as real inference.
 
-**A-09 · Streaming faults.** Fragment Unicode/frames, omit terminal completion, disconnect and stop a run. Verify recorded partial output, no silent paid restart, and explicit terminal semantics through the HTTPS proxy.
+**A-09 · Streaming faults.** Split bytes/frames at every boundary, omit completion, send invalid provider outcomes, disconnect and cancel during blocked sends. Verify durable partial text, explicit terminal outcome and no silent paid restart through the real HTTPS proxy.
 
-**A-10 · Crash recovery.** Stop workers before/after output submission and restart the runtime. Expired leases are reclaimed; stale workers cannot commit; disk-full failures do not masquerade as successful publication.
+**A-10 · Crash recovery.** Terminate workers/API/store at controlled boundaries. Reclaim expired leases, then deliver an old result from the same worker name. Reject stale epochs and deadline-expired results even before reclamation. Bound retries and queues; disk-full is not success.
 
-**A-11 · Revision and session.** Publish a new library during a conversation; old citations still open the original evidence. Switch accounts/tabs during a stream; stale content cannot cross the ownership boundary.
+**A-11 · Revision and session.** Publish a newer library while a conversation exists; old citations open their original evidence. Switch accounts/tabs/views during a stream. Authorize every replay/evidence request before exposing identifiers or payloads. Retention gaps trigger scoped resynchronization.
 
-**A-12 · Hosted limits.** A public session cannot ingest, install workers or approve drafts. Enforce concurrency/output quotas. Demonstrate restoration and rollback using disposable data before production.
+**A-12 · Hosted limits.** Public sessions cannot ingest, install workers, run commands or approve drafts. Enforce resource/output quotas and test restricted admin operations. Demonstrate restore and rollback with disposable data before production.
 
-## Quality evidence
+**A-13 · Operational profile.** Execute TF-01–TF-12 from the [factor matrix](../engineering/twelve-factor.md). Replace the API with empty local storage while retaining backing services. Promote the same tested artifact with changed deployment config. Document the local embedded-store exception rather than calling it stateless.
 
-Record platform, fixture revision, command, expected/observed outcome and limitations. Measure false merges, unresolved cases, retrieval relevance, streaming latency, restart recovery and memory usage. Numerical targets remain open until a reproducible baseline exists; do not invent benchmark results or universal confidence thresholds.
+**A-14 · Publication transaction.** Require an authenticated approver, exact proposal digest and expected revision. Tamper with the proposal, change the base, hide an endpoint and inject faults between write categories. Either all accepted records/review/event/revision commit or none do. No implicit endpoint promotion can bypass the review.
+
+**A-15 · Reuse review.** For each imported module, record pinned source and blob, symbols/callers, applicable notices, dependency boundary, characterization tests and intentional changes. Public CI must not need a private donor checkout, live credentials or private fixture data.
+
+## Evidence levels
+
+A static source observation, a synthetic lab pass, an application test pass, a browser check and a production observation are separate claims. Record platform/tool versions, fixture revision, command, expected/observed result and limitations. Do not turn historical donor test names into current pass counts.
+
+Quality evaluation tracks false merges, unresolved cases, evidence relevance, source independence, latency, recovery and memory. Choose numerical targets after a reproducible baseline; no universal confidence score or unmeasured capacity promise is asserted here.

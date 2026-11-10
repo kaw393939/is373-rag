@@ -28,9 +28,23 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Validate source ledger and planning traceability
+        run: npm run check:plan
+      - name: Run synthetic stream and publication examples
+        run: npm run test:examples
+      - name: Compile and run the Rust lease specification
+        shell: bash
+        run: |
+          rustup toolchain install 1.90.0 --profile minimal
+          rustc +1.90.0 --edition=2021 --test docs/examples/lease.rs -o "$RUNNER_TEMP/ordo-lease-tests"
+          "$RUNNER_TEMP/ordo-lease-tests"
       - run: npm run build
-      - name: Check documentation and project-path assets
-        run: node scripts/check-pages.mjs
+      - name: Check generated paths, anchors and reference notices
+        run: npm run check:pages
+      - name: Record verification scope
+        run: |
+          echo 'Documentation verification: 7 Rust, 10 JavaScript and 8 SQLite-harness tests; ledger/requirements/roadmap; static build and generated targets.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'These are synthetic contract checks, not donor runtime tests, native hardware validation, application acceptance or a live Pages deployment.' >> "$GITHUB_STEP_SUMMARY"
       - name: Package a portable source checkout
         run: git bundle create "$RUNNER_TEMP/is373-rag.bundle" --all
       - uses: actions/upload-artifact@v4
@@ -96,5 +110,5 @@ jobs:
           if [ -n "$PAGE_URL" ]; then
             printf 'Published documentation: %s\n' "$PAGE_URL" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo 'Documentation build completed; no live Pages deployment is claimed. Review the readiness step.' >> "$GITHUB_STEP_SUMMARY"
+            echo 'No live Pages deployment is claimed. Review build and readiness results.' >> "$GITHUB_STEP_SUMMARY"
           fi

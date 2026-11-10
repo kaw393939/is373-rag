@@ -2,13 +2,17 @@
   "name": "is373-rag",
   "version": "0.1.0",
   "private": true,
-  "description": "Architecture drafts and independent design reviews for a streaming RAG system.",
+  "description": "Code-grounded Ordo reuse roadmap, twelve-factor design and executable documentation.",
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {
     "dev": "vitepress dev docs --host 127.0.0.1",
     "build": "vitepress build docs",
-    "preview": "vitepress preview docs --host 127.0.0.1"
+    "preview": "vitepress preview docs --host 127.0.0.1",
+    "check:plan": "node scripts/check-plan.mjs",
+    "check:pages": "node scripts/check-pages.mjs",
+    "test:examples": "node --test docs/examples/stream.test.mjs && python3 docs/examples/publication.py",
+    "test": "npm run check:plan && npm run test:examples && npm run build && npm run check:pages"
   },
   "devDependencies": {
     "debug": "^4.4.0",
@@ -17,8 +21,5 @@
     "mermaid": "^11.0.0",
     "vue": "^3.5.0"
   },
-  "overrides": {
-    "vite": "6.4.5",
-    "katex": "0.18.2"
-  }
+  "overrides": { "vite": "6.4.5", "katex": "0.18.2" }
 }
