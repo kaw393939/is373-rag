@@ -1,35 +1,53 @@
-# IS373 RAG
+# Ordo Knowledge Lab · IS373
 
-Draft architecture and independent design reviews for a streaming text RAG system. This repository currently contains the VitePress documentation site; application services are not implemented.
+A documentation-first project for a portable, Rust-first knowledge library with graph/vector retrieval, evidence-backed streaming chat, and governed ingestion.
 
-- Proposed product frontend: Svelte 5, SvelteKit, TypeScript.
-- Proposed serving backend: Rust, Axum, Tokio.
-- Retrieval candidate: SQLite FTS5 BM25, vector extension, evidence-backed graph relationships.
-- Ingestion: durable DAG for parsing, chunking, NLP, NER, entity resolution, claim extraction, and augmentation.
-- Messaging: NATS/JetStream for appropriate system events and durable work; direct SSE for active answers.
+**This repository currently implements the documentation site only.** The application, datastore, workers, and deployment described here are proposed work, not delivered capabilities.
 
-## Documentation
+## Start here
 
-The documentation generator uses Vue through VitePress. That does not change the proposed Svelte product frontend.
+- [Project brief](docs/project/index.md)
+- [System breakdown](docs/project/system.md)
+- [Requirements and acceptance](docs/project/acceptance.md)
+- [Roadmap](docs/project/roadmap.md)
+- [Decisions and open questions](docs/project/decisions.md)
+- [Local workspace and Pages setup](docs/project/setup.md)
+
+The current planning baseline lives in `docs/project/`. Earlier architecture, design reviews and research remain available for reference. The decision register explains differences rather than silently rewriting that history.
+
+## Local documentation
+
+Use Node.js 22 or newer and npm. No Rust toolchain, GPU, model key or database is required for the documentation site.
 
 ```sh
+git clone https://github.com/kaw393939/is373-rag.git
+cd is373-rag
 npm ci
 npm run dev
 ```
 
+Open the local URL printed by VitePress, including `/is373-rag/` when shown.
+
 ```sh
 npm run build
+node scripts/check-pages.mjs
 npm run preview
 ```
 
-Node.js 22 or newer is required. Production assets are generated in `dist/`. The build checks documentation links. GitHub Actions builds the documentation on pushes and pull requests; publication uses Sites and preserves the configured audience.
+The generated static site is `dist/`. Do not commit `node_modules/` or `dist/`.
 
-VitePress is pinned to its stable 1.6.4 release. Vite 6.4.5 and KaTeX 0.18.2 are explicit transitive overrides to avoid advisories in the original dependency ranges; validate these overrides when upgrading the documentation toolchain.
+## GitHub Pages
 
-Start with [the overview](docs/architecture/overview.md), [decision register](docs/decisions/index.md), and [review findings](docs/reviews/index.md). Reviews apply published principles of Robert C. Martin, the Gang of Four, and Rust design. None of those people participated or endorsed this design.
+The Documentation workflow builds and checks the static site. On `main`, it publishes only when GitHub Pages is enabled with **GitHub Actions** as its source. Otherwise the run records the missing account-setting step without claiming a live deployment.
 
-The [research library](docs/research/index.md) contains similar projects, implementation repositories, concept explanations, and dated developments. The [IS373 assignment roadmap](docs/course-roadmap.md) connects research → planning/specification → construction → testing and improvement to the actual course reviews. It is an instructor reference, not a completed student deliverable or a mandatory technology stack.
+Planned default address: `https://kaw393939.github.io/is373-rag/`. The verified deployment URL in the Actions run is authoritative; an account-level custom domain can change the public hostname.
 
-## Status
+Pages hosts **documentation only**. It does not run the planned chat API, models or jobs. No custom domain, DNS, server or portfolio setting is changed by this repository setup.
 
-Architecture draft dated November 5, 2026. Database extension, workflow engine, model hosting, corpus scale, and service-level objectives remain open. See [status](docs/status.md) and [validation](docs/validation.md). No application benchmark results are claimed.
+## Repository boundaries
+
+`docs/` owns the readable plan. `scripts/` and `.github/workflows/` contain documentation checks and publishing support. Application modules will be added only after specifications are reviewed. The Vue-based VitePress docs do not choose the application frontend; SvelteKit remains a proposed application choice.
+
+Related work: [IS373 RAG research](docs/research/index.md), [streaming chat workshop](https://github.com/kaw393939/is373-ai-chat), [hosting studio](https://github.com/kaw393939/373_hosting).
+
+Track work in [issue #1](https://github.com/kaw393939/is373-rag/issues/1). Keep commits small and link later implementation issues to requirement and acceptance IDs.
