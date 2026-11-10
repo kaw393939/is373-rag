@@ -16,7 +16,6 @@ jobs:
     env:
       DOCS_BASE: /is373-rag/
       DOCS_ORIGIN: https://kaw393939.github.io
-      BROWSER_REVIEW_DIR: ${{ runner.temp }}/docs-browser-review
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,6 +29,8 @@ jobs:
       - name: Record runner browser version
         run: google-chrome --version
       - name: Review desktop, mobile, dark mode, search and navigation
+        env:
+          BROWSER_REVIEW_DIR: ${{ runner.temp }}/docs-browser-review
         run: node scripts/review-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
