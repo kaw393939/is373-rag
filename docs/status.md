@@ -5,7 +5,7 @@ description: What exists, what is planned, and what each verification result est
 
 # Status and evidence
 
-**Review baseline: November 10, 2026.** Software availability and publication are separate claims.
+**Review baseline: November 11, 2026.** Software availability and publication are separate claims.
 
 ## Available in this repository
 
@@ -28,7 +28,7 @@ The research Rust workspace, production schema, plugin host, interactive Svelte 
 
 The VitePress documentation is hosted as a [pinned portfolio Pages mirror](https://kaw393939.github.io/knowledge-lab/). The portfolio publication is an independently tested release of the same source, not a second set of docs. It makes the current IS373 student-support pages accessible without requiring a new Pages site. Actual portfolio Pages deployment should be checked against the source revision manifest.
 
-The standalone `is373-rag` repository's Pages settings have not been enabled; its own deployment workflow continues to fail that distinct publication gate. [Mirror and standalone setup](project/setup.md).
+The [standalone project Pages site](https://kaw393939.github.io/is373-rag/) is now enabled with GitHub Actions and serves this repository's documentation. Confirm a particular release using its deployed source revision and workflow result; the portfolio mirror remains independently pinned. [Mirror and standalone setup](project/setup.md).
 
 ## Publication is a separate gate
 
@@ -45,3 +45,4 @@ The S0–S7 roadmap supersedes the earlier G-series ordering. Older architecture
 ## Next implementation gate
 
 Complete S0's rights, dependency and contract decisions; then extract the bounded S1 job/event behavior. Carry requirement IDs, donor symbols and actual receipts into each issue and PR. Do not close runtime work because a page describes it.
+
