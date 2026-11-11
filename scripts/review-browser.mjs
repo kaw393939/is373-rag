@@ -97,7 +97,20 @@ try {
       assert.ok(state.revision,`${name}/${route}: revision`)
       assert.equal(state.dark,scheme==='dark',`${name}/${route}: color scheme`)
       receipt.routes.push({ viewport:name, route:route||'/', ...state })
-      if (!route) await screenshot('home-' + name)
+      if (!route) {
+        const learningPath = await evaluate('[...document.querySelectorAll(".lab-card h3")].map(e=>e.textContent)')
+        assert.deepEqual(learningPath, ['Plan','Build','Test','Explain'], 'Student path stays first')
+        await evaluate('document.querySelector(".lab-example a").click()')
+        assert.equal(await evaluate('location.hash'), '#club-handbook-source', 'Answer citation reaches source')
+        assert.equal(await evaluate('document.querySelector(".lab-research").open'), false, 'Research starts secondary')
+        await evaluate('document.querySelector(".lab-research summary").click()')
+        assert.equal(await evaluate('document.querySelector(".lab-research").open'), true, 'Research opens')
+        await evaluate('document.querySelector(".lab-research summary").click()')
+        assert.equal(await evaluate('document.querySelector(".lab-research").open'), false, 'Research closes')
+        receipt.interactions.push({ viewport:name, citation:'reached source', research:'opened and closed' })
+        await navigate('')
+        await screenshot('home-' + name)
+      }
       if (route === 'students/ai-costs' || route === 'students/data-choices') await screenshot(route.replace('/', '-') + '-' + name)
       if (name==='desktop' && route==='guide/vision') await screenshot('vision-desktop')
     }

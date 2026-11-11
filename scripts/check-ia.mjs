@@ -30,12 +30,18 @@ for (const file of entryPages) {
 }
 const home = fs.readFileSync('dist/index.html', 'utf8')
 assert.equal((home.match(/<h1\b/g) || []).length, 1, 'Homepage needs one H1')
-for (const text of ['explain.', 'Start your IS373 project', 'Future research vision', 'Fictional', 'not live', 'Find your next step.', 'Canonical identity.', 'contract labs']) {
+for (const text of ['explain.', 'Start your IS373 project', 'Future research vision', 'Fictional', 'not live', 'Find your next step.', 'contract labs']) {
   assert.ok(home.includes(text), `Homepage missing ${text}`)
 }
-for (const route of ['/students/', '/guide/', '/design/', '/build/', '/reference/', '/guide/vision', '/guide/walkthrough', '/students/reference', '/status']) {
+for (const route of ['/students/', '/students/plan', '/students/build', '/students/check', '/students/check#explain-your-choices', '/guide/vision', '/guide/walkthrough', '/students/reference', '/status']) {
   assert.ok(home.includes(`href="${base}${route.slice(1)}"`), `Homepage route is not base-aware: ${route}`)
 }
+assert.ok(home.indexOf('Find your next step.') < home.indexOf('Future research vision'), 'Student path must precede future research')
+for (const text of ['Plan', 'Build', 'Test', 'Explain', 'ONE COMPLETE RAG EXAMPLE', 'RETRIEVED PASSAGE', 'EXAMPLE ANSWER', 'CHECK THE SOURCE', 'not a live chatbot', 'Choose a model. Understand the cost.']) {
+  assert.ok(home.includes(text), `Homepage missing ${text}`)
+}
+assert.ok(home.includes('href="#club-handbook-source"'), 'Example answer must link to its source')
+assert.ok(home.includes('id="club-handbook-source"'), 'Example source must exist')
 assert.match(home, /name="lab-docs-revision" content="[^\"]+"/)
 assert.ok(!fs.existsSync('dist/CNAME'), 'This docs change must not claim a custom domain')
 console.log(`PASS: five navigation sections, ${routes.size} unique targets, ${entryPages.length} concise entry pages, homepage structure and project-base links.`)
