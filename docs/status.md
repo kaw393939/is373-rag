@@ -24,6 +24,12 @@ Use actual workflow logs for execution results. Lab counts describe the suites; 
 
 The research Rust workspace, production schema, plugin host, interactive Svelte research interface, canonical resolution service, durable hosted store and model adapters remain planned. Donor code was not bulk imported; donor runtime suites were not executed by this audit. Native hardware quality, retrieval quality and production capacity remain unmeasured.
 
+## Public documentation mirror and project Pages
+
+The VitePress documentation is hosted as a [pinned portfolio Pages mirror](https://kaw393939.github.io/knowledge-lab/). The portfolio publication is an independently tested release of the same source, not a second set of docs. It makes the current IS373 student-support pages accessible without requiring a new Pages site. Actual portfolio Pages deployment should be checked against the source revision manifest.
+
+The standalone `is373-rag` repository's Pages settings have not been enabled; its own deployment workflow continues to fail that distinct publication gate. [Mirror and standalone setup](project/setup.md).
+
 ## Publication is a separate gate
 
 The Documentation workflow builds previews on PRs. On main it requires Pages activation, deploys and verifies actual public responses against the source revision. A blocked publication job does not invalidate a successful static build, but it does mean the site is not verified live. [Enable and publish Pages](project/setup.md).

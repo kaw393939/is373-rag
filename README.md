@@ -16,7 +16,7 @@
 | [Capabilities](docs/guide/capabilities.md) | [Knowledge rules](docs/project/knowledge.md) | [Roadmap](docs/project/roadmap.md) | [Source audit](docs/reuse/source-audit.md) |
 | [Walkthrough](docs/guide/walkthrough.md) | [Streaming](docs/project/streaming.md) | [Twelve factors](docs/engineering/twelve-factor.md) | [Glossary](docs/reference/glossary.md) |
 
-The VitePress site's intended Pages address is `https://kaw393939.github.io/is373-rag/`. Treat the deployment receipt and live check—not this URL—as publication evidence. [Publishing setup](docs/project/setup.md).
+**Public documentation:** [Ordo Knowledge Lab on GitHub Pages](https://kaw393939.github.io/knowledge-lab/), published as a verified-source VitePress mirror through the [portfolio repository](https://github.com/kaw393939/kaw393939.github.io). The standalone `is373-rag` Pages destination remains separately unactivated. The portfolio build pins this repository's source commit rather than copying or diverging the textbook. [Publishing and verification](docs/project/setup.md).
 
 ## Run locally
 
