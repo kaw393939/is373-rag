@@ -5,7 +5,7 @@ description: Diagnose missing documents, irrelevant retrieval, model failures, b
 
 # Stuck? Find the first broken step
 
-You do not need to debug the entire application at once. Trace **one source and one question** from import to visible answer. Record expected versus actual behavior. Use [the debugging agent prompt](prompts.md#6-diagnose-a-failure-without-restarting-everything) with redacted output.
+You do not need to debug the entire application at once. Trace **one source and one question** from import to visible answer. Record expected versus actual behavior. Use [the debugging agent prompt](prompts.md#debug-prompt) with redacted output.
 
 | What you see | First safe check | Likely next action |
 | --- | --- | --- |

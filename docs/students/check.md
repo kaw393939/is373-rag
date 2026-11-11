@@ -41,5 +41,5 @@ Be able to say why you chose vector, graph or hybrid retrieval; what chunking, i
 
 At Demo Day, show **problem → real app → source/retrieval/answer trace → actual checks → individual contribution**. The [course milestones](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md) and Canvas control official submissions and grading.
 
-[Copy an evaluation agent prompt](prompts.md#8-rehearse-the-actual-course-demo) · [Back to student guide](index.md)
+[Copy an evaluation agent prompt](prompts.md#demo-prompt) · [Back to student guide](index.md)
 

@@ -20,7 +20,7 @@ Show the difference between a source, chunk, embedding, retrieval result,
 model context and generated answer.
 ```
 
-## 2. Make a bounded Plan
+## 2. Make a bounded Plan {#plan-prompt}
 
 ```text
 Help me plan a small, individual RAG app for [reader] using [five permitted sources].
@@ -70,7 +70,7 @@ each claim. Run actual integration checks, explain untested provider behavior,
 and avoid reworking unrelated code.
 ```
 
-## 6. Diagnose a failure without restarting everything
+## 6. Diagnose a failure without restarting everything {#debug-prompt}
 
 ```text
 Help me find ONE failure in my existing project.
@@ -94,7 +94,7 @@ Do not grade my understanding from code alone or claim a check ran unless
 you actually executed it.
 ```
 
-## 8. Rehearse the actual course demo
+## 8. Rehearse the actual course demo {#demo-prompt}
 
 ```text
 Act as a skeptical but kind IS373 demo reviewer. I will show my own

@@ -48,5 +48,5 @@ Two essential checks: repeat import should not create unintended duplicates; mis
 
 Name two plausible approaches, your choice, costs or constraints, and a small experiment that might change your mind. Keep planned evidence labeled *planned* rather than claiming the test passed.
 
-Use the existing [project record](https://github.com/kaw393939/is373-studio/blob/main/docs/templates/project-record.md) under **2. Individual RAG app + technical research**. [Copy the Plan agent prompt](prompts.md#2-make-a-bounded-plan).
+Use the existing [project record](https://github.com/kaw393939/is373-studio/blob/main/docs/templates/project-record.md) under **2. Individual RAG app + technical research**. [Copy the Plan agent prompt](prompts.md#plan-prompt).
 
