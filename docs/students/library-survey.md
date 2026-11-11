@@ -46,6 +46,8 @@ No framework verifies citations automatically. Your code and evaluation still ne
 
 A production system may combine pieces from several libraries. You are **not required to choose one framework for the whole application**.
 
+For the underlying concepts, use [embeddings](embeddings.md) and [chunking](chunking.md) before you decide which library abstracts them.
+
 ## A tiny experiment for learning
 
 Choose one question whose expected source passage you already know. Compare *the same input and output contract* using your own retrieval code and one optional library component.

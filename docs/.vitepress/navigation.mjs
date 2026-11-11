@@ -13,6 +13,8 @@ const students = [{ text: 'IS373 · current assignment', items: [
   { text: 'From FastAPI to hosted RAG', link: '/students/from-app-studio' },
   { text: 'Survey RAG and AI libraries', link: '/students/library-survey' },
   { text: 'Databases and retrieval', link: '/students/data-choices' },
+  { text: 'Embeddings and similarity', link: '/students/embeddings' },
+  { text: 'Chunking and source boundaries', link: '/students/chunking' },
   { text: 'AI models and budgets', link: '/students/ai-costs' },
   { text: 'AI coding prompts', link: '/students/prompts' },
   { text: 'Troubleshooting', link: '/students/stuck' },

@@ -5,6 +5,8 @@ description: Compare SQL, document, key-value, vector and graph approaches, incl
 
 # Choosing data tools: better evidence, fewer wasted tokens
 
+New to the terminology? First read [why embeddings represent relatedness](embeddings.md) and [how chunking shapes what can be retrieved](chunking.md).
+
 A good AI application does not send everything it knows to a model. It finds the evidence needed for this question, then sends enough context to answer honestly.
 
 Think of a library: a catalog helps find the right book; it does not replace reading the relevant page. Databases and indexes play different parts in that process.

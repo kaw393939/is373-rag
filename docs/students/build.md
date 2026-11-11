@@ -5,7 +5,7 @@ description: A bounded implementation path from permitted documents to real retr
 
 # Build one complete source-to-answer path
 
-**Aim for a small, working system before adding features.** [Already have IS373 App Studio? Follow the FastAPI-to-RAG bridge](from-app-studio.md). [LangChain and other libraries are optional](library-survey.md). Reuse your current FastAPI application, Docker/HTTPS deployment and repository when possible. Do not replace existing services or pay for a new server simply to follow a tutorial.
+**Aim for a small, working system before adding features.** If retrieval vocabulary is unfamiliar, read [embeddings](embeddings.md) and [chunking](chunking.md) first. [Already have IS373 App Studio? Follow the FastAPI-to-RAG bridge](from-app-studio.md). [LangChain and other libraries are optional](library-survey.md). Reuse your current FastAPI application, Docker/HTTPS deployment and repository when possible. Do not replace existing services or pay for a new server simply to follow a tutorial.
 
 ## Seven small steps
 

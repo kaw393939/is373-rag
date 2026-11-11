@@ -7,7 +7,7 @@ description: A gentle bridge from the current FastAPI template and Docker server
 
 **Do not rebuild your server or replace your existing app.** [IS373 App Studio](https://github.com/kaw393939/is373-app-studio) teaches FastAPI, accounts and permissions; [Server Studio](https://github.com/kaw393939/373_hosting) covers Docker, Traefik and HTTPS. This walkthrough connects them to your **own** individual RAG project.
 
-This is an optional pathway, not new Canvas work. A working hosted RAG demonstration still needs actual **retrieval and model generation**. The [local retrieval lab](reference.md) is preparation, not a submission. LangChain and similar [libraries](library-survey.md) are choices to research, not requirements.
+This is an optional pathway, not new Canvas work. See [embeddings](embeddings.md) for the numerical representations and [chunking](chunking.md) for source boundaries. A working hosted RAG demonstration still needs actual **retrieval and model generation**. The [local retrieval lab](reference.md) is preparation, not a submission. LangChain and similar [libraries](library-survey.md) are choices to research, not requirements.
 
 ## Picture the smallest complete product
 
