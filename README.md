@@ -8,6 +8,8 @@
 
 **Start with the [IS373 student RAG guide](docs/students/index.md)** for the original individual assignment: small Plan/Build/Release steps, [copy-ready AI coding prompts](docs/students/prompts.md), [debugging](docs/students/stuck.md), [evaluation](docs/students/check.md), and an [optional local retrieval lab](student-reference/README.md). The [original course brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) and Canvas remain authoritative. This guide adds no graded work or required stack.
 
+**Have an App Studio repo?** Use the [FastAPI-to-hosted-RAG walkthrough](docs/students/from-app-studio.md) and [AI library survey](docs/students/library-survey.md). They explain alternatives like LangChain without introducing new required dependencies.
+
 **Before choosing an API:** [Compare Groq, Gemini, OpenAI, Anthropic and DeepSeek](docs/students/ai-costs.md), with dated prices, free-tier caveats and worked token budgets. Then explore [database choices, Weaviate and build versus buy](docs/students/data-choices.md).
 
 ## Documentation

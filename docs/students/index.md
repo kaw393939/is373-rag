@@ -9,6 +9,8 @@ description: Finish the existing individual RAG assignment with a small source-b
 
 This is **optional help**, not a new assignment, grade, submission or required stack. The authoritative instructions are the [IS373 individual RAG brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md), [research handout](https://github.com/kaw393939/is373-studio/blob/main/docs/handouts/database-rag-research.md), and Canvas.
 
+**Have your App Studio and Server Studio work already?** [Extend your existing FastAPI app, one step at a time](from-app-studio.md). [Compare what AI/RAG libraries do](library-survey.md) without installing a new stack.
+
 **New here?** [Spend your first 15 minutes finding a real source passage](reference.md#your-first-15-minutes). No API key or model download needed.
 
 **Choosing an AI provider?** [Compare Groq, Gemini, OpenAI, Claude and DeepSeek, and learn to budget tokens](ai-costs.md).
@@ -19,6 +21,8 @@ This is **optional help**, not a new assignment, grade, submission or required s
 | --- | --- |
 | Unsure what to build | [Plan one question and small source set](plan.md) |
 | Ready to implement | [Build the smallest complete source-to-answer path](build.md) |
+| Already using FastAPI and Docker | [Extend your existing App Studio app](from-app-studio.md) |
+| Curious about LangChain or other libraries | [Survey optional RAG/AI frameworks](library-survey.md) |
 | Want AI coding help | [Copy a bounded agent prompt](prompts.md) |
 | Something doesn't work | [Diagnose one failure at a time](stuck.md) |
 | Have an answer and need evidence | [Run five evaluation questions](check.md) |
