@@ -8,6 +8,8 @@
 
 **Start with the [IS373 student RAG guide](docs/students/index.md)** for the original individual assignment: small Plan/Build/Release steps, [copy-ready AI coding prompts](docs/students/prompts.md), [debugging](docs/students/stuck.md), [evaluation](docs/students/check.md), and an [optional local retrieval lab](student-reference/README.md). The [original course brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) and Canvas remain authoritative. This guide adds no graded work or required stack.
 
+**Before choosing an API:** [Compare Groq, Gemini, OpenAI, Anthropic and DeepSeek](docs/students/ai-costs.md), with dated prices, free-tier caveats and worked token budgets. Then explore [database choices, Weaviate and build versus buy](docs/students/data-choices.md).
+
 ## Documentation
 
 | Start | Design | Build | Reference |
@@ -16,7 +18,7 @@
 | [Capabilities](docs/guide/capabilities.md) | [Knowledge rules](docs/project/knowledge.md) | [Roadmap](docs/project/roadmap.md) | [Source audit](docs/reuse/source-audit.md) |
 | [Walkthrough](docs/guide/walkthrough.md) | [Streaming](docs/project/streaming.md) | [Twelve factors](docs/engineering/twelve-factor.md) | [Glossary](docs/reference/glossary.md) |
 
-**Public documentation:** [Ordo Knowledge Lab on GitHub Pages](https://kaw393939.github.io/knowledge-lab/), published as a verified-source VitePress mirror through the [portfolio repository](https://github.com/kaw393939/kaw393939.github.io). The standalone `is373-rag` Pages destination remains separately unactivated. The portfolio build pins this repository's source commit rather than copying or diverging the textbook. [Publishing and verification](docs/project/setup.md).
+**Public documentation:** [Ordo Knowledge Lab on GitHub Pages](https://kaw393939.github.io/knowledge-lab/), published as a verified-source VitePress mirror through the [portfolio repository](https://github.com/kaw393939/kaw393939.github.io). The [standalone project site](https://kaw393939.github.io/is373-rag/) is also enabled and publishes from this repository. The portfolio build pins this repository's source commit rather than copying or diverging the textbook. [Publishing and verification](docs/project/setup.md).
 
 ## Run locally
 

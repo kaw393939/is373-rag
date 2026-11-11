@@ -89,7 +89,7 @@ try {
   for (const [name, width, height, scheme] of [['desktop',1440,1000,'light'],['mobile',390,844,'light'],['dark',1440,1000,'dark']]) {
     await call('Emulation.setDeviceMetricsOverride', { width,height,deviceScaleFactor:1,mobile:false })
     await call('Emulation.setEmulatedMedia', { features:[{ name:'prefers-color-scheme',value:scheme }] })
-    for (const route of ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference']) {
+    for (const route of ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference', 'students/ai-costs', 'students/data-choices']) {
       await navigate(route)
       const state = await evaluate('({h1:document.querySelectorAll("h1").length, overflow:document.documentElement.scrollWidth>innerWidth+1, revision:document.querySelector("meta[name=lab-docs-revision]")?.content, dark:document.documentElement.classList.contains("dark")})')
       assert.equal(state.h1,1,`${name}/${route}: H1`)
@@ -98,6 +98,7 @@ try {
       assert.equal(state.dark,scheme==='dark',`${name}/${route}: color scheme`)
       receipt.routes.push({ viewport:name, route:route||'/', ...state })
       if (!route) await screenshot('home-' + name)
+      if (route === 'students/ai-costs' || route === 'students/data-choices') await screenshot(route.replace('/', '-') + '-' + name)
       if (name==='desktop' && route==='guide/vision') await screenshot('vision-desktop')
     }
   }

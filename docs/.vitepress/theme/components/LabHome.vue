@@ -32,6 +32,7 @@ const steps = ['Preserve sources', 'Review proposals', 'Publish a revision', 'As
       </aside>
     </section>
     <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">LOOKING BEYOND THIS SEMESTER</p><h2 id="lab-student-title">Future research vision</h2><p>Explore the planned Rust-first knowledge workspace, reviewable AI workflows and streaming answers. This larger system is not your current assignment, and the research application is not live.</p></div><a :href="withBase('/guide/vision')">Explore the future vision <span aria-hidden="true">→</span></a></section>
+    <section class="lab-student" aria-labelledby="ai-budget-title"><div><p class="lab-kicker">AI WITHOUT SURPRISE BILLS</p><h2 id="ai-budget-title">Choose a model. Understand the cost.</h2><p>Start with Groq, compare Gemini and other APIs, and learn what tokens mean for your project budget.</p></div><a :href="withBase('/students/ai-costs')">Compare models and budgets →</a></section>
     <section class="lab-flow" aria-labelledby="lab-flow-title">
       <div class="lab-flow-label"><p class="lab-kicker">THE PROPOSED WORKFLOW</p><h2 id="lab-flow-title">From source to answer.</h2></div>
       <ol><li v-for="(step, index) in steps" :key="step"><span class="lab-step-number">0{{ index + 1 }}</span><span>{{ step }}</span></li></ol>

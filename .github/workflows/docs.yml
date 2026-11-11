@@ -59,6 +59,8 @@ jobs:
           rustup toolchain install 1.90.0 --profile minimal
           rustc +1.90.0 --edition=2021 --test docs/examples/lease.rs -o "$RUNNER_TEMP/ordo-lease-tests"
           "$RUNNER_TEMP/ordo-lease-tests"
+      - name: Verify published token-budget arithmetic
+        run: node scripts/check-ai-costs.mjs
       - run: npm run build
       - name: Check generated paths, anchors and reference notices
         run: npm run check:pages

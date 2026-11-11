@@ -11,6 +11,8 @@ This is **optional help**, not a new assignment, grade, submission or required s
 
 **New here?** [Spend your first 15 minutes finding a real source passage](reference.md#your-first-15-minutes). No API key or model download needed.
 
+**Choosing an AI provider?** [Compare Groq, Gemini, OpenAI, Claude and DeepSeek, and learn to budget tokens](ai-costs.md).
+
 ## Choose your next step
 
 | Where you are | Go here |
