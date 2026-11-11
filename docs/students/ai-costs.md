@@ -21,6 +21,8 @@ Try the same five source-backed questions with two models. Record citation corre
 
 **Official prices checked November 11, 2026. USD per 1 million tokens.** These are selected examples, not an exhaustive catalog or a ranking of equal capabilities. Standard text generation, uncached input, no batch discount; taxes, hosting, embedding and tool charges excluded. Confirm the live pricing and model availability before enabling billing.
 
+*On a narrow screen, swipe the table sideways to see all prices.*
+
 | Provider and example model | Input / 1M | Output / 1M | 1,000 example answers* |
 | --- | ---: | ---: | ---: |
 | [Groq: `openai/gpt-oss-20b`](https://console.groq.com/docs/models) | $0.075 | $0.30 | $0.375 |
@@ -81,8 +83,8 @@ Compare SQL filters, keyword search, vector search, graph traversal and combinat
 ## Keep the budget and the key under control
 
 1. Start with a tiny request and inspect its actual usage. Set a small spending limit where supported and alerts before it. An alert is not necessarily a hard stop.
-2. Enforce server-side limits on prompt size, retrieved chunks, output tokens, concurrent requests and calls per user. Limit agent iterations and retries. Never silently switch from free to paid.
-3. Keep keys on your server in ignored environment files or deployment secrets. Never put them in Git, screenshots, frontend JavaScript, `VITE_*` variables, Docker images or Pages. Rotate an exposed key immediately.
+2. Enforce server-side limits on prompt size, retrieved chunks, output tokens, concurrent requests and calls per user. Limit agent iterations and retries. Require authentication and abuse controls before exposing a paid generation endpoint. Never silently switch from free to paid.
+3. Keep keys on your server in ignored environment files or deployment secrets. Ignore secret files using both `.gitignore` and `.dockerignore`; a Git ignore rule does not stop Docker `COPY`. Never put them in Git, screenshots, frontend JavaScript, `VITE_*` variables, Docker images or Pages. Rotate an exposed key immediately.
 4. Keep one provider adapter behind your application's interface. Configure provider/model on the server. Test differences in streaming, tools, JSON, token accounting and errors; “OpenAI-compatible” does not mean identical.
 5. Log model/version, usage, latency and estimated cost, not secrets or sensitive prompt text. Compare logs with the billing dashboard.
 

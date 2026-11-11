@@ -15,6 +15,8 @@ These are options to understand, not five databases you must install. For a smal
 
 ## Five useful ways to organize information
 
+*On a narrow screen, swipe tables sideways to see every column.*
+
 | Approach | Think of it as… | Good question to ask | Common machinery | Main tradeoff |
 | --- | --- | --- | --- | --- |
 | Relational / SQL | Related tables with explicit rules | “Which orders are overdue, and what is their total?” | B-tree indexes, joins, filters and aggregation | Excellent for precise facts; schema and queries require design. |
@@ -81,3 +83,22 @@ Weaviate does not inherently shrink an LLM prompt. You still choose which retrie
 
 
 [Compare model prices and token budgets](ai-costs.md). Product references reviewed November 11, 2026; check current licenses, editions and service terms before adopting a tool.
+
+## Chroma, Pinecone or a graph-and-vector combination?
+
+[Chroma](https://docs.trychroma.com/docs/overview/introduction) is Apache-2.0-licensed retrieval infrastructure: run locally, self-host, or use Chroma Cloud. It stores documents, embeddings and metadata and supports dense, sparse and hybrid search. It is a useful option for exploring retrieval without committing immediately to a hosted service. Check which features your chosen deployment supports.
+
+[Pinecone](https://docs.pinecone.io/guides/get-started/overview) is a commercial managed option. Its current Documents API combines full-text, semantic and sparse-vector retrieval, metadata filters and optional integrated embedding. It can reduce infrastructure work, but service charges, provider dependence, data export and feature limits remain design decisions. Do not confuse an SDK or local testing facility with an open-source production database.
+
+**Two meanings of hybrid:** keyword + vector search combines exact terms with semantic similarity. Graph + vector retrieval also follows explicit entity relationships. They can coexist, but they are not the same technique.
+
+For an illustrative question, “Which projects depend on the library affected by this security advisory?” a graph-and-vector pipeline could:
+
+1. Use semantic search to find the advisory despite different wording.
+2. Resolve the exact library ID and affected version range from cited evidence.
+3. Traverse verified `project → depends on → library version` relationships, with bounded depth and access controls.
+4. Retrieve the relevant manifests and advisory passages, then ask the model to explain the result with citations.
+
+That can outperform similarity search alone when the answer requires connecting multiple records. It can also fail if names are merged incorrectly, dependencies are stale, or relationships were invented during extraction. SQL joins may already handle this example well. A separate graph service is not mandatory; one database can support multiple representations.
+
+**Our practical view:** for a small document Q&A app, start with filtered keyword/vector retrieval and reliable citations. Add explicit relationships when your evaluation questions demonstrate a connection problem that this baseline misses. Compare the improvement against graph extraction, synchronization, debugging and operating costs. Hybrid is a tool to test, not an automatic upgrade or token discount. [Example vector-plus-graph retrieval pattern](https://neo4j.com/docs/neo4j-graphrag-python/current/user_guide_rag.html)
