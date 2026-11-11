@@ -9,6 +9,8 @@ description: Finish the existing individual RAG assignment with a small source-b
 
 This is **optional help**, not a new assignment, grade, submission or required stack. The authoritative instructions are the [IS373 individual RAG brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md), [research handout](https://github.com/kaw393939/is373-studio/blob/main/docs/handouts/database-rag-research.md), and Canvas.
 
+**New here?** [Spend your first 15 minutes finding a real source passage](reference.md#your-first-15-minutes). No API key or model download needed.
+
 ## Choose your next step
 
 | Where you are | Go here |

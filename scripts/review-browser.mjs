@@ -89,7 +89,7 @@ try {
   for (const [name, width, height, scheme] of [['desktop',1440,1000,'light'],['mobile',390,844,'light'],['dark',1440,1000,'dark']]) {
     await call('Emulation.setDeviceMetricsOverride', { width,height,deviceScaleFactor:1,mobile:false })
     await call('Emulation.setEmulatedMedia', { features:[{ name:'prefers-color-scheme',value:scheme }] })
-    for (const route of ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor']) {
+    for (const route of ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference']) {
       await navigate(route)
       const state = await evaluate('({h1:document.querySelectorAll("h1").length, overflow:document.documentElement.scrollWidth>innerWidth+1, revision:document.querySelector("meta[name=lab-docs-revision]")?.content, dark:document.documentElement.classList.contains("dark")})')
       assert.equal(state.h1,1,`${name}/${route}: H1`)
@@ -115,6 +115,20 @@ try {
   const expanded = await evaluate('new Promise(resolve=>{const button=document.querySelector(".VPNavBarHamburger");button.click();requestAnimationFrame(()=>resolve(button.getAttribute("aria-expanded")))})')
   assert.equal(expanded,'true','Mobile menu must open')
   receipt.interactions.push({ mobileMenu:'opened' })
+  await navigate('students/reference')
+  await call('Browser.grantPermissions', { origin, permissions:['clipboardReadWrite','clipboardSanitizedWrite'] })
+  const copied = await evaluate(`new Promise((resolve,reject)=>{
+    let n=0;const timer=setInterval(async()=>{
+      const button=document.querySelector('div[class*="language-"] button.copy');
+      if(button){clearInterval(timer);button.click();setTimeout(async()=>{
+        try{resolve(await navigator.clipboard.readText())}catch(error){reject(error)}
+      },300)}else if(++n>100){clearInterval(timer);reject(Error('Copy button missing'))}
+    },50)
+  })`)
+  assert.ok(copied.includes('git clone https://github.com/kaw393939/is373-rag.git'),'Mobile copy must preserve setup command')
+  receipt.interactions.push({ mobileLabCopy:'verified clipboard contents' })
+  await screenshot('student-lab-mobile')
+
   assert.equal(errors.length,0,`Browser exceptions: ${errors.join('; ')}`)
   await fs.writeFile(path.join(output,'receipt.json'), JSON.stringify(receipt,null,2))
   console.log(`PASS: ${receipt.routes.length} viewport/route checks; light/dark, no page overflow, local search and mobile navigation. Screenshots: ${output}`)

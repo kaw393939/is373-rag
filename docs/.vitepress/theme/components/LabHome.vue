@@ -14,12 +14,12 @@ const steps = ['Preserve sources', 'Review proposals', 'Publish a revision', 'As
     <div class="lab-status"><span class="lab-status-dot" aria-hidden="true"></span><span>PROJECT DOCUMENTATION · IS373</span><a :href="withBase('/status')">What exists today <span aria-hidden="true">↗</span></a></div>
     <section class="lab-hero" aria-labelledby="lab-title">
       <div class="lab-intro">
-        <p class="lab-kicker">LOCAL-FIRST. EVIDENCE-LED.</p>
-        <h1 id="lab-title">Knowledge you<br>can <em>stand behind.</em></h1>
-        <p class="lab-lead">Turn raw sources into knowledge you can inspect, correct, move and publish.</p>
-        <p class="lab-summary">A Rust-first research workspace with a maintained knowledge graph, reviewable AI workflows and streaming answers tied to evidence.</p>
-        <div class="lab-actions"><a class="lab-primary" :href="withBase('/guide/vision')">Read the vision <span aria-hidden="true">→</span></a><a class="lab-secondary" :href="withBase('/project/roadmap')">Follow the roadmap</a></div>
-        <p class="lab-scope">Docs, contract labs and a welcome scaffold are available.<br>The research application is planned—not live.</p>
+        <p class="lab-kicker">IS373 · START SMALL. SHOW YOUR EVIDENCE.</p>
+        <h1 id="lab-title">Build answers you<br>can <em>explain.</em></h1>
+        <p class="lab-lead">Give your app a few trusted documents. Ask a useful question. Show where the answer came from.</p>
+        <p class="lab-summary">Start your IS373 individual RAG project with small steps, examples and prompts that help you understand what you build. No new assignment or required stack.</p>
+        <div class="lab-actions"><a class="lab-primary" :href="withBase('/students/')">Start your IS373 project <span aria-hidden="true">→</span></a><a class="lab-secondary" :href="withBase('/students/reference')">Try the first 15 minutes</a></div>
+        <p class="lab-scope">Your assignment and Canvas remain the source of truth.<br>This guide is optional help, not extra graded work.</p>
       </div>
       <aside class="lab-evidence" aria-label="Fictional example of evidence review">
         <div class="lab-evidence-head"><span>ILLUSTRATIVE RESEARCH CASE</span><span class="lab-tag">Fictional</span></div>
@@ -31,7 +31,7 @@ const steps = ['Preserve sources', 'Review proposals', 'Publish a revision', 'As
         <a class="lab-case-link" :href="withBase('/guide/walkthrough')">Follow the proposed workflow <span aria-hidden="true">→</span></a>
       </aside>
     </section>
-    <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">IS373 · FALL 2026</p><h2 id="lab-student-title">Building your individual RAG app?</h2><p>Follow the existing assignment with small steps, sample source traces, AI coding prompts and a checklist. No new requirements.</p></div><a :href="withBase('/students/')">Open the student guide <span aria-hidden="true">→</span></a></section>
+    <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">LOOKING BEYOND THIS SEMESTER</p><h2 id="lab-student-title">Future research vision</h2><p>Explore the planned Rust-first knowledge workspace, reviewable AI workflows and streaming answers. This larger system is not your current assignment, and the research application is not live.</p></div><a :href="withBase('/guide/vision')">Explore the future vision <span aria-hidden="true">→</span></a></section>
     <section class="lab-flow" aria-labelledby="lab-flow-title">
       <div class="lab-flow-label"><p class="lab-kicker">THE PROPOSED WORKFLOW</p><h2 id="lab-flow-title">From source to answer.</h2></div>
       <ol><li v-for="(step, index) in steps" :key="step"><span class="lab-step-number">0{{ index + 1 }}</span><span>{{ step }}</span></li></ol>
