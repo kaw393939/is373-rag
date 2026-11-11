@@ -36,11 +36,11 @@ The same VitePress source is now served through the existing portfolio Pages sit
 
 **Keep one source of truth:** change the docs here, pass this repository's tests, then update the approved source SHA in the portfolio build script and its verifier to promote a new documentation release. Do not maintain a second, diverging Markdown textbook in the portfolio repository.
 
-The standalone project's Pages site remains a separate optional deployment and requires first-time activation. This mirror does **not** deploy the Rust research application, change DNS, or expose student data.
+The [standalone project site](https://kaw393939.github.io/is373-rag/) is enabled with GitHub Actions and publishes from this repository. This mirror does **not** deploy the Rust research application, change DNS, or expose student data.
 
-## Enable standalone project Pages (optional)
+## Standalone project Pages configuration
 
-Open [this repository's Pages settings](https://github.com/kaw393939/is373-rag/settings/pages). Under **Build and deployment → Source**, select **GitHub Actions**. Then open the [Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml) and run it on `main`.
+For a new fork or recovery, open [this repository's Pages settings](https://github.com/kaw393939/is373-rag/settings/pages). Under **Build and deployment → Source**, select **GitHub Actions**. Then open the [Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml) and run it on `main`.
 
 The workflow needs an already enabled Pages site. GitHub's ordinary Actions token cannot perform first-time administrative enablement. Do not paste a personal token into a chat or commit one to work around that boundary.
 

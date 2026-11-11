@@ -4,7 +4,9 @@
   "private": true,
   "description": "Code-grounded Ordo reuse roadmap, twelve-factor design and executable documentation.",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vitepress dev docs --host 127.0.0.1",
     "build": "vitepress build docs",
@@ -14,7 +16,7 @@
     "check:ia": "node scripts/check-ia.mjs",
     "test:examples": "node --test docs/examples/stream.test.mjs && python3 docs/examples/publication.py",
     "test:students": "python3 -m unittest discover -s student-reference -p 'test_*.py'",
-    "test": "npm run check:plan && npm run test:examples && npm run test:students && npm run build && npm run check:pages && npm run check:ia"
+    "test": "node scripts/check-ai-costs.mjs && npm run check:plan && npm run test:examples && npm run test:students && npm run build && npm run check:pages && npm run check:ia"
   },
   "devDependencies": {
     "debug": "^4.4.0",
@@ -23,5 +25,8 @@
     "mermaid": "^11.0.0",
     "vue": "^3.5.0"
   },
-  "overrides": { "vite": "6.4.5", "katex": "0.18.2" }
+  "overrides": {
+    "vite": "6.4.5",
+    "katex": "0.18.2"
+  }
 }

@@ -8,6 +8,7 @@ const reference = computed(() => /^(architecture|decisions|reviews|research)\//.
   || ['course-roadmap.md', 'validation.md', 'sources.md'].includes(page.value.relativePath))
 const section = computed(() => {
   const path = page.value.relativePath
+  if (path.startsWith('students/')) return { label: 'Students', href: '/students/' }
   if (/^(guide\/|status|project\/index)/.test(path)) return { label: 'Start', href: '/guide/' }
   if (/^(design\/|project\/(system|knowledge|streaming|plugins|decisions))/.test(path)) return { label: 'Design', href: '/design/' }
   if (/^(build\/|engineering\/|reuse\/|project\/(roadmap|acceptance|setup|hosting))/.test(path)) return { label: 'Build', href: '/build/' }
@@ -18,7 +19,7 @@ const section = computed(() => {
 <template>
   <Layout>
     <template #doc-before>
-      <div class="doc-context"><a :href="withBase(section.href)">{{ section.label }}</a><a :href="withBase('/status')">Research runtime planned</a></div>
+      <div class="doc-context"><a :href="withBase(section.href)">{{ section.label }}</a><a :href="withBase(page.relativePath.startsWith('students/') ? '/students/' : '/status')">{{ page.relativePath.startsWith('students/') ? 'Optional project support' : 'Research runtime planned' }}</a></div>
       <aside v-if="reference" class="reference-notice" aria-label="Reference material">
         <strong>Reference material, not the current implementation plan.</strong>
         Earlier choices and reviews are preserved for context. Follow the

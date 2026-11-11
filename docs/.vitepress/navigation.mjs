@@ -10,6 +10,8 @@ const students = [{ text: 'IS373 · current assignment', items: [
   { text: 'Student RAG guide', link: '/students/' },
   { text: 'Plan a small RAG', link: '/students/plan' },
   { text: 'Build one complete path', link: '/students/build' },
+  { text: 'Databases and retrieval', link: '/students/data-choices' },
+  { text: 'AI models and budgets', link: '/students/ai-costs' },
   { text: 'AI coding prompts', link: '/students/prompts' },
   { text: 'Troubleshooting', link: '/students/stuck' },
   { text: 'Evaluation and peer review', link: '/students/check' },
