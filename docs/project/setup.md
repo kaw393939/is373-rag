@@ -30,13 +30,21 @@ npm run preview
 
 The checks cover synthetic examples, plan consistency, the VitePress build, generated links/anchors/assets/sitemap and documentation navigation. The separate Rust lab command is in [clean builds](../engineering/clean-build.md). Browser, keyboard and assistive-technology checks are additional evidence.
 
-## Enable GitHub Pages once
+## Public GitHub Pages mirror
+
+The same VitePress source is now served through the existing portfolio Pages site at **[kaw393939.github.io/knowledge-lab/](https://kaw393939.github.io/knowledge-lab/)**. The portfolio's [build script](https://github.com/kaw393939/kaw393939.github.io/blob/main/scripts/build-knowledge-lab.mjs) checks out a pinned commit from this repository, builds with `DOCS_BASE=/knowledge-lab/`, checks generated routes and references, then publishes the combined static site. The [portfolio publishing workflow](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml) owns that release.
+
+**Keep one source of truth:** change the docs here, pass this repository's tests, then update the approved source SHA in the portfolio build script and its verifier to promote a new documentation release. Do not maintain a second, diverging Markdown textbook in the portfolio repository.
+
+The standalone project's Pages site remains a separate optional deployment and requires first-time activation. This mirror does **not** deploy the Rust research application, change DNS, or expose student data.
+
+## Enable standalone project Pages (optional)
 
 Open [this repository's Pages settings](https://github.com/kaw393939/is373-rag/settings/pages). Under **Build and deployment → Source**, select **GitHub Actions**. Then open the [Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml) and run it on `main`.
 
 The workflow needs an already enabled Pages site. GitHub's ordinary Actions token cannot perform first-time administrative enablement. Do not paste a personal token into a chat or commit one to work around that boundary.
 
-## What publication verifies
+## What standalone publication verifies
 
 Pull requests build previews without deploying. A main-branch run builds, tests, uploads only `dist/`, deploys to Pages and checks the actual public homepage, vision, glossary and stylesheet. The response must identify the expected source revision.
 
