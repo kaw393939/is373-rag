@@ -8,7 +8,7 @@ const expected = `name="lab-docs-revision" content="${revision}"`
 let last
 for (let attempt = 1; attempt <= 6; attempt++) {
   try {
-    for (const [route, needle] of [['', 'stand behind.'], ['guide/vision.html', 'Knowledge you can stand behind'], ['reference/glossary.html', 'Shared vocabulary']]) {
+    for (const [route, needle] of [['', 'Give your app a few trusted documents.'], ['guide/vision.html', 'Knowledge you can stand behind'], ['reference/glossary.html', 'Shared vocabulary']]) {
       const response = await fetch(new URL(route, url), { signal: AbortSignal.timeout(15000), cache: 'no-store' })
       assert.equal(response.status, 200, `${route || '/'} HTTP status`)
       assert.match(response.headers.get('content-type') || '', /text\/html/)
