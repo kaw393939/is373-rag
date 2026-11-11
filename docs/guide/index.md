@@ -11,6 +11,7 @@ description: Understand Ordo Knowledge Lab and choose a reading path.
 
 | Your question | Read next |
 | --- | --- |
+| I'm taking IS373 now | [Finish your current RAG assignment](../students/index.md) |
 | Why build this? | [Project vision](vision.md) |
 | What would it do? | [Capabilities](capabilities.md), then [a research walkthrough](walkthrough.md) |
 | How does it work? | [System design](../design/index.md) |

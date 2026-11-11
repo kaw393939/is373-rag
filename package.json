@@ -13,7 +13,8 @@
     "check:pages": "node scripts/check-pages.mjs",
     "check:ia": "node scripts/check-ia.mjs",
     "test:examples": "node --test docs/examples/stream.test.mjs && python3 docs/examples/publication.py",
-    "test": "npm run check:plan && npm run test:examples && npm run build && npm run check:pages && npm run check:ia"
+    "test:students": "python3 -m unittest discover -s student-reference -p 'test_*.py'",
+    "test": "npm run check:plan && npm run test:examples && npm run test:students && npm run build && npm run check:pages && npm run check:ia"
   },
   "devDependencies": {
     "debug": "^4.4.0",

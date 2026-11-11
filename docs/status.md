@@ -12,6 +12,7 @@ description: What exists, what is planned, and what each verification result est
 | Deliverable | Scope |
 | --- | --- |
 | VitePress documentation | Vision, guides, current design, build roadmap and reference library |
+| IS373 student support | Original-assignment-aligned guides, AI prompts, checking worksheet and optional local retrieval lab (not a hosted submission) |
 | Ordo source audit | Exact inspected revisions, reuse decisions and known gaps—not donor test results |
 | Synthetic contract labs | Seven Rust, ten JavaScript and eight SQLite/Python tests |
 | Static Svelte welcome scaffold | A separately tested container-ready landing page; no research backend |

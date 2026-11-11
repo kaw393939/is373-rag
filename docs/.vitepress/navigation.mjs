@@ -1,10 +1,20 @@
 // One navigation model for VitePress and the documentation IA checker.
 export const nav = [
+  { text: 'Students', link: '/students/', activeMatch: '^/students/' },
   { text: 'Start', link: '/guide/', activeMatch: '^/(guide/|status)' },
   { text: 'Design', link: '/design/', activeMatch: '^/(design/|project/(system|knowledge|streaming|plugins|decisions))' },
   { text: 'Build', link: '/build/', activeMatch: '^/(build/|engineering/|reuse/|project/(roadmap|acceptance|setup|hosting))' },
   { text: 'Reference', link: '/reference/', activeMatch: '^/(reference/|architecture/|decisions/|reviews/|research/|sources|validation|course-roadmap|project/sources)' },
 ]
+const students = [{ text: 'IS373 · current assignment', items: [
+  { text: 'Student RAG guide', link: '/students/' },
+  { text: 'Plan a small RAG', link: '/students/plan' },
+  { text: 'Build one complete path', link: '/students/build' },
+  { text: 'AI coding prompts', link: '/students/prompts' },
+  { text: 'Troubleshooting', link: '/students/stuck' },
+  { text: 'Evaluation and peer review', link: '/students/check' },
+  { text: 'Optional local lab', link: '/students/reference' },
+] }]
 const start = [{ text: 'Start here', items: [
   { text: 'Overview', link: '/guide/' },
   { text: 'Project vision', link: '/guide/vision' },
@@ -71,9 +81,10 @@ const reference = [
     { text: 'Original sources', link: '/sources' },
   ] },
 ]
-export const sidebar = { '/': start }
+export const sidebar = { '/': students }
+sidebar['/students/'] = students
 for (const prefix of ['/guide/', '/status', '/project/index']) sidebar[prefix] = start
 for (const prefix of ['/design/', '/project/system', '/project/knowledge', '/project/streaming', '/project/plugins', '/project/decisions']) sidebar[prefix] = design
 for (const prefix of ['/build/', '/engineering/', '/reuse/', '/project/roadmap', '/project/acceptance', '/project/setup', '/project/hosting']) sidebar[prefix] = build
 for (const prefix of ['/reference/', '/architecture/', '/decisions/', '/reviews/', '/research/', '/project/sources', '/sources', '/validation', '/course-roadmap']) sidebar[prefix] = reference
-export const entryPages = ['guide/index.md', 'guide/vision.md', 'guide/capabilities.md', 'guide/walkthrough.md', 'design/index.md', 'build/index.md', 'reference/index.md', 'reference/glossary.md', 'reference/documentation-map.md']
+export const entryPages = ['students/index.md', 'guide/index.md', 'guide/vision.md', 'guide/capabilities.md', 'guide/walkthrough.md', 'design/index.md', 'build/index.md', 'reference/index.md', 'reference/glossary.md', 'reference/documentation-map.md']
