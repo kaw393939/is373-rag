@@ -1,0 +1,5 @@
+# Fictional Harbor Club membership
+
+This is a synthetic teaching fixture, not a real policy. Membership is available to local residents who complete the application. The annual membership fee is $15.
+
+Applications are submitted to the club secretary. The secretary confirms receipt by email.

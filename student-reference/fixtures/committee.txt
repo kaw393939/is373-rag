@@ -1,0 +1,5 @@
+# Fictional Harbor Club committees
+
+This is a synthetic organization chart. The Events Committee plans workshops. The Membership Committee reviews applications.
+
+The secretary coordinates messages from new members, but the secretary does not approve membership applications.

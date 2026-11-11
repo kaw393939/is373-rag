@@ -51,6 +51,8 @@ jobs:
         run: npm run check:plan
       - name: Run synthetic stream and publication examples
         run: npm run test:examples
+      - name: Run optional student reference regression suite
+        run: npm run test:students
       - name: Compile and run the Rust lease specification
         shell: bash
         run: |

@@ -4,7 +4,7 @@ import path from 'node:path'
 import { nav, sidebar, entryPages } from '../docs/.vitepress/navigation.mjs'
 
 const base = process.env.DOCS_BASE || '/is373-rag/'
-assert.deepEqual(nav.map(item => item.text), ['Start', 'Design', 'Build', 'Reference'])
+assert.deepEqual(nav.map(item => item.text), ['Students', 'Start', 'Design', 'Build', 'Reference'])
 const routes = new Set()
 function collect(items) {
   for (const item of items) {
@@ -33,10 +33,10 @@ assert.equal((home.match(/<h1\b/g) || []).length, 1, 'Homepage needs one H1')
 for (const text of ['stand behind.', 'Fictional', 'not live', 'Find your next step.', 'Canonical identity.', 'contract labs']) {
   assert.ok(home.includes(text), `Homepage missing ${text}`)
 }
-for (const route of ['/guide/', '/design/', '/build/', '/reference/', '/guide/vision', '/guide/walkthrough', '/project/roadmap', '/status']) {
+for (const route of ['/students/', '/guide/', '/design/', '/build/', '/reference/', '/guide/vision', '/guide/walkthrough', '/project/roadmap', '/status']) {
   assert.ok(home.includes(`href="${base}${route.slice(1)}"`), `Homepage route is not base-aware: ${route}`)
 }
 assert.match(home, /name="lab-docs-revision" content="[^\"]+"/)
 assert.ok(!fs.existsSync('dist/CNAME'), 'This docs change must not claim a custom domain')
-console.log(`PASS: four navigation sections, ${routes.size} unique targets, ${entryPages.length} concise entry pages, homepage structure and project-base links.`)
+console.log(`PASS: five navigation sections, ${routes.size} unique targets, ${entryPages.length} concise entry pages, homepage structure and project-base links.`)
 console.log('Scope: static IA checks, not live hosting, user testing or full accessibility certification.')

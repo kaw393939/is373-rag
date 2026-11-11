@@ -4,6 +4,10 @@
 
 **Available:** documentation, validation scripts, synthetic contract labs and a static Svelte welcome scaffold. **Planned:** the research application runtime. See [status](docs/status.md).
 
+## Current IS373 students
+
+**Start with the [IS373 student RAG guide](docs/students/index.md)** for the original individual assignment: small Plan/Build/Release steps, [copy-ready AI coding prompts](docs/students/prompts.md), [debugging](docs/students/stuck.md), [evaluation](docs/students/check.md), and an [optional local retrieval lab](student-reference/README.md). The [original course brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) and Canvas remain authoritative. This guide adds no graded work or required stack.
+
 ## Documentation
 
 | Start | Design | Build | Reference |
