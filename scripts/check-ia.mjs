@@ -30,10 +30,10 @@ for (const file of entryPages) {
 }
 const home = fs.readFileSync('dist/index.html', 'utf8')
 assert.equal((home.match(/<h1\b/g) || []).length, 1, 'Homepage needs one H1')
-for (const text of ['stand behind.', 'Fictional', 'not live', 'Find your next step.', 'Canonical identity.', 'contract labs']) {
+for (const text of ['explain.', 'Start your IS373 project', 'Future research vision', 'Fictional', 'not live', 'Find your next step.', 'Canonical identity.', 'contract labs']) {
   assert.ok(home.includes(text), `Homepage missing ${text}`)
 }
-for (const route of ['/students/', '/guide/', '/design/', '/build/', '/reference/', '/guide/vision', '/guide/walkthrough', '/project/roadmap', '/status']) {
+for (const route of ['/students/', '/guide/', '/design/', '/build/', '/reference/', '/guide/vision', '/guide/walkthrough', '/students/reference', '/status']) {
   assert.ok(home.includes(`href="${base}${route.slice(1)}"`), `Homepage route is not base-aware: ${route}`)
 }
 assert.match(home, /name="lab-docs-revision" content="[^\"]+"/)

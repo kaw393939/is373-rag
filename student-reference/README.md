@@ -4,7 +4,17 @@
 
 ## First successful result (offline)
 
-Run from the **repository root**:
+New to the repository? Start with the [first-15-minute walkthrough](../docs/students/reference.md#your-first-15-minutes), including download, expected output and troubleshooting.
+
+Clone and enter the project (or download and extract its ZIP from GitHub):
+
+```sh
+git clone https://github.com/kaw393939/is373-rag.git
+cd is373-rag
+python3 --version
+```
+
+Run from this **repository root**, the folder containing `student-reference`:
 
 ```sh
 python3 student-reference/rag_lab.py import --db student-reference/lab.sqlite
