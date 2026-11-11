@@ -5,7 +5,7 @@ description: Copy-ready, scoped prompts for planning, building, debugging, inspe
 
 # Ask an AI coding agent for one small result
 
-These prompts are **optional tools**, not assignments to submit. Replace bracketed details with your own facts. Give your agent access to the *appropriate repository* if your environment permits it; never paste API keys, student records or private data.
+These prompts are **optional tools**, not assignments to submit. See the [existing-app walkthrough](from-app-studio.md) and [library survey](library-survey.md) before proposing a new framework. Replace bracketed details with your own facts. Give your agent access to the *appropriate repository* if your environment permits it; never paste API keys, student records or private data.
 
 **Working agreement:** The agent should inspect before editing, explain its plan, change only the agreed scope, run checks, and distinguish tests actually executed from suggestions. You read the important code, test the result and make the design decision.
 
