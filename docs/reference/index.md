@@ -8,7 +8,7 @@ teaser: "Something in the design looks unfamiliar. Find out whether you need a d
 
 If the question is “what does this word mean here?”, begin with the glossary. If it is “why do we trust this module?”, begin with the pinned source audit. The links below separate those jobs from the current design and from documents kept for historical context.
 
-Use this section to investigate a decision. Use [Start](../guide/index.md), [Design](../design/index.md) and [Build](../build/index.md) for the current reading path.
+Use this section to investigate a decision. Use [Research overview](../guide/index.md), [Design](../design/index.md) and [Build](../build/index.md) for the current reading path.
 
 ## Current evidence and terminology
 

@@ -1,10 +1,10 @@
 ---
-title: "Start here"
+title: "Research overview"
 description: "Choose a path through Ordo Knowledge Lab for an IS373 assignment, a runnable exercise, or a proposed evidence-backed research system."
 teaser: "You can run a small lab today or explore the research system it points toward. Start with the question you came to answer."
 ---
 
-# Start here
+# Research overview {#start-here}
 
 If you are here for IS373, start by asking a question of your own documents and opening the passage behind the answer. The [student guide](../students/index.md) takes you through that assignment. The research design asks a further question: how do you maintain a library when sources disagree, names change, or somebody corrects an earlier decision?
 
@@ -34,7 +34,7 @@ Today you can read the guides, run the synthetic contract labs, and inspect a se
 
 ## How to read these docs
 
-**Start** explains the purpose. **Design** owns the current architecture. **Build** connects existing code to implementation and tests. **Reference** preserves audits, terminology and earlier alternatives.
+**Research overview** explains the purpose. **Design** owns the current architecture. **Build** connects existing code to implementation and tests. **Reference** preserves audits, terminology and earlier alternatives.
 
 Requirements live in one [acceptance register](../project/acceptance.md). The [S0–S7 roadmap](../project/roadmap.md) owns implementation order. Historical material stays visible but does not override the current plan.
 

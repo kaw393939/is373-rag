@@ -16,7 +16,7 @@
 
 ## Documentation
 
-| Start | Design | Build | Reference |
+| [Research overview](docs/guide/index.md) | Design | Build | Reference |
 | --- | --- | --- | --- |
 | [Vision](docs/guide/vision.md) | [System](docs/design/index.md) | [Build guide](docs/build/index.md) | [Reference library](docs/reference/index.md) |
 | [Capabilities](docs/guide/capabilities.md) | [Knowledge rules](docs/project/knowledge.md) | [Roadmap](docs/project/roadmap.md) | [Source audit](docs/reuse/source-audit.md) |

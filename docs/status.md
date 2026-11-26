@@ -41,7 +41,7 @@ Docker Hub publication, live application deployment, portfolio DNS and account s
 
 ## Which plan takes precedence?
 
-[Start](guide/index.md) explains intent; [Design](design/index.md) and [Build](build/index.md) lead to the current contracts. The authoritative material remains in `project/`, `reuse/` and `engineering/`. Entry pages summarize and link, not replace it.
+[Research overview](guide/index.md) explains intent; [Design](design/index.md) and [Build](build/index.md) lead to the current contracts. The authoritative material remains in `project/`, `reuse/` and `engineering/`. Entry pages summarize and link, not replace it.
 
 The S0–S7 roadmap supersedes the earlier G-series ordering. Older architecture, reviews and research retain visible reference notices. Reuse the historical Rust kernel, repair its gaps, defer a broker, and separate the hosted API from the private stateful store. Local embedded storage remains an explicit twelve-factor exception.
 
