@@ -12,7 +12,8 @@ const plan = { text: 'Plan a small RAG', link: '/students/plan' }
 const build = { text: 'Build one complete path', link: '/students/build' }
 const check = { text: 'Check your evidence', link: '/students/check' }
 const studentNext: Record<string, { text: string, link: string }> = {
-  '/students/': plan,
+  '/students/': { text: 'Research a reader’s question', link: '/students/research' },
+  '/students/research': plan,
   '/students/reference': plan,
   '/students/build': check,
   '/students/from-app-studio': check,

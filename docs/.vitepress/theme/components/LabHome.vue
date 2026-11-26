@@ -5,10 +5,11 @@ import LabShare from './LabShare.vue'
 const { frontmatter } = useData()
 const cover = editorialImage('index.md')
 const sections = [
-  { number: '01', title: 'Plan', text: 'Choose one useful question and a small set of documents you can trust.', link: '/students/plan', label: 'Choose your starting point' },
-  { number: '02', title: 'Build', text: 'Connect your sources, retrieval and answer. Get one small path working first.', link: '/students/build', label: 'Build a working slice' },
-  { number: '03', title: 'Test', text: 'Try questions your sources can answer, and one they cannot. Check the citations.', link: '/students/check', label: 'Check what really works' },
-  { number: '04', title: 'Explain', text: 'Show your app, trace an answer to its source and explain the choices you made.', link: '/students/check#explain-your-choices', label: 'Prepare your walkthrough' },
+  { number: '01', title: 'Research', text: 'Read a source your reader could use. Find what it answers and compare ways to retrieve that evidence.', link: '/students/research', label: 'Investigate a question' },
+  { number: '02', title: 'Plan', text: 'Use what you found to choose a retrieval method and predict which passage it should return.', link: '/students/plan', label: 'Sketch your first test' },
+  { number: '03', title: 'Build', text: 'Connect your sources, retrieval and answer. Get one small path working first.', link: '/students/build', label: 'Build a working slice' },
+  { number: '04', title: 'Test', text: 'Try questions your sources can answer, and one they cannot. Check the citations.', link: '/students/check', label: 'Check what really works' },
+  { number: '05', title: 'Explain', text: 'Show your app, trace an answer to its source and explain the choices you made.', link: '/students/check#explain-your-choices', label: 'Prepare your walkthrough' },
 ]
 const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check the source']
 </script>
@@ -56,7 +57,7 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
       <div class="lab-section-heading"><div><p class="lab-kicker">YOUR STUDENT PROJECT</p><h2 id="lab-explore-title">Find your next step.</h2></div><p>Choose the step that matches what you have on your screen.</p></div>
       <div class="lab-cards"><a v-for="section in sections" :key="section.number" :href="withBase(section.link)" class="lab-card"><span class="lab-card-number">{{ section.number }}</span><h3>{{ section.title }}</h3><p>{{ section.text }}</p><span class="lab-card-link">{{ section.label }} <span aria-hidden="true">↗</span></span></a></div>
     </section>
-    <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">Research notebook</p><h2 id="lab-student-title">Future research vision</h2><p>My research asks how to keep citations, disagreements, and review decisions intact as a collection grows. Follow the proposed Rust workspace from a source document to a reviewed answer. The research application is not live.</p></div><a :href="withBase('/guide/vision')">Explore the future vision <span aria-hidden="true">→</span></a></section>
+    <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">Instructor’s research notebook</p><h2 id="lab-student-title">Future research vision</h2><p>My research asks how to keep citations, disagreements, and review decisions intact as a collection grows. Follow the proposed Rust workspace from a source document to a reviewed answer. The research application is not live.</p></div><a :href="withBase('/guide/vision')">Explore the future vision <span aria-hidden="true">→</span></a></section>
     <details class="lab-research">
       <summary>Explore the research system</summary>
       <p>A contract lab is a small executable check of how two parts should work together. Use one to explore a design decision in the larger research proposal.</p>
@@ -108,7 +109,7 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 .lab-explore{padding:60px 0}.lab-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;margin-bottom:24px}
 .lab-section-heading .lab-kicker{margin-bottom:10px}.lab-section-heading h2,.lab-practice h2{font:600 clamp(1.8rem,3vw,2.5rem)/1.14 var(--lab-font-editorial);letter-spacing:-.025em}
 .lab-section-heading>p{font-size:14px;color:var(--vp-c-text-2);max-width:245px;line-height:1.65;margin:0}
-.lab-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.lab-cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
 .lab-card{padding:22px 19px;border:1px solid var(--vp-c-divider);border-radius:7px;display:flex;flex-direction:column;min-height:235px;transition:border-color .15s}
 .lab-card:hover{border-color:var(--vp-c-brand-1)}.lab-card-number{font-family:var(--vp-font-family-mono);font-size:12px;color:var(--vp-c-text-2)}
 .lab-card h3{font-size:19px;line-height:1.3;font-weight:600;letter-spacing:-.025em;margin:18px 0 12px}.lab-card p{font-size:15px;line-height:1.65;color:var(--vp-c-text-2);margin:0 0 20px}

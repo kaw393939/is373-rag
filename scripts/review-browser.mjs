@@ -101,7 +101,7 @@ try {
     await fs.writeFile(path.join(output, name + '.png'), Buffer.from(image.data,'base64'))
   }
   const receipt = { scope:'Built static documentation on local CI HTTP; not live Pages, Safari or full accessibility certification.', browser:await send('Browser.getVersion'), routes:[], interactions:[] }
-  const allRoutes = ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference', 'students/ai-costs', 'students/data-choices']
+  const allRoutes = ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/research', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference', 'students/ai-costs', 'students/data-choices']
   const readingRoutes = ['', 'architecture/overview', 'engineering/twelve-factor', 'students/reference']
   const viewports = [
     ['desktop', 1440, 1000, 'light', allRoutes],
@@ -165,7 +165,7 @@ try {
         await press('Enter', 13)
         await expectInPage("document.activeElement.id === 'VPContent'", `${name}: skip link did not move keyboard focus to the content`)
         const learningPath = await evaluate('[...document.querySelectorAll(".lab-card h3")].map(e=>e.textContent)')
-        assert.deepEqual(learningPath, ['Plan','Build','Test','Explain'], 'Student path stays first')
+        assert.deepEqual(learningPath, ['Research','Plan','Build','Test','Explain'], 'Student path stays first')
         await evaluate('document.querySelector(".lab-example a").click()')
         assert.equal(await evaluate('location.hash'), '#club-handbook-source', 'Answer citation reaches source')
         assert.equal(await evaluate('document.querySelector(".lab-research").open'), false, 'Research starts secondary')

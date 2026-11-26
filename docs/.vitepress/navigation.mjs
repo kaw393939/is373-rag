@@ -1,6 +1,7 @@
 // One navigation model for VitePress and the documentation IA checker.
 const students = [{ text: 'IS373 · current assignment', items: [
   { text: 'Student RAG guide', link: '/students/' },
+  { text: 'Research a reader’s question', link: '/students/research' },
   { text: 'Plan a small RAG', link: '/students/plan' },
   { text: 'Build one complete path', link: '/students/build' },
   { text: 'From FastAPI to hosted RAG', link: '/students/from-app-studio' },

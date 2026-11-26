@@ -21,7 +21,8 @@ for (const route of routes) {
 }
 // Check the actual HTML so a correct route model cannot hide a broken or self-linking header.
 const studentSteps = {
-  '/students/': '/students/plan',
+  '/students/': '/students/research',
+  '/students/research': '/students/plan',
   '/students/plan': '/students/build',
   '/students/build': '/students/check',
   '/students/check': '/students/prompts#demo-prompt'
@@ -79,11 +80,11 @@ assert.equal((home.match(/<h1\b/g) || []).length, 1, 'Homepage needs one H1')
 for (const text of ['explain.', 'Start your IS373 project', 'Future research vision', 'Fictional', 'not live', 'Find your next step.', 'contract labs']) {
   assert.ok(home.includes(text), `Homepage missing ${text}`)
 }
-for (const route of ['/students/', '/students/plan', '/students/build', '/students/check', '/students/check#explain-your-choices', '/guide/vision', '/guide/walkthrough', '/students/reference', '/students/reference#your-first-15-minutes', '/status']) {
+for (const route of ['/students/', '/students/research', '/students/plan', '/students/build', '/students/check', '/students/check#explain-your-choices', '/guide/vision', '/guide/walkthrough', '/students/reference', '/students/reference#your-first-15-minutes', '/status']) {
   assert.ok(home.includes(`href="${base}${route.slice(1)}"`), `Homepage route is not base-aware: ${route}`)
 }
 assert.ok(home.indexOf('Find your next step.') < home.indexOf('Future research vision'), 'Student path must precede future research')
-for (const text of ['Plan', 'Build', 'Test', 'Explain', 'ONE COMPLETE RAG EXAMPLE', 'RETRIEVED PASSAGE', 'EXAMPLE ANSWER', 'CHECK THE SOURCE', 'not a live chatbot', 'Choose a model. Understand the cost.']) {
+for (const text of ['Research', 'Plan', 'Build', 'Test', 'Explain', 'ONE COMPLETE RAG EXAMPLE', 'RETRIEVED PASSAGE', 'EXAMPLE ANSWER', 'CHECK THE SOURCE', 'not a live chatbot', 'Choose a model. Understand the cost.']) {
   assert.ok(home.includes(text), `Homepage missing ${text}`)
 }
 assert.ok(home.includes('href="#club-handbook-source"'), 'Example answer must link to its source')

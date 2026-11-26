@@ -22,7 +22,7 @@ Your portfolio can showcase the app and your group contribution. Keep the two in
 
 For **career research**, compare three original employer postings and two career directions. Identify your target reader, map responsibilities to evidence, sketch the portfolio pages, and try two lightweight layouts.
 
-For **technical research**, choose permitted sources and a question. Investigate vector and graph databases, RAG, imports, chunking, embeddings, entities, and relationships. Compare the alternatives and justify implementing vector, graph, or both. Define the constraints, the questions you will evaluate, and three to five observable stories or checks. [Research library](/research/)
+For **technical research**, [investigate a reader’s question](students/research.md) using a source you have permission to use. Investigate vector and graph databases, RAG, imports, chunking, embeddings, entities, and relationships. Compare the alternatives and justify implementing vector, graph, or both. Define the constraints, the questions you will evaluate, and three to five observable stories or checks. [Research library](/research/)
 
 For Plan, a diagram and a prediction are useful evidence of design. Label a planned deployment as planned. The instructor’s [architecture](/architecture/overview), [contracts](/architecture/contracts), [decisions](/decisions/), and [validation plan](/validation) show how to record choices. The full proposed research application is still a design. The lab’s runnable exercises are available separately.
 

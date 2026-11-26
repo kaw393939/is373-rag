@@ -6,7 +6,7 @@ teaser: Could you point to a passage that answers your reader’s first question
 
 # Plan one useful source-backed question
 
-For the Plan review, bring a design you can explain and test. You’ll build the working app later. Reuse your existing portfolio, FastAPI app, server, and Git workflow where they fit.
+Bring the passage and retrieval comparison from [your research](research.md). Use them to design a check you can explain at the Plan review. You’ll build the working app later. Reuse your existing portfolio, FastAPI app, server, and Git workflow where they fit.
 
 ## 1. Define the reader and the question
 
