@@ -14,6 +14,13 @@ Trace the live conversation first, then follow a source through ingestion. The d
 
 ## System boundaries
 
+**Earlier architecture draft.** The diagram below connects retrieval and publication directly to SQLite. The current design specifies who may open that database in each [deployment profile](/project/system#two-deployment-profiles).
+
+| Profile | Path to an authorized record |
+| --- | --- |
+| Local authoring | The local application can embed the store, which opens the selected library on the workstation. |
+| Hosted | The public API calls the private store. The store owns SQLite, keeps its files on the store host, and returns authorized records to the API. |
+
 ```mermaid
 flowchart TB
   accTitle: Chat and publication paths

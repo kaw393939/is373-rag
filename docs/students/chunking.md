@@ -14,12 +14,14 @@ Start with the [club bulletin](#one-fictional-example), then [try two splits wit
 
 ## One fictional example
 
-\`\`\`text
+```text
 SOURCE: S-events — Harbor Club bulletin, section "Events"
 [Paragraph 1] The Events Committee organizes monthly workshops.
 [Paragraph 2] Visitors must sign in at the welcome desk.
 [Paragraph 3] The date of the next annual meeting has not been announced.
-\`\`\`
+```
+
+Make two copies of the bulletin. Mark a cut between “Events Committee” and “organizes” in one copy. In the other, cut after the whole paragraph. Ask **“Who organizes workshops?”** Before searching, predict which split can return both the name and the action in a single passage. Then [try both splitters](#two-experiments-you-can-do-without-an-api-key) with the same question and save the words each one retrieves.
 
 **Option A: fixed-size character chunks.** Easy to implement, but a boundary could split “Events Committee organizes” across two chunks. *Characters and model tokens are not interchangeable units.*
 
@@ -44,7 +46,7 @@ SOURCE: S-events — Harbor Club bulletin, section "Events"
 
 Each stored chunk should identify:
 
-\`\`\`text
+```text
 source_id          S-events
 source_version     teaching-fixture-v1
 chunk_id           S-events-C02
@@ -52,13 +54,13 @@ ordinal            2
 source_location    section: Events / paragraph: 2
 text               Visitors must sign in at the welcome desk.
 chunk_method       paragraph
-\`\`\`
+```
 
 This is an illustrative record, not proof that every field exists in our teaching script. If a source changes, decide what to reprocess and how outdated chunks/vectors stop being returned. Stable source identity and source version are more important than pretending generated chunk numbers never change.
 
 ## Two experiments you can do without an API key
 
-**Experiment A — inspect the actual importer.** Open the [reference code](https://github.com/kaw393939/is373-rag/blob/main/student-reference/rag_lab.py). Find the \`paragraphs()\` function, then inspect one [fictional source file](https://github.com/kaw393939/is373-rag/blob/main/student-reference/fixtures/events.txt). Predict how many chunks it creates. Run the [15-minute lab](reference.md#your-first-15-minutes) and inspect real chunk text and \`ordinal\`.
+**Experiment A — inspect the actual importer.** Open the [reference code](https://github.com/kaw393939/is373-rag/blob/main/student-reference/rag_lab.py). Find the `paragraphs()` function, then inspect one [fictional source file](https://github.com/kaw393939/is373-rag/blob/main/student-reference/fixtures/events.txt). Predict how many chunks it creates. Run the [15-minute lab](reference.md#your-first-15-minutes) and inspect real chunk text and `ordinal`.
 
 **Experiment B — compare a proposed different split.** In a copied test fixture, place a key sentence across an artificial 60-character boundary. Ask an AI coding agent to propose a fixed-character splitter and a paragraph splitter as **separate experiments**. Compare what each returns to **“Who organizes workshops?”** Keep the original fixture unchanged, save actual outputs and decide which split better preserves support.
 
@@ -78,7 +80,7 @@ When a citation fails, investigate retrieval and source boundaries **before** as
 
 ### Ask an AI coding partner
 
-\`\`\`text
+```text
 Read my existing importer and my permitted source fixture. Show me its
 actual chunking rule; don't assume it uses tokens. Predict, then run the
 import and display source IDs, chunk IDs, text and source locations.
@@ -87,7 +89,7 @@ without replacing the first. Use the same three evaluation questions.
 Show any split claim, duplication or lost context, and record actual results.
 Do not install a framework or change my production import until I approve.
 Ask me which strategy I prefer and what evidence supports that choice.
-\`\`\`
+```
 
 ### A note from the AI
 

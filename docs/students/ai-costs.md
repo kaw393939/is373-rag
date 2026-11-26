@@ -6,7 +6,9 @@ teaser: "One answer can trigger several paid calls. Follow a single request from
 
 # Good answers. Small budget. No surprises.
 
-A model produced a ten-word answer. Your app may still have paid to send three pages of evidence, run a second check, and retry a failed request. Start with the usage from one call. Can you explain every item before multiplying it by a thousand?
+Suppose your app sends 3,000 input tokens and uses 500 billed output tokens. At illustrative prices of $0.10 per million input tokens and $0.40 per million output tokens, that’s $0.00030 for input plus $0.00020 for output. One call costs $0.00050 at those rates. A thousand identical calls cost $0.50.
+
+If you already have a usage record, compare its input and output counts with your estimate. Which count changed? Look at the passages your app sent and whether the request ran more than once. If you haven’t made a call, you can do the estimate on paper.
 
 **For the IS373 project**, the [local retrieval exercise](reference.md) works without an API key. Use Groq as a starting point for a small public-data generation experiment, or consider Gemini. Hosted generation is optional practice on this page. Check which provider adapters your application implements before choosing one.
 

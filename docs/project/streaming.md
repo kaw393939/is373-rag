@@ -36,7 +36,15 @@ Versioned envelopes carry run/job identity, sequence/cursor, schema and library 
 
 ## Required lifecycle
 
-For a walkthrough, close the page after a citation appears and reopen the same run. The expected evidence is a stable run ID, an authorized replay position, and a visible outcome. Receiving a second stream of fresh tokens would be evidence of a different operation.
+In this proposed example, a reader loses the connection just after opening citation A2. These are illustrative identifiers.
+
+| Point in the walkthrough | Reader sees | Store and client record |
+| --- | --- | --- |
+| Before disconnect | A partial answer and a citation to line A2 of the harbor log | Run `r17`, library revision `v3`, last committed citation at cursor `12` |
+| While disconnected | The existing text and a connection warning | The client retains cursor `12`. The run's terminal outcome is unknown to the client. |
+| After authorized reconnect | The same partial answer and A2, followed by any later committed events | Resume `r17` after cursor `12`. If the store recorded interruption, display that outcome and retain A2. |
+
+A reader may choose a separate retry. Reopening the old run should never itself incur another generation charge.
 
 A request key prevents duplicate admission; changed input with the same key is a conflict. Reconnect requests stored state/events for the existing run, not a new generation. Each subscription and evidence fetch is reauthorized. Expired history returns a scoped snapshot/resynchronization response.
 

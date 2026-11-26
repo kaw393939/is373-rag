@@ -29,15 +29,16 @@ The research Rust workspace, production schema, plugin host, interactive Svelte 
 
 ## Public documentation mirror and project Pages
 
-The VitePress documentation is hosted as a [pinned portfolio Pages mirror](https://kaw393939.github.io/knowledge-lab/). The portfolio publication is an independently tested release of the same source, not a second set of docs. It makes the current IS373 student-support pages accessible without requiring a new Pages site. Actual portfolio Pages deployment should be checked against the source revision manifest.
+| Publication | Release evidence |
+| --- | --- |
+| [Portfolio edition](https://keithwilliams.org/knowledge-lab/) | The [public mirror manifest](https://keithwilliams.org/knowledge-lab/mirror-manifest.json) names the Lab source revision. Check it against the [portfolio publish run](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml) and the `lab-docs-revision` tag on the lesson you opened. |
+| Standalone Lab Pages | Open the intended commit’s successful deployment in the [Lab Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml). Its deployment URL and HTTPS check identify the standalone build and revision it verified. |
 
-The [standalone project Pages site](https://kaw393939.github.io/is373-rag/) is now enabled with GitHub Actions and serves this repository's documentation. Confirm a particular release using its deployed source revision and workflow result; the portfolio mirror remains independently pinned. [Mirror and standalone setup](project/setup.md).
+Both builds use [the Lab repository](https://github.com/kaw393939/is373-rag). A portfolio promotion can lag the standalone release. If an older project URL redirects, identify the edition from its final address and revision marker. [Local and public release checks](project/setup.md).
 
 ## Publication is a separate gate
 
-The Documentation workflow builds previews on PRs. On main it requires Pages activation, deploys and verifies actual public responses against the source revision. A blocked publication job does not invalidate a successful static build, but it does mean the site is not verified live. [Enable and publish Pages](project/setup.md).
-
-Docker Hub publication, live application deployment, portfolio DNS and account settings require independent evidence. The welcome scaffold does not establish any of them. [Application hosting](project/hosting.md).
+For a welcome scaffold build, inspect the [Welcome workflow](https://github.com/kaw393939/is373-rag/actions/workflows/welcome.yml). Registry publication has a [separate workflow](https://github.com/kaw393939/is373-rag/actions/workflows/publish-welcome.yml). A public research application would also need a host deployment receipt and a check of the research service over HTTPS. [Application hosting plan](project/hosting.md).
 
 ## Which plan takes precedence?
 
@@ -47,7 +48,4 @@ The S0–S7 roadmap supersedes the earlier G-series ordering. Older architecture
 
 ## Next implementation gate
 
-If you are deciding what to work on next, take one proposed requirement and follow it to the roadmap slice, donor record and acceptance scenario. The open item is the missing implementation or run, even if the design page is already published.
-
-Complete S0's rights, dependency and contract decisions; then extract the bounded S1 job/event behavior. Carry requirement IDs, donor symbols and actual receipts into each issue and PR. Do not close runtime work because a page describes it.
-
+The next unverified milestone is [S0, approval to reuse selected donor code](project/roadmap.md#s0). For one selected job operation, attach the exact donor revision, dependency boundary, reuse decision and characterization results required by [A-15](project/acceptance.md#a-15). Once that gate passes, [S1](project/roadmap.md#s1) calls for a durable job that survives restart and rejects a stale worker result in the application store.

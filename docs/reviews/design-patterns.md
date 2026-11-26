@@ -32,7 +32,15 @@ The separation of Rust use cases from Axum, NATS, SQLite, and model APIs is a st
 
 **Draft contract:** retrieval requests carry corpus scope, access constraints, index revision, candidate limit, and deadline. Results carry canonical chunk IDs, document revisions, ranking method, and evidence locations. Adapters report supported filtering and search modes; unsupported requirements fail explicitly. Model adapters expose streaming, cancellation capability, partial-output behavior, and terminal errors. Domain code receives application records rather than SQL rows, broker messages, or provider SDK objects.
 
-**Acceptance check.** Give each adapter the same restrictive filter, deleted revision, deadline, and interrupted stream. For approximate retrieval, compare the returned eligible set with an exact baseline. The adapter must describe a difference a caller can observe or act on.
+**Acceptance check.** Request up to three passages from library L, current revision only, with filtering required during candidate selection. Give an adapter the same scope and deadline in each case.
+
+| Adapter capability | Observable response |
+| --- | --- |
+| Supports the scope during ranking | Return up to three eligible passage IDs, their revisions and citation anchors. Compare approximate results with exact search inside L. |
+| Cannot guarantee the filter and the caller forbids fallback | Return an explicit unsupported-filter result before returning any passages. |
+| Cannot guarantee the filter and the caller permits exact search | Run the named exact search over eligible passages. Report that method and its evidence IDs. Enforce the same deadline. |
+
+Repeat with a deleted revision and a deadline that expires. Test interrupted generation separately at the model adapter.
 
 ## P1: Give execution state one authoritative owner
 

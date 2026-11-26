@@ -6,35 +6,50 @@ teaser: "A file, a statement in that file and a decision to publish that stateme
 
 # Shared vocabulary
 
-Read down the table as you encounter an unfamiliar term. For example, an *artifact* is the acquired material; a *mention* points to a location in it. If a worker proposes that two mentions refer to the same person, the proposal still needs the review appropriate to its use.
+Look up the word at the point where you have to make a decision. Which words came from the source? Which passage can a reader find? Which worker still owns the job?
+
+## Evidence and review
 
 | Term | Meaning here |
 | --- | --- |
-| Artifact | Immutable source or derived bytes, identified by a cryptographic digest. |
-| Acquisition | Where, when and how material was obtained. |
-| Mention | A specific name or reference at an exact source location. |
-| Entity | A stable identity such as a person, place or incident. |
-| Alias | A context-dependent name; not globally unique. |
-| Claim | A qualified proposition, including relevant time, polarity or modality. |
-| Assertion | What a particular source says about a claim. |
-| Provenance | The trail from source through processing and review to published knowledge. |
-| Resolution | A reviewable decision connecting mentions to identities. |
-| Draft / proposal | Candidate changes not yet published. |
-| Revision | An identified published state retained for reproducible evidence references. |
-| Graph | Typed relationships between identities, claims and evidence. |
-| Embedding space | Vector representation defined by a model and preprocessing contract. |
-| Hybrid retrieval | Combining available lexical search, vector candidates and graph relationships. |
-| RAG | Retrieval-augmented generation: providing selected evidence to a model before it answers. |
-| NER | Named-entity recognition: identifying mentions, not proving canonical identity. |
-| DAG | A task dependency graph with no cycles. |
-| Lease | A time-bounded assignment authorizing a worker attempt. |
-| Fencing epoch | An attempt identity that lets the store reject an older result. |
-| Idempotency | Repeating an accepted request does not repeat its durable effect. |
-| Capability | A versioned operation, independent of its implementation. |
-| SSE | Server-sent event framing for incremental browser delivery. |
-| Projection | An authorized, rebuildable view of durable records. |
-| Release | A tested software artifact plus approved configuration and compatibility information. |
+| Artifact | Immutable source or derived bytes with a cryptographic digest. |
+| Acquisition | Where, when and how someone obtained the material. |
+| Mention | A name or reference at a precise source location. |
+| Entity and alias | An entity is a stable identity. An alias is a name it uses in a particular context. |
+| Resolution | A reviewable decision about which identity a mention refers to. It can remain unresolved. |
+| Claim and assertion | A claim is a proposition with its qualifications. An assertion records what a particular source says about it. |
+| Provenance | The trail from source through processing and review to publication. |
+| Draft or proposal | A candidate change waiting for review or publication. |
+| Revision | A published state retained so a reader can reopen the evidence cited at that point. |
+| Graph | A record of typed relationships among identities, claims and evidence. |
+| Augmentation | Generated context linked to, and kept distinguishable from, original evidence. |
+| NER | Named-entity recognition identifies mentions in a passage. Identity resolution is a separate decision. |
 
-The [knowledge rules](../project/knowledge.md) and [worker contract](../project/plugins.md) define the invariants behind these terms.
+## Retrieval and delivery
 
-Try the same distinction on a job that returns twice. Its lease says which worker may act now, the fencing epoch identifies the attempt, and idempotency lets the store accept a repeated delivery without repeating its effect.
+| Term | Meaning here |
+| --- | --- |
+| Embedding space | A vector representation defined by a model and its preprocessing rules. |
+| BM25 | A lexical ranking method available through SQLite FTS5. |
+| ANN | Approximate nearest-neighbor search. Compare it with an exact reference to measure recall. |
+| RRF | Reciprocal rank fusion combines positions in different ranked result lists. |
+| Hybrid retrieval | Combining available lexical, vector or graph results. |
+| RAG | Retrieval-augmented generation supplies selected evidence to a model before it answers. |
+| SSE | Server-sent events deliver incremental updates from a server to a browser. |
+| Projection | An authorized view that can be rebuilt from durable records. |
+
+## Jobs and releases
+
+Suppose the same worker name receives an extraction job twice. Attempt 1’s lease expires. Attempt 2 has a new epoch and returns on time. The store checks the epoch and accepts the eligible result once, even if the worker resends it. Try the [lease exercise](../engineering/examples.md#lease-ownership).
+
+| Term | Meaning here |
+| --- | --- |
+| DAG | A directed acyclic graph of task dependencies. |
+| Lease | A time-limited assignment of one task to a worker attempt. |
+| Fencing epoch | An attempt identifier that allows the store to reject an older worker’s result. |
+| Idempotency | Repeating an accepted request leaves its durable effect unchanged. |
+| Outbox | A record committed with a change so a corresponding event can be delivered reliably. |
+| Capability | A versioned operation a worker implements. |
+| Release | A tested software artifact with approved configuration and compatibility information. |
+
+The [knowledge rules](../project/knowledge.md) and [worker contract](../project/plugins.md) state the proposed system invariants.

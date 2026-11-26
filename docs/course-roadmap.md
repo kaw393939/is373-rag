@@ -6,9 +6,7 @@ teaser: One portfolio shows your professional direction, one app shows what you 
 
 # IS373 assignment roadmap
 
-Use this guide to organize the work for IS373. Your section’s Canvas course has the official schedule, demonstration arrangements, instructions, and rubrics. The assignment links below point to the instructor’s example section.
-
-Finish and demonstrate the individual and group projects during the **final week of class**. The final exam period is reserved for extenuating circumstances with Dean of Students verification or your instructor’s approval.
+Which piece of work are you showing at your next review? Use the table to find it, then choose something a classmate can actually inspect. Your own Canvas section contains the official schedule, demonstration arrangements, instructions, and rubrics.
 
 ## Keep three deliverables distinct
 
@@ -30,7 +28,7 @@ For Plan, a diagram and a prediction are useful evidence of design. Label a plan
 
 ## Course milestones
 
-Each link opens a Canvas assignment and requires course access. Follow the schedule in your own Canvas section.
+Finish and demonstrate the individual and group projects during the **final week of class**. The final exam period is reserved for extenuating circumstances with Dean of Students verification or your instructor’s approval. Each link below opens an assignment in the instructor’s example Canvas section and requires course access. Follow the schedule in your own section.
 
 | Review | Links | What to show |
 | --- | --- | --- |
@@ -48,6 +46,6 @@ The final assignment asks for a short PowerPoint. Introduce the problem and audi
 
 ## Submission continuity
 
-Reuse the individual record under **1. Portfolio + career research** and **2. RAG app + technical research**. Use the team record for **3. Group system + problem research**. Under the relevant heading, update **changed / checked / next** and the links to your site, repository, sources, and checks. Each team member identifies their own contribution. One clear update gives the reviewer something they can verify.
+Reuse the individual record under **1. Portfolio + career research** and **2. RAG app + technical research**. Use the team record for **3. Group system + problem research**. Under the relevant heading, update **changed / checked / next** and the links to your site, repository, sources, and checks. Each team member identifies their own contribution. A sample update might read, “Changed the citation link to open the passage. Checked that a classmate could find the membership fee from the answer screen. Next I’ll try a question the handbook leaves unanswered.” Replace the example with what you actually changed and observed.
 
 The earlier Studio assignments keep their original scope and rubrics. The project reviews use **Complete, Thoughtful, Checked, and Understood**, at 25 points each. Canvas supplies the full criteria.

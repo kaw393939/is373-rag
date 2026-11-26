@@ -17,7 +17,17 @@ Use one small document collection while you read. Ask for an exact identifier fi
 
 ## Retrieval foundations
 
-For a keyword check, invent a course code that appears in exactly one document. For a meaning-based check, ask for the same information without using its original wording. Decide what a good result would look like before comparing rankings.
+Use three fictional records. They are a practice collection, with no bearing on NJIT courses or policies.
+
+| Record | Source text |
+| --- | --- |
+| A, equipment handbook | “LAB-417 meets in the instrument room. Return loaned sensors by noon on Friday. Coordinator Lee Park handles equipment.” |
+| B, exhibition program | “Curator Lee Park selected photographs for the exhibit.” |
+| C, unsigned minutes | “Lee Park approved the display.” |
+
+Search for `LAB-417` and check whether the result cites A’s first sentence. Then ask “When do I have to bring the borrowed gear back?” A’s second sentence is the expected passage even though the question uses different words. Record the top passage and its rank for each method. They can perform differently on the two questions.
+
+For the minutes, “Lee Park” is a mention with two candidate identities. A role, a linked document, or a reliable identifier could support a match. C supplies none of them. Keep the mention unresolved and retain the words that prompted the question.
 
 ### BM25 and full-text search
 

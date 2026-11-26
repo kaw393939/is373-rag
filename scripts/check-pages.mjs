@@ -18,6 +18,8 @@ function targetFile(relative) {
   return [absolute, absolute + '.html', path.join(absolute, 'index.html')].find(p => fs.existsSync(p) && fs.statSync(p).isFile())
 }
 const pages = walk(root).filter(file => file.endsWith('.html'))
+// These same-tab links leave the mounted Lab for the separately built journal.
+const mirrorJournalRoutes = new Set(['/', '/site-notes', '/research/systems/provenance-knowledge-graphs'])
 const anchorCache = new Map()
 function hasAnchor(file, fragment) {
   if (!file.endsWith('.html')) return true
@@ -35,6 +37,7 @@ for (const file of pages) {
     const target = new URL(value, page)
     const pathname = decodeURIComponent(target.pathname)
     if (!pathname.startsWith(base)) {
+      if (base === '/knowledge-lab/' && mirrorJournalRoutes.has(value) && match[0].startsWith('href=')) continue
       failures.push(`${path.relative(root, file)}: URL escapes project base: ${value}`)
       continue
     }
@@ -166,7 +169,11 @@ function checkEditorial(file, html) {
     return
   }
   const publications = [...html.matchAll(/<nav\b[^>]*aria-label="Publication information"[^>]*>([\s\S]*?)<\/nav>/gi)]
-  expect(publications.length === 1 && /<a\b[^>]*href="https:\/\/keithwilliams\.org\/site-notes"[^>]*>[^<]*Site notes[^<]*<\/a>/i.test(publications[0]?.[1] || ''), 'missing publication notice for privacy, accessibility and credits')
+  const notesHref = base === '/knowledge-lab/' ? '/site-notes' : 'https://keithwilliams.org/site-notes'
+  const footerLinks = [...(publications[0]?.[1] || '').matchAll(/(<a\b[^>]*>)([\s\S]*?)<\/a>/gi)]
+  const notes = footerLinks.find(link => humanText(link[2]) === 'Site notes')?.[1]
+  expect(publications.length === 1 && attribute(notes, 'href') === notesHref && attribute(notes, 'target') === '_self',
+    'missing same-tab publication notice for privacy, accessibility and credits')
   const doc = relative.replace(/\.html$/, '.md')
   const original = path.join(sourceRoot, doc)
   expect(fs.existsSync(original), 'missing editable Markdown source ' + doc)

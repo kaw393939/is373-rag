@@ -6,7 +6,9 @@ teaser: You already have a server and an app. Follow one document through the ne
 
 # From your existing FastAPI app to a small hosted RAG
 
-Start in your own working repository. [App Studio](https://github.com/kaw393939/is373-app-studio) supplied the FastAPI app, accounts, and permissions. [Server Studio](https://github.com/kaw393939/373_hosting) supplied the Docker, Traefik, and HTTPS setup. This optional walkthrough adds a single feature to that foundation.
+Open a URL your deployed app already serves. Find the FastAPI route for that URL in your repository and point to the function that handled the request. If you cannot match them, compare the deployed revision with your checkout before adding retrieval.
+
+Work in that same repository. [App Studio](https://github.com/kaw393939/is373-app-studio) supplied the FastAPI app, accounts, and permissions. [Server Studio](https://github.com/kaw393939/373_hosting) supplied the Docker, Traefik, and HTTPS setup. This optional walkthrough adds a single feature to that foundation.
 
 Choose a permitted document, a question it answers, and a model you can access. Your finished path needs real retrieval and generation. If those pieces are unfamiliar, try the [local retrieval lab](reference.md), [embeddings](embeddings.md), or [chunking](chunking.md). Add a [library](library-survey.md) only when you can name the job you need it to do.
 

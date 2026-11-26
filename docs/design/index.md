@@ -31,6 +31,15 @@ The private Rust store owns durable transactions. A hosted API or compute worker
 | Chosen directions and open alternatives | [Decision register](../project/decisions.md) |
 | Observable requirements | [Acceptance register](../project/acceptance.md) |
 
+## What survives an identity correction?
+
+| Proposed step | Contract and observable change |
+| --- | --- |
+| Import | The [source record](../project/knowledge.md#evidence-locations) retains the fictional harbor log, including line A2, “I saw a white light move from the crane toward the east pier.” |
+| Extract | A [worker](../project/plugins.md#one-result-contract) proposes linking the speaker to one of two people named Alex Lee. The proposal cites A2. |
+| Review and publish | A reviewer corrects the speaker assignment. The [publication transaction](../project/knowledge.md#atomic-publication) records the decision in a new revision. A2 still contains the same words. |
+| Retrieve | A reader opening a [revision-pinned citation](../project/streaming.md#required-lifecycle) can inspect the passage and the assignment that applied when the answer was produced. |
+
 ## Two profiles, one set of rules
 
 **Authoring:** import, extract, resolve, review and publish on an authorized workstation.

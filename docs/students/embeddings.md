@@ -10,7 +10,7 @@ A visitor types **“Where can I get help joining?”** The club guide says **�
 
 An **embedding** is a list of numbers a model produces to represent an input such as a question or passage. Many text-retrieval models learn to place related inputs near one another. A search uses those numbers to choose passages to read. You still need the original sentence to tell the visitor where to go.
 
-**Try it first.** Predict the source, then run the [offline exercise](#short-student-exercise). You can test keyword retrieval without an account. The [two-number example](#a-geometric-thought-experiment-not-a-model-output) explains what a similarity score measures.
+Try **“Where can I get help joining?”** in the [offline keyword exercise](#short-student-exercise). Keep the question exactly as written for the embedding run if you have a model available. Compare the returned passages and ask which one would help a new member. The [two-number example](#a-geometric-thought-experiment-not-a-model-output) uses invented values to explain similarity.
 
 ## The people and the question
 
@@ -49,7 +49,7 @@ So passage **a** ranks higher for this *invented* comparison. Real embeddings us
 
 An embedding workflow is:
 
-\`\`\`text
+```text
 Original document (S-membership)
     ↓ split into traceable chunks
 S-membership-C01 + its real text + source location
@@ -58,7 +58,7 @@ Vector + model/version + chunk ID → stored index
 
 Question → compatible query embedding → compare / rank vectors
     → retrieve the original text and source ID → give evidence to a model
-\`\`\`
+```
 
 Never compare vectors from incompatible embedding models as if they shared a coordinate system. Some retrieval models have different query/document input modes; follow the specific model's instructions.
 
@@ -72,14 +72,14 @@ For your IS373 project, compare the same question with a **keyword baseline** an
 
 ### Short student exercise
 
-1. Predict which fictional club source answers **“Who helps new applicants?”** and write its expected source ID before searching.
+1. Predict which fictional club source answers **“Where can I get help joining?”** and write its expected source ID before searching.
 2. Run the [offline lexical lab](reference.md#your-first-15-minutes). Inspect the returned passage; explain any missed paraphrase.
-3. If your local environment already supports an embedding model, follow the [optional real vector commands](reference.md#optional-add-a-real-model), with the model ID recorded. Otherwise, **label the vector comparison planned**; no subscription is required for the offline step.
+3. If your local environment already supports an embedding model, follow the [optional real vector commands](reference.md#optional-add-a-real-model), using the same question and documents. Record the model ID and the result you get. Otherwise, **label the vector comparison planned**; no subscription is required for the offline step.
 4. Compare one wrong or irrelevant result and explain how you would improve retrieval: source scope, metadata, chunking, an exact-term baseline, or a different model. Do not invent similarity scores.
 
 ### Ask an AI coding partner
 
-\`\`\`text
+```text
 Teach me embeddings using one of my permitted documents and a real question.
 First distinguish word, sentence, paragraph and chunk representations.
 Show the original source ID, chunk boundaries and the retrieval result.
@@ -88,7 +88,7 @@ them; label any invented vectors as illustrative. Explain cosine similarity,
 why the query/document embeddings must be compatible, and one failure case.
 Do not install packages or generate embeddings until I approve the plan.
 Ask me to check whether the retrieved passage really answers the question.
-\`\`\`
+```
 
 ### A note from the AI
 

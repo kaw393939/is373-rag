@@ -40,7 +40,14 @@ Native process isolation is not a sandbox by itself. Define permitted directorie
 
 ## Durable task state
 
-Consider a worker that finishes after its lease has expired. A second worker may already own the task. Checking the attempt identity at acceptance gives the store a way to preserve the valid result without letting a late delivery replace it.
+Suppose both attempts use the worker name `worker-a` for the same extraction task and input. In this proposed sequence the store issues the second lease after the first expires.
+
+| Receipt arriving at the store | Expected decision |
+| --- | --- |
+| Attempt 1, epoch 1, returned after its deadline and after epoch 2 was issued | Reject the stale result. Leave the current task available to attempt 2. |
+| Attempt 2, epoch 2, returned before its deadline while the task is running | Accept the matching result once. Record its completion in the same transaction. |
+
+The [lease exercise](../engineering/examples.md#lease-ownership) checks attempt identity and expiry with synthetic timestamps. [A-10](acceptance.md#a-10) describes the additional crash and recovery checks for the store.
 
 Plans are versioned snapshots. Validate dependency cycles, missing keys and required stages before creating a job. Human review is durable waiting state, not a worker holding an open transaction.
 

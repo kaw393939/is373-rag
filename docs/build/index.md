@@ -14,6 +14,8 @@ The [reuse map](../reuse/index.md) separates the historical Rust/SQLite daemon, 
 
 Record the donor revision and the exact command you ran in your checkout. A test included with the donor tells you what someone intended to check. Your own run establishes what passed in this environment. Check reuse rights before taking any material from a private repository into a public lesson.
 
+Take the historical job kernel in the [source audit](../reuse/source-audit.md). Can a worker reuse its name and deliver a result from an older attempt? Run the [Rust lease exercise](../engineering/examples.md#lease-ownership). Record the donor revision you inspected, your Lab checkout revision, the test command and the observed result for `rejects_old_attempt_even_with_same_worker_name`. The exercise checks the acceptance rule in memory. A database race between two clients is a separate application test.
+
 ## Build in this order
 
 | Stage | Result |

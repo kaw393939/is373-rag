@@ -56,11 +56,30 @@ for (const file of entryPages) {
   assert.ok(fs.existsSync(target), `Missing built guide: ${target}`)
 }
 const home = fs.readFileSync('dist/index.html', 'utf8')
+const journal = base === '/knowledge-lab/' ? '' : 'https://keithwilliams.org'
+const walkthrough = fs.readFileSync('dist/guide/walkthrough.html', 'utf8')
+const answer = walkthrough.match(/<details class="source-check-answer"[^>]*>[\s\S]*?<\/details>/)?.[0]
+assert.ok(answer && !/^<details[^>]*\sopen\b/.test(answer) && answer.includes('One witness describes movement.'),
+  'Give readers the worked answer in a closed disclosure')
+assert.ok(walkthrough.split(answer)[0].includes('Quote one line, include its ID'),
+  'Ask the reader to supply evidence before revealing the answer')
+function checkJournalLink(html, className, route) {
+  const tag = [...html.matchAll(/<a\b[^>]*>/g)].map(match => match[0])
+    .find(tag => tag.includes(`class="${className}"`))
+  assert.ok(tag?.includes(`href="${journal}${route}"`) && tag.includes('target="_self"'),
+    `Expected a same-tab journal link to ${journal}${route}`)
+}
+for (const html of [home, overview, walkthrough]) checkJournalLink(html, 'lab-journal-return', '/')
+assert.ok(home.includes(`href="${journal}/site-notes" target="_self"`), 'Site notes opens in the journal')
+checkJournalLink(walkthrough, 'journal-article-link', '/research/systems/provenance-knowledge-graphs')
+const readerPaths = home.match(/<ul class="lab-reader-paths"[^>]*>([\s\S]*?)<\/ul>/)?.[1]
+assert.ok(readerPaths?.includes(`href="${base}guide/walkthrough"`) && readerPaths.includes(`href="${base}guide/"`),
+  'The homepage must give instructors the exercise and practitioners the research overview')
 assert.equal((home.match(/<h1\b/g) || []).length, 1, 'Homepage needs one H1')
 for (const text of ['explain.', 'Start your IS373 project', 'Future research vision', 'Fictional', 'not live', 'Find your next step.', 'contract labs']) {
   assert.ok(home.includes(text), `Homepage missing ${text}`)
 }
-for (const route of ['/students/', '/students/plan', '/students/build', '/students/check', '/students/check#explain-your-choices', '/guide/vision', '/guide/walkthrough', '/students/reference', '/status']) {
+for (const route of ['/students/', '/students/plan', '/students/build', '/students/check', '/students/check#explain-your-choices', '/guide/vision', '/guide/walkthrough', '/students/reference', '/students/reference#your-first-15-minutes', '/status']) {
   assert.ok(home.includes(`href="${base}${route.slice(1)}"`), `Homepage route is not base-aware: ${route}`)
 }
 assert.ok(home.indexOf('Find your next step.') < home.indexOf('Future research vision'), 'Student path must precede future research')

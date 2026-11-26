@@ -9,7 +9,7 @@ teaser: "A question about a price, a paraphrase and a chain of dependencies ask 
 Suppose a club member asks, “Which workshops can visitors attend?” The answer might live in a row marked *open to visitors*, a paragraph that calls visitors *guests*, or two documents that connect a workshop to a policy. Those three cases suggest three different searches. First point to the records that should answer the question.
 
 ::: tip Start small
-For an IS373 project, try the provided SQLite and keyword-search baseline on a question with a known answer. Then compare it with the vector or graph approach for your project. Canvas and the [student guide](index.md) describe the final submission. You can make this design decision without installing five databases.
+Run the [offline keyword search](reference.md#your-first-15-minutes) with **“Which workshops can visitors attend?”** Open the passage it returns. Does it say which workshops are open to visitors and what visitors must do? If it does, keep it as a baseline. If it misses, describe the missing evidence. A wording problem gives you a reason to try vector search. A question that needs a connection across records gives you a reason to try a graph. Keep the question fixed to see what changed. Canvas and the [student guide](index.md) describe the final submission.
 :::
 
 **Pick a starting point.** For data types, use the [comparison table](#five-useful-ways-to-organize-information). For token costs, [compare two retrieval runs](#a-small-experiment-not-a-promised-saving). For a question that crosses multiple records, [trace the graph-and-vector example](#chroma-pinecone-or-a-graph-and-vector-combination). New to the terms? Start with [embeddings](embeddings.md) and [chunking](chunking.md).

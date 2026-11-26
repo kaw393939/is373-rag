@@ -18,6 +18,14 @@ The matrix applies the published twelve-factor model to the proposed API and wor
 
 A volume is not a magic statelessness switch. The hosted store remains stateful and single-writer per writable library; it needs its own backup/restore contract. We do not mount a live SQLite WAL database over a network filesystem. SQLite documents that WAL processes must operate on the same host. [SQLite WAL](https://sqlite.org/wal.html).
 
+Follow the proposed API replacement through one deployment. Collect all three records for the same run.
+
+1. **TF-05, artifact.** Before rollout, compare the digest selected for deployment with the digest that passed QA. Record both identifiers and the deployment configuration revision.
+2. **TF-06, recovered session.** Record the run ID and last committed cursor, then replace the API process. Reopen the session through the replacement and verify that the private store supplies the same run, citations and checkpoint. Keep the responses from both processes.
+3. **TF-09, shutdown.** Send the old API a termination signal. Record when it stopped admitting work, the disposition of the active request and whether it exited within the configured grace period. Compare the terminal state with what the replacement serves.
+
+These are acceptance records to collect when a hosted implementation is available.
+
 ## Verification matrix
 
 | Gate | Factor and project decision | Falsifiable acceptance evidence |

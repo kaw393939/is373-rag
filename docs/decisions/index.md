@@ -8,14 +8,14 @@ teaser: "Read the status column before the technology column. A promising databa
 
 This register records an earlier architecture draft. Use it to see how a decision was framed, which alternatives were considered, and what evidence was still missing. A proposed baseline gives the team somewhere to start testing. An adopted design constraint determines what every candidate must preserve.
 
-| ID | Decision | Draft status | Evidence needed |
+| ID | Decision | Where this stands now | Evidence needed |
 | --- | --- | --- | --- |
-| [001](/decisions/001-serving-boundaries) | SvelteKit UI, Rust chat, direct SSE | Proposed baseline | Browser workload, service latency, recovery prototype |
-| [002](/decisions/002-retrieval-storage) | SQLite unified retrieval candidate | Under evaluation | Filter correctness, ANN recall, concurrent ingestion, topology |
-| [003](/decisions/003-workflow-ownership) | One durable ingestion progression owner | Design constraint; engine open | Dagster/Temporal recovery and operational comparison |
-| Pending | Output replay and displayed-text durability | Open | Required retention, latency, and crash behavior |
-| Pending | Model and inference hosting | Open | Answer quality, first-token latency, concurrency and capacity |
-| Pending | Corpus and isolation model | Open | Formats, languages, access scope, update rate, size |
+| [001](/decisions/001-serving-boundaries) | SvelteKit UI, Rust chat, direct SSE | Proposed serving baseline. The [deployment profiles](/project/system#two-deployment-profiles) define the current hosted API and local storage boundaries. | First grounded text, cancellation and recovery on identical events |
+| [002](/decisions/002-retrieval-storage) | SQLite retrieval indexes | Storage engine selection remains open. The [retrieval evaluation](/architecture/retrieval#selection-gates) defines the comparison. | Eligible recall and latency under concurrent ingestion |
+| [003](/decisions/003-workflow-ownership) | One owner advances each ingestion workflow | Single ownership is a design constraint. The [delivery roadmap](/project/roadmap) puts the durable kernel first. The engine remains open. | Repeated recovery trace against both engines |
+| Q-Replay | Replay and displayed-text durability | Open in the [stream contract](/architecture/contracts#durability-policy-to-decide). | Retention, crash recovery and latency |
+| Q-Model | Inference hosting | Open pending the [representative workload](/validation#representative-workload). | Answer quality, first-token latency and capacity |
+| Q-Corpus | Corpus and isolation model | Open pending the [workload definition](/validation#representative-workload). | Formats, languages, access scope, update rate and size |
 
 ## Recording a decision
 

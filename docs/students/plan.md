@@ -10,7 +10,13 @@ For the Plan review, bring a design you can explain and test. You’ll build the
 
 ## 1. Define the reader and the question
 
-Complete this sentence: **“My application helps [reader] answer [type of question] using [permitted content].”** For example, a new club member might need to know how to sign up for an event. What document would a person open to answer them?
+A new club member asks who organizes the monthly workshops. Here’s what a prediction looks like using a fictional document supplied for this exercise.
+
+| Source you may use | Reader’s question | Sentence you expect to find |
+| --- | --- | --- |
+| `S-events`, the [fictional club bulletin](https://github.com/kaw393939/is373-rag/blob/main/student-reference/fixtures/events.txt) | Who organizes monthly workshops? | “The Events Committee organizes monthly workshops and publishes each event's location in the bulletin.” |
+
+Try one row using your own reader, a source you have permission to use, and the words you expect to find. Then complete the sentence **“My application helps [reader] answer [type of question] using [permitted content].”**
 
 Use a small, checkable collection such as your own tutorials, fictional club policies, or product instructions you have permission to use. Keep confidential material, including private student records, out of the corpus.
 

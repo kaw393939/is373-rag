@@ -6,26 +6,24 @@ teaser: "A polished chat window can hide a job queue that forgets its work. The 
 
 # Delivery roadmap: harvest, prove, then extend
 
-Read the slices in dependency order. If work disappears on restart, a convincing streamed answer says little about whether the system can later reproduce it. The earliest build therefore has to demonstrate a small durable state change before later slices rely on it.
+The first open decision is whether the historical job kernel can be reused. For each selected symbol, record its pinned source, permitted use, dependencies and a reproducible characterization test. A reviewer should be able to inspect that record against [A-15](acceptance.md#a-15) before the team imports code.
 
-**Status: implementation plan, not delivered runtime.** Each slice is deliberately bounded. A slice closes only against its own code, tests and evidence; the documentation exercises do not close application acceptance.
-
-The source audit changed the ordering: durable job/state contracts should precede the live chat shell. We already have relevant historical Rust code, so we should not first create an in-memory system that later needs replacement.
+This is the proposed implementation order. Each stage closes with its own application evidence.
 
 ## Dependency map
 
-```text
-S0 · evidence and contract review
-  → S1 · clean workspace and durable kernel
-  → S2 · sources, claims and identity proposals
-  → S3 · reviewed atomic publication
-  → S4 · evidence retrieval and evaluation
-  → S5 · streaming research interface
-  → S6 · portable export and native-worker boundary
-  → S7 · verified QA release and bounded public demonstration
-```
+- [S0 · Approve what we are reusing](#s0)
+- [S1 · Clean workspace and durable kernel](#s1)
+- [S2 · Evidence, claims and identity proposals](#s2)
+- [S3 · Reviewed, atomic publication](#s3)
+- [S4 · Retrieval that can expose its evidence](#s4)
+- [S5 · Streaming research interface](#s5)
+- [S6 · Portable library and capability substitution](#s6)
+- [S7 · Verified hosted release](#s7)
 
 Independent workstreams: portfolio DNS and documentation Pages activation. Neither authorizes changing the application server. Native acceleration research may proceed separately, but no backend enters a release without the common contract tests.
+
+<span id="s0"></span>
 
 ## S0 · Approve what we are reusing
 
@@ -35,6 +33,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 
 **Exit:** R-15/A-15 evidence; no private dependency needed for public CI. Record accepted architecture decisions, including hosted store separation and local exceptions. Stop if reuse rights, source identity or an authority boundary remain unclear. This documentation update advances S0; it does not complete the whole gate.
 
+<span id="s1"></span>
+
 ## S1 · Clean workspace and durable kernel
 
 **Depends on:** S0. **Donors:** H-01 job kernel, H-02 event log; C-03 contract shapes.
@@ -42,6 +42,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 **Deliver:** minimal Cargo workspace, typed IDs/configuration, schema migrations, transaction-owned store commands, plan validation, idempotent job creation, bounded task claiming and scoped event replay. Separate domain logic from Axum/SQLite adapters. Public CI builds without model keys.
 
 **Exit:** A-01/A-06/A-10; TF-01/02/03/06/08. Race two independent clients; reject expired and stale-epoch results even with the same worker name; detect corrupt stored JSON; roll back state and its event together. A skipped required validation stage cannot advance publication. Do not begin a bespoke broker or generic workflow-builder UI.
+
+<span id="s2"></span>
 
 ## S2 · Evidence, claims and identity proposals
 
@@ -51,6 +53,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 
 **Exit:** A-02/A-03/A-04/A-05. Include two people with one name, one incident with multiple aliases, a vessel/incident naming trap, a copied report and contradictory testimony. A new source cannot create a new canonical entity solely because the candidate hash changed. Prove a merge can be reversed without deleting the previous decision. No automatic name-only canonical merge.
 
+<span id="s3"></span>
+
 ## S3 · Reviewed, atomic publication
 
 **Depends on:** S2. **Donors:** H-03 promotion records, E staging ideas; replace their assumptions where necessary.
@@ -58,6 +62,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 **Deliver:** immutable proposal bundle, review bound to its digest and base revision, authenticated approval command, all-endpoint validation, publication transaction and scoped event. Create an explicit published revision; publication is not a boolean sprinkled across unrelated tables.
 
 **Exit:** A-06/A-14 and relevant A-05/A-11. Inject failures between every durable write category. Check no half-published entity/edge/evidence/revision/event survives. Reject stale review, changed proposal, hidden endpoint and cross-library approval. The [publication lab](../engineering/examples.md#atomic-publication) specifies a small subset, not the full implementation.
+
+<span id="s4"></span>
 
 ## S4 · Retrieval that can expose its evidence
 
@@ -67,6 +73,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 
 **Exit:** A-02/A-05/A-08/A-11. Evaluate false matches, unresolved identities and evidence relevance against fixed fixtures. Missing compatible query embeddings produce a declared lexical/graph-only mode. Public results must not leak hidden identifiers, source text, facets or cached private evidence. Numerical quality targets are chosen from a measured baseline, not invented in this plan.
 
+<span id="s5"></span>
+
 ## S5 · Streaming research interface
 
 **Depends on:** S1, S3 and S4. **Donors:** C-01 gateway adapter/batching, W-01 browser protocol/session behavior, C-03 projections.
@@ -75,6 +83,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 
 **Exit:** A-09/A-11/A-12; TF-06/07/09. Test all byte boundaries, premature EOF, refusal, length-limited output, slow clients, disconnect/reconnect, server termination and account changes through real HTTPS. An interrupted paid generation is not silently rerun. A citation opens the exact pinned evidence, including after a newer library is published.
 
+<span id="s6"></span>
+
 ## S6 · Portable library and capability substitution
 
 **Depends on:** S3; interface inspection from S5. **Donors:** artifact manifests and host-worker design, reviewed separately from implementations.
@@ -82,6 +92,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 **Deliver:** package format v1, supported consistent snapshot/export, safe import/preflight, integrity verification, public-only export construction, worker readiness/permissions and one minimal native worker contract demonstration.
 
 **Exit:** A-07/A-08 and TF-04/10/12. Open a Mac-created package on Linux without Apple plugins. Tampered/missing objects fail validation; unbound inputs stay disabled. Inspect the exported bytes and indexes for draft/private material. No credentials, executable auto-start, absolute home paths or opaque device handles are needed to read evidence. Selectively importing a historical library is not copying an entire private live database.
+
+<span id="s7"></span>
 
 ## S7 · Verified hosted release
 

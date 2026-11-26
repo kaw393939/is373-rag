@@ -64,6 +64,11 @@ Keep text selection and the reader’s scroll anchor stable. Follow new output w
 
 ## Acceptance evidence and open decisions
 
+1. Open a citation in an earlier message. Select a sentence in the source and record the passage and the first visible line.
+2. Deliver several answer events, including a new citation. The selection and first visible line should stay where the reader left them.
+3. Focus the composer and type while more events arrive. The caret and draft should stay in the composer and the transcript should hold its scroll position. Moving focus may change the browser’s selection highlight. Check selection stability while the source still has focus in step 2.
+4. Activate the control for returning to the latest answer using the keyboard. Only this action should resume following the answer. Check that focus remains on a usable control and that reopening the earlier citation returns to its passage.
+
 The browser benchmark must combine long history, streamed Markdown with incomplete fences and tables, late citations, typing, cancellation, and an open graph panel. Measure startup, first visible answer text, input delay, long tasks, frame stability, memory, and reconnect correctness on a slower device. No numeric performance result is claimed yet.
 
 Before implementation, resolve the snapshot/replay contract, retention policy, document-viewer isolation, Markdown renderer, history-windowing behavior, and which routes benefit from SSR. The first vertical slice should prove one cited answer, interruption, and reconnect before adding graph exploration.

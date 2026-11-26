@@ -60,6 +60,10 @@ Publish revisions through verified export/import. Retain evidence needed by olde
 
 Use the proposed first slice to answer a narrow question: after a restart, can a second reader recover the same accepted result and identify its input? This check gives the team a starting point before it adds richer extraction, retrieval or interface behavior.
 
-A synthetic source becomes an artifact and mention, an unresolved identity becomes a review decision, and an approved changeset becomes a published revision. Retrieval selects authorized evidence; a worker produces an answer; the API streams recorded outcomes and citations. Each transition can be inspected without reading an entire business platform.
+Follow line A2 of the [fictional harbor log](../guide/walkthrough.md) through the proposed slice.
+
+1. A worker reads the immutable passage and returns a proposed motion claim with its location. The store verifies the result and records it as a draft.
+2. A reviewer checks A2 and approves the exact proposal. The store commits the accepted claim, the review decision, the publication event and the new library revision together.
+3. Retrieval selects A2 from that published revision for an authorized reader. The answer cites the same passage. The API delivers the recorded answer and citation in the reader's run.
 
 See [knowledge](knowledge.md), [workers](plugins.md), [streaming](streaming.md), [acceptance](acceptance.md) and the [dependency-ordered roadmap](roadmap.md).

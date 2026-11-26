@@ -66,6 +66,15 @@ Track lexical, vector, graph, and augmentation readiness separately, per revisio
 
 When a revision changes, invalidate affected descendants. An entity-resolution correction rebuilds affected claims and derived profiles; embeddings change only if they depend on those modified artifacts. A deleted revision retracts its supporting evidence. Late work cannot promote an obsolete revision.
 
+Suppose a report credits “Lea Kim” and a corrected edition spells the name “Leah Kim.” A reviewer can also correct which person the report credits without changing a letter of the source. Track the two edits separately.
+
+| Record | Editor changes the source spelling | Reviewer changes the identity link only |
+| --- | --- | --- |
+| Source and mentions | Save the corrected revision. Recompute affected mention text and offsets against it. | Keep the source revision, wording and offsets. |
+| Identity decision | Reevaluate the corrected mention against the candidate identities. Preserve the earlier decision with its revision. | Record the replacement link and its reason. Keep the previous link in review history. |
+| Claim and citation | Derive the affected claim from the new mention and cite the corrected revision when it is published. | Update the affected claim’s entity and its derived profile. The citation still points to the same source words. |
+| Embeddings | Recompute vectors whose input text or context changed. Reuse unaffected vectors when their input fingerprints match. | Reuse vectors of unchanged source passages. Recompute derived-profile vectors if the changed identity affects their inputs. |
+
 The knowledge graph may contain cycles. Refinement uses a bounded extraction/validation/repair sequence or an explicitly bounded task, with new output versions. It must have a stopping rule.
 
 ## Orchestrator decision

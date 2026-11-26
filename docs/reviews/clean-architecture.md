@@ -35,9 +35,11 @@ Arrows show source dependencies. Runtime calls may travel outward through an app
 
 ### P1 — Define the run protocol before splitting services
 
-The current service inventory does not yet establish who may create, cancel, complete, or replace a generation attempt. If those rules are duplicated in Svelte components, Axum handlers, and workers, reconnect and cancellation can produce contradictory states.
+The original review found that the service inventory did not establish who may create, cancel, complete, or replace a generation attempt. If those rules are duplicated in Svelte components, Axum handlers, and workers, reconnect and cancellation can produce contradictory states.
 
 **Remediation:** define a run state machine and application commands first. The application layer owns legal transitions, attempt identity, ownership, and terminal outcomes. HTTP and broker adapters translate requests into those commands. Require duplicate-command, late-event, cancellation, and reconnect scenarios to produce the same valid state regardless of transport.
+
+The subsequent [run contract](/architecture/contracts#run-authority) assigns both cancellation and completion to one owner. Test it through an in-memory adapter and the chosen store. For each adapter, make completion commit first, then repeat with cancellation first. Read the persisted terminal state and the events available to a reconnecting client. Both adapters should preserve the first terminal transition and reject subsequent writes to that completed or canceled attempt. The store race remains to be demonstrated.
 
 ### P1 — Make evidence policy an application contract
 

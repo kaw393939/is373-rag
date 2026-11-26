@@ -50,6 +50,15 @@ A start command accepts an idempotency key and returns a run identifier. A run h
 
 Run states are accepted, retrieving, generating, and one terminal outcome: completed, canceled, failed, or interrupted. Events carry run ID, attempt epoch, sequence number, type, and payload. Sources, status changes, text deltas, and terminal outcomes are separate event types. Stop is an authenticated HTTP command; the browser closing an SSE connection is a transport event. The disconnect continuation/grace policy remains an explicit product decision.
 
+Return to the reader who clicked Cancel as generation finished. The store commits one terminal transition for this run and attempt. These are the two outcomes a client should be able to observe in a test.
+
+| First terminal transition to commit | What the clients should observe |
+| --- | --- |
+| Completion | The browser sees the committed answer and completed status. A late Cancel request reads the same terminal state. Refreshing the conversation should show the same answer. |
+| Cancellation | The browser sees canceled status with any previously accepted text. The worker's late final delta and completion cannot extend the stored answer. A second viewer sees the same canceled run. |
+
+An acknowledgment of cancellation intent alone does not establish that cancellation won. The response body and HTTP status for an already-completed run are still open design choices.
+
 Direct streaming is the default. Cross-device continuation, multiple viewers, and reconnect replay require an optional retained per-run output log with a specified retention and durability policy. Resume reads after a sequence and deduplicates overlap with live delivery. Replaying stored output cannot resume a lost model inference state. A failed generation worker produces an interrupted attempt or an explicitly new continuation attempt, never silent regeneration presented as the same stream.
 
 ## Deadlines and resource ownership

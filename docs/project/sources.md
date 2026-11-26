@@ -14,13 +14,16 @@ The authoritative reuse map is the [pinned source audit](../reuse/source-audit.m
 
 | Source | Use |
 | --- | --- |
+| [Ordo Knowledge Lab](https://github.com/kaw393939/is373-rag) | Source repository for the textbook, student reference app and executable contract examples |
 | [Historical Ordo daemon](https://github.com/StudioOrdo/ordo/tree/39138562f112bed79babf5824d887dfef1b8ace6/crates/ordo-daemon) | Transactional jobs, leases, events and candidate/review code to adapt |
 | [Current Ordo rebuild](https://github.com/StudioOrdo/ordo/tree/cea316ac18bdac70e83a6b63bb60ff5459f8f4be) | Gateway, result/projection contracts and bounded product modules |
 | [Pinned chat workshop](https://github.com/kaw393939/is373-ai-chat/tree/aea8dc003975d11dfb978f637887400ff646b55d) | Stream, session and cancellation behavior; software stack is not the target |
 | [Hosting studio](https://github.com/kaw393939/373_hosting) | Operational teaching reference; inspect actual host before reuse |
 | [Production hosting course](https://github.com/kaw393939/production-web-hosting-course) | Background lessons; Caddy examples do not establish current Traefik configuration |
-| [Portfolio](https://github.com/kaw393939/kaw393939.github.io) | Separate professional identity site; not this docs deployment target |
+| [Portfolio](https://github.com/kaw393939/kaw393939.github.io) | Professional journal that publishes a pinned Lab mirror. Its [release manifest](https://keithwilliams.org/knowledge-lab/mirror-manifest.json) identifies the Lab commit. |
 | [Earlier architecture](../architecture/overview.md) | Preserved alternatives, superseded where current decisions differ |
+
+For a lease review, inspect the historical job kernel in the [pinned source audit](../reuse/source-audit.md), then run the [lease exercise](../engineering/examples.md#lease-ownership) at a recorded Lab revision. Cite the donor lines for the original behavior and the command output for what the public exercise actually checked.
 
 The private executor lab and server manual remain owner-only sources. They are not build dependencies, required student access or content to copy into a public fixture archive.
 

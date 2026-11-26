@@ -6,65 +6,50 @@ teaser: "You fixed a page locally. How do you know your students can read that e
 
 # Run and publish the documentation
 
-The documentation has two public paths. This repository publishes its standalone site, while the portfolio embeds a pinned revision under its own domain. A typo can be resolved in one release while the other still serves the previous wording. Before debugging, identify which address the reader opened.
-
-This procedure affects only documentation. It does not deploy the research application or change portfolio DNS.
+Edit the textbook in [the Lab repository](https://github.com/kaw393939/is373-rag). That repository can publish standalone documentation. The portfolio builds a separately pinned copy from the same files. A change reaches readers of each edition through its own workflow.
 
 ## Local preview
 
-Use Node.js 22+; Python 3.10+ is also needed for `npm test`. Preserve existing checkout changes rather than cloning over them.
+Use Node.js 22+ and Python 3.10+ with SQLite. From a directory where you keep your projects, run:
 
 ```sh
-mkdir -p "$HOME/Projects"
-git clone https://github.com/kaw393939/is373-rag.git "$HOME/Projects/is373-rag"
-cd "$HOME/Projects/is373-rag"
+git clone https://github.com/kaw393939/is373-rag.git
+cd is373-rag
 npm ci
 npm run dev
 ```
 
-Open the displayed address, including `/is373-rag/`. No model or API key is required. An assistant checkout under `/mnt/data` is not a folder on your Mac.
+If you already have the checkout, start in its directory. Open the displayed address with the `/is373-rag/` base. Model credentials are unnecessary.
 
 ## Verify the site
+
+Stop the development server, then run:
 
 ```sh
 npm test
 npm run preview
 ```
 
-The checks cover synthetic examples, plan consistency, the VitePress build, generated links/anchors/assets/sitemap and documentation navigation. The separate Rust lab command is in [clean builds](../engineering/clean-build.md). Browser, keyboard and assistive-technology checks are additional evidence.
-
-## Public GitHub Pages mirror
-
-The same VitePress source is now served through the existing portfolio Pages site at **[kaw393939.github.io/knowledge-lab/](https://kaw393939.github.io/knowledge-lab/)**. The portfolio's [build script](https://github.com/kaw393939/kaw393939.github.io/blob/main/scripts/build-knowledge-lab.mjs) checks out a pinned commit from this repository, builds with `DOCS_BASE=/knowledge-lab/`, checks generated routes and references, then publishes the combined static site. The [portfolio publishing workflow](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml) owns that release.
-
-**Keep one source of truth:** change the docs here, pass this repository's tests, then update the approved source SHA in the portfolio build script and its verifier to promote a new documentation release. Do not maintain a second, diverging Markdown textbook in the portfolio repository.
-
-The [standalone project site](https://kaw393939.github.io/is373-rag/) is enabled with GitHub Actions and publishes from this repository. This mirror does **not** deploy the Rust research application, change DNS, or expose student data.
+Open the changed lesson in the preview and follow its next link. Record `git rev-parse HEAD` and `git status --short` in your review so a colleague can identify local edits beyond that commit. A local build normally marks its pages `local`. The [clean-build instructions](../engineering/clean-build.md) include the separate Rust exercise.
 
 ## Standalone project Pages configuration
 
-For a new fork or recovery, open [this repository's Pages settings](https://github.com/kaw393939/is373-rag/settings/pages). Under **Build and deployment → Source**, select **GitHub Actions**. Then open the [Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml) and run it on `main`.
-
-The workflow needs an already enabled Pages site. GitHub's ordinary Actions token cannot perform first-time administrative enablement. Do not paste a personal token into a chat or commit one to work around that boundary.
+For a new fork or recovery, select **GitHub Actions** as the publishing source in the [Pages settings](https://github.com/kaw393939/is373-rag/settings/pages). In the configured Lab repository, pull requests build previews. The [Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml) builds and publishes accepted changes on `main`. It reads Pages metadata for the deployed origin and base.
 
 ## What standalone publication verifies
 
-Pull requests build previews without deploying. A main-branch run builds, tests, uploads only `dist/`, deploys to Pages and checks the actual public homepage, vision, glossary and stylesheet. The response must identify the expected source revision.
+Open the successful deployment job for the source commit and follow its reported Pages URL. It checks the public homepage, vision, glossary and a stylesheet. At the final address of the page you edited, inspect the HTML tag named `lab-docs-revision` and compare its content with the workflow commit. If you land under `/knowledge-lab/` through a compatibility redirect, use the mirror check below.
 
-An unavailable or incorrectly configured Pages source **fails the publication job**. It no longer produces a green skipped deployment. The successful build artifact remains available even when publication is blocked.
+## Public GitHub Pages mirror
 
-Default address: `https://kaw393939.github.io/is373-rag/`. The Pages action's actual URL is authoritative. The workflow reads an existing Pages address before building, so a later account-level domain change does not require hard-coded origin edits. This repository does not create a `CNAME` or change DNS.
+The [portfolio edition](https://keithwilliams.org/knowledge-lab/) has its own [build script](https://github.com/kaw393939/kaw393939.github.io/blob/main/scripts/build-knowledge-lab.mjs). It checks out an approved Lab commit, sets the base to `/knowledge-lab/`, validates the generated site and embeds it in the portfolio.
+
+To promote a Lab release, update the pinned source revision and matching checks in the portfolio repository. After its [publish workflow](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml) succeeds, open the changed lesson at the public address. Compare the `revision` in the [mirror manifest](https://keithwilliams.org/knowledge-lab/mirror-manifest.json) and the page’s `lab-docs-revision` with the approved **Lab** commit. The portfolio commit identifies the publishing change.
 
 ## Ongoing updates
 
-After a release, open the page you actually changed and compare its deployed revision with the intended commit. A healthy homepage checks routing. It does not show whether a learner following a deep link reached the corrected lesson.
-
-Edit Markdown, retain canonical requirement links, run tests and merge a reviewed PR. Successful main updates publish automatically after activation. [Documentation editing rules](../reference/documentation-map.md).
-
-`DOCS_BASE` defaults to `/is373-rag/`; `DOCS_ORIGIN` defaults to `https://kaw393939.github.io` for local and not-yet-enabled previews. CI overrides them from existing Pages metadata when available. The `source-checkout` artifact contains a Git bundle; use the matching main-run artifact when an offline checkout is needed.
+Keep one Markdown source in the Lab repository and preserve links to the owning requirements. Release records should identify the final page URL, the Lab revision and the publishing workflow. [Documentation editing rules](../reference/documentation-map.md).
 
 ## Boundaries
 
-Never commit credentials, private source data, student records or generated runtime state. Pages serves static docs—not the chat API, scheduler or model. Application hosting remains a [separate operation](hosting.md).
-
-References: [VitePress deployment](https://vitepress.dev/guide/deploy), [GitHub Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [first-time enablement permissions](https://github.com/actions/configure-pages/blob/v5/action.yml).
+These workflows publish static teaching materials. The proposed research service has a separate [application hosting plan](hosting.md). Use synthetic examples and public source material in documentation and release artifacts.

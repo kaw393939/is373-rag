@@ -1,7 +1,7 @@
 ---
 title: "Project vision"
 description: "Follow the design of a research library that keeps source passages, disputed claims, and review decisions together as evidence changes."
-teaser: "Three reports tell the same story. How many independent observations do you have? A useful research library lets you find out."
+teaser: "Six articles repeat one witness. Can you trace all six citations back to the person who made the observation?"
 ---
 
 # Knowledge you can stand behind
@@ -36,7 +36,7 @@ UFO reports are the first teaching domain. The engine should support other evide
 
 Import conflicting synthetic reports. Resolve one alias without merging two people who share a name. Publish a reviewed revision. Stream an answer whose citations open the exact evidence. Move the library to a machine with a processing capability missing.
 
-That sequence defines a proposed demonstration. The current labs verify narrower pieces of it. [Follow one case through the design](walkthrough.md).
+That sequence defines a proposed demonstration. For a separate paper exercise, use the [three fictional harbor reports](walkthrough.md). Count the independent observations of motion and quote the line that supports your answer.
 
 ## Deliberate limits
 

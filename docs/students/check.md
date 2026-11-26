@@ -6,7 +6,13 @@ teaser: An answer can sound right and cite the wrong page. Predict where the evi
 
 # Check the system, not just the chatbot
 
-Write your question and expected source ID before you ask the model. Run the question, open the citation, and point to the words that support the claim. A link that opens is a working link. Reading the passage tells you whether the answer is supported.
+The Harbor Club fixtures include a membership policy. Predict where you’ll find the fee, then run the question. The blanks belong to the person who actually opens the result.
+
+| Question | Predicted source | Returned source and chunk ID | Words supporting the answer | Your verdict |
+| --- | --- | --- | --- | --- |
+| What is the annual membership fee? | `S-membership` | … | … | … |
+
+Try the same check on your own collection. If another source comes back, read it before judging the result. Does it actually give the fee?
 
 ## Five questions to prepare
 

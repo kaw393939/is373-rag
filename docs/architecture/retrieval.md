@@ -32,6 +32,15 @@ The retrieval adapter must declare exact/ANN behavior, supported metrics, filter
 
 Check filtering with a difficult case. If the closest overall matches are all outside the reader’s permitted scope, filtering only after a global top-k search can discard them and miss relevant eligible material. Test restrictive filters against an exact eligible reference set. Check filters inside candidate generation, overfetch behavior, selective tenants, empty subsets, and query plans. Measure recall and latency as the candidate budget changes. Enforce authorization before evidence reaches a model or browser, including passages found by following graph links.
 
+Try a four-passage fixture. A global ranking puts A, B and C first, all from a different library. Passage D ranks fourth overall and is the only passage the reader may see. D contains the expected answer.
+
+| Retrieval path with a limit of three | Result for the reader |
+| --- | --- |
+| Take the global top three, then apply access scope | Empty. The candidate list discarded D before checking the scope. |
+| Apply scope first, then rank every eligible passage exactly | D. This is the reference result for this query. |
+
+Run each candidate adapter against this fixture and record whether it returns D, whether it returns any ineligible ID, and how long it takes. Then repeat on a representative set of restricted queries before interpreting recall or latency.
+
 ## Candidate composition
 
 ```mermaid

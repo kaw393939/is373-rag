@@ -30,4 +30,15 @@ Standard SQLite WAL has one writer per database and same-host sharing requiremen
 
 ## Selection gates
 
+Fill out one row per storage candidate before recording a selection. Unfilled entries are measurements to collect. The reference ranking comes from exact search over the passages each query is authorized to see.
+
+| Workload and result field | Value for this run |
+| --- | --- |
+| Engine and extension versions, CPU, RAM and storage medium | Pending |
+| Source documents, chunks, vector count and dimensions | Pending |
+| Access scope and fraction of passages eligible per query | Pending |
+| Reader concurrency and writes per second during measurement | Pending |
+| Recall at chosen k against exact eligible results | Pending |
+| Filtered p95 and p99 latency during those same writes | Pending |
+
 Test filtered recall and latency, exact-versus-ANN behavior, simultaneous ingestion and chat, graph fanout, memory, crash recovery, extension migrations, and source-version consistency. Pin and validate the extension's native build and transactional behavior. See [hybrid retrieval](/architecture/retrieval).

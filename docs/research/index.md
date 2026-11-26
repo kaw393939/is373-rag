@@ -23,6 +23,14 @@ For a short first session, follow one claim from a project’s documentation to 
 
 ## A useful first reading session
 
+Trace the outdated handbook answer first. In this example, revision 1 sends readers to Room 6 and revision 2 corrects the location to Room 8.
+
+1. Open the [citation’s evidence record](/project/knowledge#evidence-locations). Record its revision, anchor and exact words. Does it lead to Room 6 or Room 8?
+2. Inspect the [published revision](/project/knowledge#atomic-publication). Record which handbook revision is active in the queried library and which search indexes are ready for it. A newer file on disk may still be awaiting publication.
+3. Run the same current-location question through [lexical and vector retrieval](/architecture/retrieval#three-complementary-signals). When revision 2 is active and eligible, both are being judged against the Room 8 passage. Record each branch’s returned revision, anchor and rank, including an empty result.
+
+The first disagreement narrows the investigation to the citation, publication or retrieval step. For a broader technology choice, use the readings in this order.
+
 1. Read our [system overview](/architecture/overview) to identify the boundaries we are evaluating.
 2. Study [similar projects](/research/similar-projects) and record one useful idea and one important difference for each serious candidate.
 3. Follow the [concept guide](/research/concepts) for unfamiliar mechanisms.

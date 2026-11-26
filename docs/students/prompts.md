@@ -6,7 +6,7 @@ teaser: When an agent says it fixed your project, which result would convince yo
 
 # Ask an AI coding agent for one small result
 
-Choose the prompt that matches today’s task. Replace the brackets with your own question, permitted sources, and actual results. These are optional working tools. You can use your regular project record for evidence.
+Which two terms could you use in a sentence but still have trouble telling apart? Start with those and one passage you’re allowed to share. If you already know what you want to build or debug, skip to the prompt for that task. Replace its brackets with your own files, question and observations.
 
 Working in your existing FastAPI app? Open the [walkthrough](from-app-studio.md) first. Considering a new framework? The [library survey](library-survey.md) can help you decide whether you need one.
 
@@ -17,12 +17,11 @@ Working in your existing FastAPI app? Open the [walkthrough](from-app-studio.md)
 Use this when you can name what confuses you but still want to make the decision yourself.
 
 ```text
-I'm an IS373 student building my own hosted RAG app. My current knowledge:
-[what I understand]. My blocker: [specific question].
-Explain the concept in plain English, with one example relevant to my project.
-Ask me one question to check my understanding. Don't modify files yet.
-Show the difference between a source, chunk, embedding, retrieval result,
-model context and generated answer.
+I keep mixing up [term A] and [term B]. Here is a passage from my project:
+[permitted passage and source ID]. Here is what I think each term means:
+[my explanation]. Use this passage to show the difference. Ask me to
+identify each one in a second example. Wait for my answer before explaining it.
+Keep this a discussion and leave my files alone.
 ```
 
 ## 2. Make a bounded Plan {#plan-prompt}
