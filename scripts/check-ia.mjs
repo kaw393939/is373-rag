@@ -4,7 +4,7 @@ import path from 'node:path'
 import { nav, sidebar, entryPages } from '../docs/.vitepress/navigation.mjs'
 
 const base = process.env.DOCS_BASE || '/is373-rag/'
-assert.deepEqual(nav.map(item => item.text), ['Students', 'Start', 'Design', 'Build', 'Reference'])
+assert.deepEqual(nav.map(item => item.text), ['Students', 'Research overview', 'Design', 'Build', 'Reference'])
 const routes = new Set()
 function collect(items) {
   for (const item of items) {
@@ -19,6 +19,33 @@ for (const route of routes) {
   const candidates = [path.join('docs', `${relative}.md`), path.join('docs', relative, 'index.md')]
   assert.ok(candidates.some(file => fs.existsSync(file)), `Navigation target missing: ${route}`)
 }
+// Check the actual HTML so a correct route model cannot hide a broken or self-linking header.
+const studentSteps = {
+  '/students/': '/students/plan',
+  '/students/plan': '/students/build',
+  '/students/build': '/students/check',
+  '/students/check': '/students/prompts#demo-prompt'
+}
+for (const route of routes) {
+  if (!route.startsWith('/students/')) continue
+  const output = route.endsWith('/') ? route + 'index.html' : route + '.html'
+  const html = fs.readFileSync(path.join('dist', output.slice(1)), 'utf8')
+  const context = html.match(/<div class="doc-context"[^>]*>([\s\S]*?)<\/div>/)?.[1]
+  assert.ok(context, `Missing student navigation on ${route}`)
+  const links = [...context.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(match => match[1])
+  const isHub = route === '/students/'
+  assert.equal(links.length, isHub ? 1 : 2, `Student hub link and next action on ${route}`)
+  assert.ok(!links.includes(base + route.slice(1)), `Self-link on ${route}`)
+  assert.equal(new Set(links).size, links.length, `Duplicate link on ${route}`)
+  if (!isHub) assert.equal(links[0], base + 'students/', `Missing student hub on ${route}`)
+  if (studentSteps[route]) assert.equal(links.at(-1), base + studentSteps[route].slice(1))
+  const [target, anchor] = links.at(-1).split('#')
+  assert.ok(target.startsWith(base + 'students/'), `Next step left the student guide on ${route}`)
+  const destination = fs.readFileSync(path.join('dist', target.slice(base.length) + '.html'), 'utf8')
+  if (anchor) assert.ok(destination.includes(`id="${anchor}"`), `Missing target ${anchor}`)
+}
+const overview = fs.readFileSync('dist/guide/index.html', 'utf8')
+assert.match(overview, /<h1\b[^>]*id="start-here"[^>]*>Research overview/, 'Research overview keeps its original heading link')
 for (const file of entryPages) {
   const text = fs.readFileSync(path.join('docs', file), 'utf8')
   const words = text.split(/\s+/).filter(Boolean).length

@@ -8,11 +8,12 @@ teaser: "A requirement changes. Which page should you edit so a student, reviewe
 
 For a change to what counts as an accepted result, start with the requirement. For a change to when a feature gets built, start with the roadmap. Link summaries back to their owner so that a promise made on one page does not survive an amendment on another.
 
-The four entry points organize material around a reader’s next question.
+Each section answers a different reader question.
 
 | Section | Reader's question | Owns |
 | --- | --- | --- |
-| Start | Why does this exist, and what could I do? | Vision, capabilities and a fictional walkthrough |
+| Students | How do I plan, build and check my IS373 project? | Student RAG guide and optional exercises |
+| Research overview | Why does this exist, and what could I do? | Vision, capabilities and a fictional walkthrough |
 | Design | What are the system's boundaries? | Modules, knowledge, streaming and workers |
 | Build | What do I implement and verify next? | Reuse, roadmap, clean builds, twelve factors and labs |
 | Reference | Where is the supporting detail? | Source audit, vocabulary and earlier alternatives |
@@ -29,7 +30,7 @@ Use **Available**, **Planned**, **Reference**, or an explicit verification state
 
 ## Navigation and accessibility
 
-Four primary items lead to short section hubs. Sidebars show the current section, not the entire archive. Search, outlines and status remain available. Preserve old URLs when reorganizing content.
+Five primary links lead to the student guide and four research sections. Sidebars show the current section, not the entire archive. Search, outlines and status remain available. Preserve old URLs when reorganizing content.
 
 Use descriptive links, one page H1, sequential headings, visible focus and responsive content. Tables may scroll; the whole page should not. Do not encode status by color alone.
 

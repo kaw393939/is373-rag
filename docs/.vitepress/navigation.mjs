@@ -1,11 +1,4 @@
 // One navigation model for VitePress and the documentation IA checker.
-export const nav = [
-  { text: 'Students', link: '/students/', activeMatch: '^/students/' },
-  { text: 'Start', link: '/guide/', activeMatch: '^/(guide/|status)' },
-  { text: 'Design', link: '/design/', activeMatch: '^/(design/|project/(system|knowledge|streaming|plugins|decisions))' },
-  { text: 'Build', link: '/build/', activeMatch: '^/(build/|engineering/|reuse/|project/(roadmap|acceptance|setup|hosting))' },
-  { text: 'Reference', link: '/reference/', activeMatch: '^/(reference/|architecture/|decisions/|reviews/|research/|sources|validation|course-roadmap|project/sources)' },
-]
 const students = [{ text: 'IS373 · current assignment', items: [
   { text: 'Student RAG guide', link: '/students/' },
   { text: 'Plan a small RAG', link: '/students/plan' },
@@ -21,7 +14,7 @@ const students = [{ text: 'IS373 · current assignment', items: [
   { text: 'Evaluation and peer review', link: '/students/check' },
   { text: 'Optional local lab', link: '/students/reference' },
 ] }]
-const start = [{ text: 'Start here', items: [
+const researchOverview = [{ text: 'Research overview', items: [
   { text: 'Overview', link: '/guide/' },
   { text: 'Project vision', link: '/guide/vision' },
   { text: 'Capabilities', link: '/guide/capabilities' },
@@ -87,10 +80,24 @@ const reference = [
     { text: 'Original sources', link: '/sources' },
   ] },
 ]
-export const sidebar = { '/': students }
-sidebar['/students/'] = students
-for (const prefix of ['/guide/', '/status', '/project/index']) sidebar[prefix] = start
-for (const prefix of ['/design/', '/project/system', '/project/knowledge', '/project/streaming', '/project/plugins', '/project/decisions']) sidebar[prefix] = design
-for (const prefix of ['/build/', '/engineering/', '/reuse/', '/project/roadmap', '/project/acceptance', '/project/setup', '/project/hosting']) sidebar[prefix] = build
-for (const prefix of ['/reference/', '/architecture/', '/decisions/', '/reviews/', '/research/', '/project/sources', '/sources', '/validation', '/course-roadmap']) sidebar[prefix] = reference
+// Prefixes with a trailing slash own a directory. Other entries own one page.
+const sections = [
+  { text: 'Students', link: '/students/', groups: students, prefixes: ['/students/'] },
+  { text: 'Research overview', link: '/guide/', groups: researchOverview, prefixes: ['/guide/', '/status', '/project/index'] },
+  { text: 'Design', link: '/design/', groups: design, prefixes: ['/design/', '/project/system', '/project/knowledge', '/project/streaming', '/project/plugins', '/project/decisions'] },
+  { text: 'Build', link: '/build/', groups: build, prefixes: ['/build/', '/engineering/', '/reuse/', '/project/roadmap', '/project/acceptance', '/project/setup', '/project/hosting'] },
+  { text: 'Reference', link: '/reference/', groups: reference, prefixes: ['/reference/', '/architecture/', '/decisions/', '/reviews/', '/research/', '/project/sources', '/sources', '/validation', '/course-roadmap'] }
+]
+
+export const sidebar = Object.fromEntries(
+  sections.flatMap(({ prefixes, groups }) => prefixes.map(prefix => [prefix, groups]))
+)
+// On a matching depth VitePress visits entries in insertion order. Keep the fallback last.
+sidebar['/'] = students
+
+export const nav = sections.map(({ text, link, prefixes }) => {
+  // VitePress removes the "index" suffix before checking an active navigation link.
+  const alternatives = prefixes.map(prefix => prefix.endsWith('/') ? prefix : prefix.replace(/\/index$/, '/') + '$')
+  return { text, link, activeMatch: '^(?:' + alternatives.join('|') + ')' }
+})
 export const entryPages = ['students/index.md', 'guide/index.md', 'guide/vision.md', 'guide/capabilities.md', 'guide/walkthrough.md', 'design/index.md', 'build/index.md', 'reference/index.md', 'reference/glossary.md', 'reference/documentation-map.md']
