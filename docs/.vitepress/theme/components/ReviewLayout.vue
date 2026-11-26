@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted } from 'vue'
 import { useData, withBase } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
+import DefaultTheme from 'vitepress/theme-without-fonts'
 const { Layout } = DefaultTheme
 const { page } = useData()
 
@@ -34,7 +34,15 @@ const section = computed(() => {
     <template #layout-bottom>
       <div class="lab-publication-footer">
         <span>Search runs in your browser using this guide’s index.</span>
-        <nav aria-label="Publication information"><a href="https://keithwilliams.org/site-notes">Site notes</a></nav>
+        <nav aria-label="Publication information">
+          <a href="https://keithwilliams.org/site-notes">Site notes</a>
+          <a href="https://github.com/kaw393939" rel="me">
+            <img :src="withBase('/icons/github.svg')" width="18" height="18" alt="">Keith Williams on GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/keithwilliams5/" rel="me">
+            <img :src="withBase('/icons/linkedin-in.svg')" width="18" height="18" alt="">Keith Williams on LinkedIn
+          </a>
+        </nav>
       </div>
     </template>
     <template #doc-before>
@@ -60,7 +68,10 @@ const section = computed(() => {
 .doc-context a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 .doc-context a:last-child { margin-inline-start: auto; padding: .35rem .6rem; font-size: .8rem; }
 .lab-publication-footer { display: flex; align-items: center; flex-wrap: wrap; justify-content: center; column-gap: 1.2rem; padding: .65rem 1.25rem; border-top: 1px solid var(--vp-c-divider); color: var(--vp-c-text-2); text-align: center; font-size: .875rem; line-height: 1.6; }
-.lab-publication-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--vp-c-brand-1); text-decoration: underline; text-underline-offset: .18em; }
+.lab-publication-footer nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; column-gap: 1rem; }
+.lab-publication-footer img { flex: none; width: 18px; height: 18px; }
+:global(.dark) .lab-publication-footer img { filter: invert(1); }
+.lab-publication-footer a { display: inline-flex; gap: .38em; align-items: center; min-height: 2.75rem; color: var(--vp-c-brand-1); text-decoration: underline; text-underline-offset: .18em; }
 @media (max-width: 420px) { .doc-context { gap: .25rem .6rem; } .doc-context a:last-child { margin-inline-start: 0; } }
 @media (min-width: 960px) { :global(.VPContent.has-sidebar) ~ .lab-publication-footer { padding-inline-start: var(--vp-sidebar-width); } }
 </style>

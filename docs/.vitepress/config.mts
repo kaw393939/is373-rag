@@ -15,6 +15,8 @@ export default withMermaid(defineConfig({
   lang: 'en-US', base, cleanUrls: true, lastUpdated: false,
   outDir: fileURLToPath(new URL('../../dist', import.meta.url)),
   head: [
+    ['link', { rel: 'preload', as: 'font', type: 'font/woff2', crossorigin: 'anonymous', href: `${base}type/source-sans-3-latin-wght-normal.woff2` }],
+    ['link', { rel: 'stylesheet', href: `${base}type/brand-fonts.css` }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}mark.svg` }],
     ['meta', { name: 'theme-color', content: '#244c3e' }],
     ['meta', { name: 'lab-docs-revision', content: process.env.GITHUB_SHA || 'local' }],
