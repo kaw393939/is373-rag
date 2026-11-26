@@ -134,20 +134,6 @@ try {
         })()`)
         assert.ok(headerFits, `${name}/${route}: Lab title, journal link, search and menu must all fit`)
       }
-      if (name === 'tablet' && route === '') {
-        await evaluate("document.querySelector('.VPNavBarHamburger').focus()")
-        await press('Enter', 13)
-        await expectInPage(`(() => {
-          const panel = document.querySelector('#VPNavScreen')
-          const links = [...(panel?.querySelectorAll('.VPNavScreenMenuLink') || [])]
-          return links.length === 5 && links.every(link => link.getBoundingClientRect().height > 0) &&
-            panel.querySelector('.VPNavScreenAppearance button')?.getBoundingClientRect().height > 0 &&
-            panel.querySelector('a[href*="github.com"]')?.getBoundingClientRect().width > 0
-        })()`, 'Tablet menu must display all five sections, appearance, and the repository')
-        await press('Escape', 27)
-        await expectInPage("document.querySelector('.VPNavBarHamburger').getAttribute('aria-expanded') === 'false'", 'Escape closes the tablet menu')
-        receipt.interactions.push({ tabletMenu: 'all five sections, appearance, and repository available by keyboard' })
-      }
       assert.ok(state.revision,`${name}/${route}: revision`)
       assert.equal(state.dark,scheme==='dark',`${name}/${route}: color scheme`)
       const notesUrl = base === '/knowledge-lab/' ? origin + '/site-notes' : 'https://keithwilliams.org/site-notes'
@@ -190,6 +176,20 @@ try {
         receipt.interactions.push({ viewport:name, citation:'reached source', research:'opened and closed' })
         await navigate('')
         await screenshot('home-' + name)
+      }
+      if (name === 'tablet' && route === '') {
+        await evaluate("document.querySelector('.VPNavBarHamburger').focus()")
+        await press('Enter', 13)
+        await expectInPage(`(() => {
+          const panel = document.querySelector('#VPNavScreen')
+          const links = [...(panel?.querySelectorAll('.VPNavScreenMenuLink') || [])]
+          return links.length === 5 && links.every(link => link.getBoundingClientRect().height > 0) &&
+            panel.querySelector('.VPNavScreenAppearance button')?.getBoundingClientRect().height > 0 &&
+            panel.querySelector('a[href*="github.com"]')?.getBoundingClientRect().width > 0
+        })()`, 'Tablet menu must display all five sections, appearance, and the repository')
+        await press('Escape', 27)
+        await expectInPage("document.querySelector('.VPNavBarHamburger').getAttribute('aria-expanded') === 'false'", 'Escape closes the tablet menu')
+        receipt.interactions.push({ tabletMenu: 'all five sections, appearance, and repository available by keyboard' })
       }
       if (route === 'students/ai-costs' || route === 'students/data-choices') await screenshot(route.replace('/', '-') + '-' + name)
       if (name==='desktop' && route==='guide/vision') await screenshot('vision-desktop')
