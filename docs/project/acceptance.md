@@ -1,4 +1,12 @@
+---
+title: "Requirements and acceptance"
+description: "Trace each proposed Ordo requirement to a concrete acceptance scenario and the evidence needed to show that the application meets it."
+teaser: "If two workers return the same result, how many changes should a reader see? The acceptance criteria turn that question into something a reviewer can check."
+---
+
 # Requirements and acceptance
+
+Start with one observable outcome. If a job result arrives twice, a reviewer should be able to show that it caused only one accepted change. Requirement R-06 names the guarantee, and scenario A-06 defines the proof a future application must supply. The same structure covers each requirement below.
 
 Application scenarios below are **planned, not yet verified in a runtime**. The [documentation labs](../engineering/examples.md) cover selected rules only. Each future implementation issue must link actual evidence, not merely this page.
 
@@ -55,6 +63,8 @@ Application scenarios below are **planned, not yet verified in a runtime**. The 
 **A-15 · Reuse review.** For each imported module, record pinned source and blob, symbols/callers, applicable notices, dependency boundary, characterization tests and intentional changes. Public CI must not need a private donor checkout, live credentials or private fixture data.
 
 ## Evidence levels
+
+When reviewing a pull request, find the requirement ID, follow it to the scenario, then open the actual run. A passing exercise on a synthetic record supports that particular rule. To accept a runtime milestone, look for the same behavior through the proposed application boundary.
 
 A static source observation, a synthetic lab pass, an application test pass, a browser check and a production observation are separate claims. Record platform/tool versions, fixture revision, command, expected/observed result and limitations. Do not turn historical donor test names into current pass counts.
 

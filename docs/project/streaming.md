@@ -1,4 +1,12 @@
+---
+title: "Streaming research interface"
+description: "Follow a proposed streaming answer from durable run admission through evidence, browser delivery, cancellation, reconnect and a recorded terminal outcome."
+teaser: "A browser loses its connection halfway through an answer. When it comes back, should the library replay the text, start another paid run, or say that the answer was interrupted?"
+---
+
 # Streaming research interface
+
+Take the connection loss as a design test. The browser needs to know which run it was showing, which text had been committed, and whether that run reached a terminal outcome. Those facts let a reader distinguish a partial answer from a completed one and choose whether a new attempt is worthwhile.
 
 **Proposed product behavior.** VitePress is the documentation interface. SvelteKit/TypeScript remains the proposed application client, with a Rust API and leased model workers.
 
@@ -27,6 +35,8 @@ job.progress / review.required / library.published
 Versioned envelopes carry run/job identity, sequence/cursor, schema and library revision where applicable. The [small stream lab](../engineering/examples.md#stream-framing) uses abbreviated started/delta/completed names only to test framing; it is not the final application schema.
 
 ## Required lifecycle
+
+For a walkthrough, close the page after a citation appears and reopen the same run. The expected evidence is a stable run ID, an authorized replay position, and a visible outcome. Receiving a second stream of fresh tokens would be evidence of a different operation.
 
 A request key prevents duplicate admission; changed input with the same key is a conflict. Reconnect requests stored state/events for the existing run, not a new generation. Each subscription and evidence fetch is reauthorized. Expired history returns a scoped snapshot/resynchronization response.
 

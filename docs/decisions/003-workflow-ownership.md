@@ -1,10 +1,18 @@
+---
+title: "ADR 003 · Workflow ownership"
+description: "An architecture decision record on retrying document enrichment safely, committing current results once, and comparing Dagster with Temporal for workflow recovery."
+teaser: "A worker finishes just after its source is replaced. Who can accept the result, retry the job, or show the reader the last valid version?"
+---
+
 # ADR 003 · Workflow ownership
 
-**Status:** Single-owner rule adopted for the draft; execution engine open. **Date:** November 5, 2026.
+*Architecture decision record · November 5, 2026 · Single-owner rule adopted for the draft. Execution engine open.*
+
+This decision assigns responsibility for moving background work forward. Dagster and Temporal remain candidates. Both must be compared on the same recovery cases.
 
 ## Context
 
-Parsing, chunking, NLP, NER, entity resolution, relationship extraction, indexing, and augmentation have different dependencies and resource requirements. Work must recover from failures without promoting stale artifacts or blocking usable search.
+A corrected source can invalidate an entity match while leaving useful text search intact. Parsing, chunking, language processing, named-entity recognition, entity resolution, relationship extraction, indexing, and augmentation each depend on different inputs. Track those inputs so the system can recover an interrupted job without replacing valid work with stale output.
 
 ## Decision
 
@@ -14,7 +22,7 @@ Model ingestion as a DAG over versioned artifacts. One durable orchestrator owns
 
 The workflow engine may use its own task queues and state database. SQLite retrieval storage does not automatically become workflow control storage. Jobs reference artifacts and fingerprints rather than transporting entire documents in broker messages.
 
-Publish readiness after committed outputs. Use idempotent writes, current-version checks, outbox publication, and reconciliation. Acknowledgments and exactly-once messaging features do not imply exactly-once model execution.
+Commit the output before announcing readiness. Combine idempotent writes, an input-version check, an outbox record, and reconciliation so the stored state can settle a dispute. A broker acknowledgment tells you about message delivery. It cannot prove that an external model executed a request exactly once.
 
 ## Alternatives and tradeoffs
 

@@ -1,11 +1,14 @@
 ---
 title: Documentation map
-description: Information architecture and editing rules for the documentation site.
+description: "Find the authoritative home for a requirement, design choice, roadmap slice or source finding, and keep reader-facing navigation consistent as the site evolves."
+teaser: "A requirement changes. Which page should you edit so a student, reviewer and maintainer all read the same rule?"
 ---
 
 # One question, one authoritative home
 
-The site follows a reader's task rather than the repository's history.
+For a change to what counts as an accepted result, start with the requirement. For a change to when a feature gets built, start with the roadmap. Link summaries back to their owner so that a promise made on one page does not survive an amendment on another.
+
+The four entry points organize material around a reader’s next question.
 
 | Section | Reader's question | Owns |
 | --- | --- | --- |
@@ -31,5 +34,7 @@ Four primary items lead to short section hubs. Sidebars show the current section
 Use descriptive links, one page H1, sequential headings, visible focus and responsive content. Tables may scroll; the whole page should not. Do not encode status by color alone.
 
 ## Change verification
+
+Try a reader’s route after editing. Start at a section hub, follow its link to the owning page, and locate the exact requirement, decision or source. The route should still work from a narrow screen and from a direct link shared before the edit.
 
 Run `npm test` and `node scripts/check-ia.mjs` after a build. Review desktop, narrow-screen and dark-mode rendering separately. Keep Pages publication evidence distinct from build checks. See [publishing](../project/setup.md).

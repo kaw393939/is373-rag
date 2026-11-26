@@ -1,19 +1,22 @@
 ---
 title: Embeddings, similarity and the evidence they miss
-description: Learn why numerical representations help retrieve text, inspect cosine similarity, and verify model output without treating similarity as truth.
+description: "Learn how embeddings match differently worded questions and passages. Walk through cosine similarity, then check an answer against its source."
+teaser: "A club guide calls it application assistance. A visitor calls it help joining. How can a search find the right passage when the words barely overlap?"
 ---
 
 # Embeddings: how can a computer find related ideas?
 
-Imagine someone asks a club's assistant, **“Where can I get help joining?”** The membership guide might say **“Contact the club secretary for application assistance.”** The words are different, but the meaning is related. Keyword search can miss paraphrases. Embeddings give us another way to search.
+A visitor types **“Where can I get help joining?”** The club guide says **“Contact the club secretary for application assistance.”** Which words would an exact search match? Which passage would you want a reader to see?
 
-**An embedding is a numerical representation produced by a model.** For many text-retrieval models, it is a fixed-length vector of real numbers. The model is trained so related texts tend to be closer under a selected similarity measure. An embedding does **not** store an authoritative fact or prove two claims are true.
+An **embedding** is a list of numbers a model produces to represent an input such as a question or passage. Many text-retrieval models learn to place related inputs near one another. A search uses those numbers to choose passages to read. You still need the original sentence to tell the visitor where to go.
+
+**Try it first.** Predict the source, then run the [offline exercise](#short-student-exercise). You can test keyword retrieval without an account. The [two-number example](#a-geometric-thought-experiment-not-a-model-output) explains what a similarity score measures.
 
 ## The people and the question
 
 Researchers had the *document matching* problem long before modern LLMs. Gerard Salton and colleagues' information-retrieval work explored representing documents in mathematical spaces. [Read the 1974 Cornell paper](https://ecommons.cornell.edu/entities/publication/dc340f22-1c38-4f0a-921e-27706685b1bf). The vector-space concept evolved over time; don't confuse early term-weighted document vectors with today's neural embeddings.
 
-In 2013, **Tomas Mikolov and colleagues** published [efficient neural word representations](https://arxiv.org/abs/1301.3781). In 2019, **Nils Reimers and Iryna Gurevych** introduced [Sentence-BERT](https://aclanthology.org/D19-1410/) for useful sentence representations in similarity search. Their shared problem: *How can we compare language without checking every possible text pair with an expensive model?*
+In 2013, **Tomas Mikolov and colleagues** published [efficient neural word representations](https://arxiv.org/abs/1301.3781). In 2019, **Nils Reimers and Iryna Gurevych** introduced [Sentence-BERT](https://aclanthology.org/D19-1410/) for useful sentence representations in similarity search. For retrieval today, one practical advantage is that a system can encode documents ahead of time and compare a new question with the stored vectors.
 
 ## Word, sentence, paragraph and chunk
 
@@ -24,7 +27,7 @@ In 2013, **Tomas Mikolov and colleagues** published [efficient neural word repre
 | Paragraph | Several sentences describing applications | A coherent passage and its context |
 | Chunk | A section of a long policy with a source ID | A retrievable passage with traceable provenance |
 
-One modern embedding model may encode all of these input lengths, subject to its documented limits. **A chunk is an input unit; an embedding is the vector computed from it.** Their meanings are different.
+The same model may accept several input lengths within its documented limit. **A chunk is the text you chose to keep together. Its embedding is the vector the model computed from that text.** Save the passage and its source ID alongside the vector so a reader can inspect the match.
 
 ## A geometric thought experiment (not a model output)
 
@@ -63,6 +66,8 @@ Never compare vectors from incompatible embedding models as if they shared a coo
 
 Semantic retrieval may find paraphrases where exact-term search struggles. But it can also retrieve **the wrong person with a similar biography**, a near-opposite policy statement, or an old version of a rule. Cosine similarity is **not a confidence probability**, and a high score is not a source citation.
 
+A quick diagnostic is to look at the retrieved passage before reading the generated answer. If the correct passage is missing, inspect the query, the chunk boundaries and the embedding model. If the correct passage is present but the answer reverses the rule, check the answer against that passage before changing your search.
+
 For your IS373 project, compare the same question with a **keyword baseline** and your **chosen vector/graph retrieval**. Inspect returned passage IDs, not only a generated answer. Record whether the cited original supports the specific claim.
 
 ### Short student exercise
@@ -87,7 +92,7 @@ Ask me to check whether the retrieved passage really answers the question.
 
 ### A note from the AI
 
-> I can rank passages by apparent relatedness. But I cannot turn a similarity score into evidence that a claim is true. When I return a passage, ask to see **the original words, version and source location**. Your judgment—and your tests—still matter.
+> Ask me to point to the original words, version and source location. If I return a score of 0.8, ask what was compared and which model produced the vectors before deciding what the score tells you.
 
 ## Go deeper, when ready
 

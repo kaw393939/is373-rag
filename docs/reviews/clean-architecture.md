@@ -1,17 +1,20 @@
 ---
-title: Robert C. Martin principles review
-description: An independent review applying Clean Architecture to the draft RAG design.
+title: "Robert C. Martin principles review"
+description: "An independent reading of Clean Architecture applied to run ownership, evidence publication, and the boundary between application rules and infrastructure."
+teaser: "If you replaced the HTTP framework or database tomorrow, which rule would still stop an obsolete answer from being published?"
 ---
 
 # Robert C. Martin principles review
 
-**Review status: draft design analysis; no application code has been reviewed.** This is an independent application of Robert C. Martin's published architecture principles. Martin did not participate, approve the design, or supply the findings below. The review evaluates boundaries and failure behavior rather than attempting to imitate his voice.
+A cancellation arrives just as an answer finishes. If the web component, HTTP handler, and worker each decide the outcome, a user may see one result while the stored conversation records another. This review asks where that decision should live.
+
+It applies Robert C. Martin’s published architecture principles independently to a draft design. Martin did not participate in or endorse the work. The findings concern intended boundaries and failure behavior. No application code was reviewed.
 
 ## Review basis
 
 Martin's Clean Architecture separates policy from external mechanisms. Source dependencies point toward the policy layer; frameworks, transport, persistence, and presentation stay outside it. Boundary data should suit the inner application rather than expose a framework's objects. [Robert C. Martin, The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-Applied here, the stable policies include evidence provenance, authorized retrieval, run transitions, cancellation intent, document-revision publication, and entity-resolution decisions. Axum, SvelteKit, SQLite extensions, NATS, model providers, and a DAG engine implement those policies at the edges.
+In this system the long-lived rules cover evidence provenance, authorized retrieval, run transitions, cancellation intent, publication of document revisions, and decisions about entity identity. Put those rules where a test can exercise them without launching Axum, SvelteKit, SQLite extensions, NATS, a model provider, or a DAG engine.
 
 ## Proposed dependency structure
 
@@ -42,7 +45,7 @@ An extracted relationship needs its supporting document revision and source loca
 
 ### P1 — Give workflow progression one owner
 
-The DAG engine and NATS can both appear to own retries and completion. Independent retry loops risk duplicate expensive extraction and publication of outputs whose inputs have become stale.
+A job completes while a retry is already queued. If both NATS and the DAG engine decide which work should run next, the project can pay twice for extraction or publish an artifact from an old input. Ask which component can inspect current state and make the one authoritative decision.
 
 **Remediation:** choose one durable owner for workflow state and dependency eligibility. Workers commit idempotent outputs identified by source revision, stage, input dependencies, and processing version. Publication checks the current revision. Events notify consumers about committed results; broker delivery does not define artifact validity.
 

@@ -1,13 +1,14 @@
 ---
-title: Similar projects
-description: Eight primary-source references for graph retrieval, document enrichment, temporal knowledge, and pipeline design.
+title: "Similar projects"
+description: "Compare eight graph retrieval and document systems by the particular design problem each can help you study, with links to primary sources."
+teaser: "Which project would you study to correct a fact without erasing its history? Which would you use to test a citation after deleting a source? Start with the decision."
 ---
 
 # Similar projects
 
-**Sources checked: November 5, 2026.** These projects overlap with parts of our system; they are study references and possible integration candidates. They have not been benchmarked against our Rust streaming service, SQLite retrieval proposal, or document corpus. Project descriptions do not establish equivalent correctness, latency, or operational guarantees.
+**Research snapshot, November 5, 2026.** Consider a time-sensitive claim: a club used to meet on Wednesday and now meets on Thursday. A useful system must recover the current day and explain the older announcement. Look through these eight projects for one mechanism you could test against that pair of documents.
 
-Use these references alongside our [ingestion DAG](/architecture/ingestion), [retrieval design](/architecture/retrieval), and [service contracts](/architecture/contracts).
+For a comparison, write down the expected answer, the source it should cite, and one change the index must survive. None of the eight systems has been benchmarked here against the proposed Ordo service. Use these references alongside our [ingestion DAG](/architecture/ingestion), [retrieval design](/architecture/retrieval), and [service contracts](/architecture/contracts).
 
 ## Comparison at a glance
 
@@ -71,6 +72,8 @@ The [Graphiti overview](https://help.getzep.com/graphiti/getting-started/overvie
 This is the closest reference for correcting evolving relationships while preserving their history. Study the distinction between when a statement was recorded and when it applies, and how contradictory information affects current retrieval. Graphiti supplies a Python framework around supported graph backends; it is not a drop-in SQLite extension or our SSE gateway. Its published comparative performance claims require independent testing on our corpus and access filters.
 
 ## Four projects to study first
+
+Choose the failure you need to understand before choosing which repository to open.
 
 1. **LightRAG:** build retrieval-mode and deletion-reconstruction experiments for the [retrieval design](/architecture/retrieval).
 2. **Graphiti:** refine evidence, temporal validity, and correction rules in the [contracts](/architecture/contracts).

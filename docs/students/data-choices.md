@@ -1,19 +1,18 @@
 ---
 title: Databases, retrieval and useful evidence
-description: Compare SQL, document, key-value, vector and graph approaches, including Weaviate and the build-versus-buy discussion.
+description: "Choose between SQL, keyword, vector and graph retrieval for an IS373 RAG app. Test exact facts, paraphrases and connections against cited passages."
+teaser: "A question about a price, a paraphrase and a chain of dependencies ask different things of a database. Start with the question your user actually has."
 ---
 
 # Choosing data tools: better evidence, fewer wasted tokens
 
-New to the terminology? First read [why embeddings represent relatedness](embeddings.md) and [how chunking shapes what can be retrieved](chunking.md).
-
-A good AI application does not send everything it knows to a model. It finds the evidence needed for this question, then sends enough context to answer honestly.
-
-Think of a library: a catalog helps find the right book; it does not replace reading the relevant page. Databases and indexes play different parts in that process.
+Suppose a club member asks, “Which workshops can visitors attend?” The answer might live in a row marked *open to visitors*, a paragraph that calls visitors *guests*, or two documents that connect a workshop to a policy. Those three cases suggest three different searches. First point to the records that should answer the question.
 
 ::: tip Start small
-These are options to understand, not five databases you must install. For a small class project, start with the provided SQLite/lexical-search baseline. Add complexity only when a test shows what it improves. A keyword-only baseline is a learning step, not a complete RAG submission; follow the [student guide](index.md) and Canvas requirements.
+For an IS373 project, try the provided SQLite and keyword-search baseline on a question with a known answer. Then compare it with the vector or graph approach for your project. Canvas and the [student guide](index.md) describe the final submission. You can make this design decision without installing five databases.
 :::
+
+**Pick a starting point.** For data types, use the [comparison table](#five-useful-ways-to-organize-information). For token costs, [compare two retrieval runs](#a-small-experiment-not-a-promised-saving). For a question that crosses multiple records, [trace the graph-and-vector example](#chroma-pinecone-or-a-graph-and-vector-combination). New to the terms? Start with [embeddings](embeddings.md) and [chunking](chunking.md).
 
 ## Five useful ways to organize information
 
@@ -27,7 +26,7 @@ These are options to understand, not five databases you must install. For a smal
 | Vector | A map of numerical similarity | “Find passages about this idea, even with different wording.” | Exact distance search; approximate indexes such as HNSW or IVF | Similarity is useful, but is not proof, identity or factual correctness. |
 | Graph | Entities connected by named relationships | “Which suppliers connect this product to that incident?” | Relationship traversal, path finding and graph analytics | Makes connections explicit; extracting and maintaining trustworthy relationships takes work. |
 
-**These categories overlap.** SQL is a query language, not an indexing algorithm. PostgreSQL can hold tables, JSON and vectors; Apache AGE adds graph capabilities. A vector index does not require a separate vector-database service.
+**One product can serve several needs.** SQL names a query language. An index helps a database find matching records efficiently. PostgreSQL can hold tables, JSON and vectors; Apache AGE adds graph capabilities. A vector index does not require a separate vector-database service.
 
 ## What the algorithms actually do
 
@@ -53,7 +52,7 @@ Sources: [PostgreSQL](https://www.postgresql.org/), [SQLite](https://sqlite.org/
 
 ## Can graphs increase “meaning density”?
 
-That is a useful intuition. A more testable goal is **more relevant, supported evidence per context token**. It is not a universal information-density score.
+Try measuring **how much relevant, supported evidence reaches the model per context token**. Keep the question fixed and inspect what comes back. A short result that drops a policy exception can cost less and still give the user the wrong answer.
 
 A graph can select a small set of relevant relationships rather than sending many documents. SQL can calculate a total before the model sees it. Vector search can locate relevant passages. None automatically reduces the model bill: the text actually sent, the generated output and the number of model calls determine token usage.
 
@@ -65,15 +64,17 @@ A compact graph can omit uncertainty, dates, exceptions or conflicting evidence.
 
 Suppose a baseline sends 10 passages of 500 tokens: **5,000 evidence tokens**. A tested retriever sends four passages of 250 tokens: **1,000 evidence tokens**. That is 80% less evidence text, **not necessarily 80% less total cost**. Instructions, questions, history, output, embeddings, reranking and graph construction still count where applicable. These are illustrative assumptions, not benchmark results.
 
-Try both on the same small question set. Include exact-fact, paraphrase and relationship questions. Record actual tokens, latency, correct answers, citation support and missing evidence. Compare total cost per satisfactory answer, including indexing amortized across queries. The best design is the simplest one that reliably answers the questions your users actually ask.
+When the smaller result loses an answer, read the retrieved text before tuning the model. An exact ID that never appeared suggests checking filters or keywords. A relevant paragraph cut off before its exception points to chunk boundaries. A relationship linking two people with the same name calls for checking their source IDs.
+
+Try both approaches on the same small question set. Include exact-fact, paraphrase and relationship questions. Record actual tokens, latency, correct answers, citation support and missing evidence. Compare total cost per satisfactory answer, including indexing amortized across queries. The best design is the simplest one that reliably answers the questions your users actually ask.
 
 ## Does AI-assisted coding change build versus buy?
 
-It makes custom solutions worth discussing, not automatically better. AI assistance can speed prototypes, glue code and experiments tailored to your workflow. Building can also teach you how retrieval works and give you control over data formats and portability.
+AI-assisted coding can make a custom approach quick enough to test. AI assistance can speed prototypes, glue code and experiments tailored to your workflow. Building can also teach you how retrieval works and give you control over data formats and portability.
 
 But generating code is only part of ownership: someone must verify correctness, prevent data leaks, test migrations, handle backups, monitor failures and maintain dependencies. A convincing demo does not prove production reliability. Compare that ongoing work and opportunity cost with a managed product's price and constraints.
 
-A sensible middle path is a **custom application on a reliable existing database**, not writing a new database engine. Build the parts that make your project distinctive; reuse the parts responsible for durability and security. For discussion: what would you build yourself, what would you buy, and what evidence would change your choice?
+One way to keep the experiment small is a **custom application on a reliable existing database**. Build the parts that make your project distinctive; reuse the parts responsible for durability and security. For discussion: what would you build yourself, what would you buy, and what evidence would change your choice?
 
 ## Where does Weaviate fit?
 
@@ -84,13 +85,13 @@ Its [hybrid search](https://docs.weaviate.io/weaviate/search/hybrid) combines ve
 Weaviate does not inherently shrink an LLM prompt. You still choose which retrieved evidence to send, measure answer quality and account separately for embedding, generation and hosting costs. Compare it with your baseline before adding another service. [Source code](https://github.com/weaviate/weaviate)
 
 
-[Compare model prices and token budgets](ai-costs.md). Product references reviewed November 11, 2026; check current licenses, editions and service terms before adopting a tool.
+[Compare model prices and token budgets](ai-costs.md). Product references were reviewed November 11, 2026. Check current licenses, editions and service terms before adopting a tool.
 
 ## Chroma, Pinecone or a graph-and-vector combination?
 
 [Chroma](https://docs.trychroma.com/docs/overview/introduction) is Apache-2.0-licensed retrieval infrastructure: run locally, self-host, or use Chroma Cloud. It stores documents, embeddings and metadata and supports dense, sparse and hybrid search. It is a useful option for exploring retrieval without committing immediately to a hosted service. Check which features your chosen deployment supports.
 
-[Pinecone](https://docs.pinecone.io/guides/get-started/overview) is a commercial managed option. Its current Documents API combines full-text, semantic and sparse-vector retrieval, metadata filters and optional integrated embedding. It can reduce infrastructure work, but service charges, provider dependence, data export and feature limits remain design decisions. Do not confuse an SDK or local testing facility with an open-source production database.
+[Pinecone](https://docs.pinecone.io/guides/get-started/overview) is a commercial managed option. At the November review, its Documents API combined full-text, semantic and sparse-vector retrieval, metadata filters and optional integrated embedding. It can reduce infrastructure work, but service charges, provider dependence, data export and feature limits remain design decisions. Do not confuse an SDK or local testing facility with an open-source production database.
 
 **Two meanings of hybrid:** keyword + vector search combines exact terms with semantic similarity. Graph + vector retrieval also follows explicit entity relationships. They can coexist, but they are not the same technique.
 
@@ -114,4 +115,4 @@ This is an established family of approaches, not a new invention unique to this 
 - **[LightRAG](https://github.com/HKUDS/LightRAG):** combines knowledge-graph structure and vector embeddings with retrieval of detailed facts and broader concepts. Student experiment: compare a cross-document question against your simple baseline. Treat its speed and quality claims as hypotheses to test on your documents, not universal outcomes.
 - **[Graphiti](https://github.com/getzep/graphiti):** builds temporal context graphs with evolving facts and source provenance, combining semantic, keyword and graph retrieval. Student experiment: use synthetic facts that change over time and ask both “what is true now?” and “what was true before?” You still supply and operate the surrounding service and enforce access controls.
 
-Choose **one** small comparison that helps your existing project. You are not expected to install all four. Preserve original evidence, verify extracted relationships, document versions and evaluate incorrect or missing answers as carefully as successful ones.
+Choose **one** comparison that resolves a decision in your existing project. Give a classmate the question, the expected source and the two sets of retrieved passages. Can they tell which system preserved the detail needed to answer? If both did, compare setup time, running cost and the work of updating a source.

@@ -1,10 +1,18 @@
+---
+title: "Backend architecture draft"
+description: "Review the proposed Rust chat backend, the worker responsible for each run, and the conditions under which one answer may finish or fail."
+teaser: "A reader clicks Cancel just as the last answer arrives. Which part of the system gets to decide what the conversation records?"
+---
+
 # Backend architecture draft
 
-Status: proposed design, 2026-11-05. This document specifies boundaries and failure contracts; it does not describe implemented services or measured performance.
+A student opens a question, starts receiving a cited answer, and hits Cancel. At almost the same moment, the model sends its final response. The browser and the worker have seen different events. One owner has to decide which outcome becomes part of the record.
+
+This November 5, 2026 design draft assigns that responsibility and describes the failure cases a future implementation must pass. The services and performance measurements remain proposed.
 
 ## Serving and enrichment boundaries
 
-Rust with Axum/Tokio owns authenticated chat, retrieval orchestration, run lifecycle, and streamed responses. Python workers perform document parsing and NLP enrichment through a versioned ETL DAG. NATS JetStream carries durable background events. SQLite is a retrieval candidate, subject to workload evaluation. This split aims to isolate live requests from ingestion interference; it does not establish that Rust has the lowest end-to-end latency.
+In the draft, Rust with Axum/Tokio handles authenticated chat, retrieves evidence, and owns the lifecycle of a streamed answer. Python workers parse and enrich documents in a separate dependency graph. NATS JetStream carries durable background events. SQLite remains a candidate for retrieval. Splitting chat from enrichment is a way to test whether a slow import can stop delaying a reader’s answer. End-to-end measurements would establish the effect.
 
 ```mermaid
 flowchart LR
@@ -28,7 +36,7 @@ Axum provides SSE response primitives, including event streams and keepalives. T
 
 ## Domain and application contracts
 
-Domain types distinguish tenant, conversation, run, generation attempt, source revision, chunk, and evidence identifiers. Constructors validate identifiers and bounded inputs. An evidence reference names immutable source bytes, a revision, and a source location. Extracted graph claims additionally preserve polarity, temporal qualifiers, and extraction provenance.
+A tenant, conversation, run, generation attempt, source revision, chunk, and evidence record each need distinct identifiers. Validate those identifiers at the boundary. An evidence reference must lead back to immutable source bytes, the revision, and a location a reviewer can inspect. Preserve polarity, time qualifiers, and extraction history when a relationship becomes a graph claim.
 
 Use cases include starting a run, retrieving evidence, streaming events, canceling a run, and publishing an enrichment revision. Their ports cover authorization, retrieval, model generation, run persistence, artifact storage, and event publication. Axum, SQLite, provider HTTP clients, and NATS implement adapters. Keep domain rules independent of transport DTOs and database rows; introduce traits at real substitution or testing boundaries rather than wrapping every function.
 

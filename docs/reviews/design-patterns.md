@@ -1,11 +1,14 @@
 ---
-title: Design patterns review
-description: A draft architecture review applying the Gang of Four's published patterns to retrieval, streaming, and ingestion.
+title: "Design patterns review"
+description: "An independent design-pattern review of retrieval adapters, stream notifications, and workflow ownership, with acceptance checks for each proposed abstraction."
+teaser: "Two tools may both offer search and still disagree about filters, ordering, or dropped results. An adapter earns its place by making those differences observable."
 ---
 
 # Design patterns review
 
-**Status: draft review, with implementation gates open.** This is our analysis of the proposed architecture using ideas from Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. The original authors did not review, participate in, or endorse this project. No application implementation or performance results exist yet.
+A retrieval adapter can hide a difference that matters to a reader. One implementation applies access filters while searching. Another returns its closest matches first and filters afterward. Both might satisfy a method named `search` and produce different evidence for the same question.
+
+This independent review applies published ideas from Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides to the draft. The authors did not participate in or endorse it. The application and its performance tests remain proposed.
 
 The review favors explicit responsibilities and interchangeable mechanisms where the system has a real reason to vary. The authors' own retrospective emphasizes the consequences of patterns and their adaptation to different languages. This supports applying their intent through Rust traits, enums, functions, and composition rather than recreating a class hierarchy. [Gang of Four retrospective](https://www.informit.com/articles/article.aspx?p=1404056)
 
@@ -29,7 +32,7 @@ The separation of Rust use cases from Axum, NATS, SQLite, and model APIs is a st
 
 **Draft contract:** retrieval requests carry corpus scope, access constraints, index revision, candidate limit, and deadline. Results carry canonical chunk IDs, document revisions, ranking method, and evidence locations. Adapters report supported filtering and search modes; unsupported requirements fail explicitly. Model adapters expose streaming, cancellation capability, partial-output behavior, and terminal errors. Domain code receives application records rather than SQL rows, broker messages, or provider SDK objects.
 
-**Gate:** run the same contract cases against each adapter, including restrictive filters, deleted revisions, deadlines, and interrupted streams. Compare approximate retrieval with an exact baseline.
+**Acceptance check.** Give each adapter the same restrictive filter, deleted revision, deadline, and interrupted stream. For approximate retrieval, compare the returned eligible set with an exact baseline. The adapter must describe a difference a caller can observe or act on.
 
 ## P1: Give execution state one authoritative owner
 
@@ -39,7 +42,7 @@ The separation of Rust use cases from Axum, NATS, SQLite, and model APIs is a st
 
 Events identify run, attempt, sequence, and schema version. Duplicate events can be ignored safely. Cancellation is an authenticated command to the owner. Text, vector, graph, and augmentation readiness remain independent milestones.
 
-**Gate:** exercise duplicate completion, cancellation during generation, worker restart, and revision replacement. Each case must leave one explainable authoritative state without duplicated published artifacts.
+**Acceptance check.** Complete a run twice, request cancellation during generation, restart a worker, and replace a source revision. For each case ask someone to point to the authoritative final state and confirm how many artifacts were published. The record should explain every transition.
 
 ## P1: Specify notification lifetime and delivery
 

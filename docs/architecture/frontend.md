@@ -1,13 +1,16 @@
 ---
-title: Frontend architecture
-description: Draft SvelteKit architecture for responsive, evidence-backed streaming chat.
+title: "Frontend architecture"
+description: "Inspect a proposed SvelteKit chat interface that keeps typing, cancellation, and source inspection usable while answers arrive a piece at a time."
+teaser: "While an answer streams, open an earlier source and start typing the next question. That ordinary interaction is a demanding frontend test."
 ---
 
 # Frontend architecture
 
-**Status: draft architecture.** The proposed application frontend uses **Svelte 5, SvelteKit, and TypeScript**. This repository contains design documentation; it does not yet implement the chat application. VitePress powers this documentation site and is separate from the proposed SvelteKit product.
+A reader scrolls back to check a citation while the assistant is still writing. The cursor jumps to the bottom and the sentence they were reading disappears. A fast stream can still deliver a slow reading experience.
 
-The frontend must keep typing, reading, source inspection, and cancellation responsive while an answer streams. Framework selection supports that goal; comparative browser measurements must establish the result.
+This draft proposes Svelte 5, SvelteKit, and TypeScript for the future chat client. VitePress serves the documentation you are reading. The chat application remains a design.
+
+Judge the proposed frontend by actions a reader can repeat: type while text arrives, keep a source passage in view, cancel a run, and reconnect to the right answer. Compare those actions on the same browser workload before drawing a conclusion about framework performance.
 
 ## Rendering and network boundaries
 
@@ -55,7 +58,7 @@ Display the first meaningful text promptly, then coalesce visual updates around 
 
 Load document viewers, graph exploration, math rendering, and syntax grammars independently. Move expensive parsing or graph layout to a browser worker when profiling justifies it; DOM changes remain on the main thread. Keep executable document content outside the application origin and render source/model text through restricted rendering paths.
 
-Preserve text selection and scroll anchors. Follow new output while the reader is at the end; retain their position when they scroll back. Long histories may use windowing with measured message heights and an accessible history-loading mechanism. Keyboard navigation, visible focus, source labels, and reduced-motion preferences are acceptance criteria. Screen readers receive useful status updates rather than announcements for every token.
+Keep text selection and the reader’s scroll anchor stable. Follow new output while the reader is already at the end. If they move up to inspect a source, keep them there and offer a way back to the latest text. For long histories, test windowing with measured message heights and an accessible way to load older messages. Check keyboard navigation, visible focus, clear source labels, and the reader’s reduced-motion preference. A screen reader should announce useful status changes without reading every token.
 
 ## Acceptance evidence and open decisions
 

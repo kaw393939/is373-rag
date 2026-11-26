@@ -1,6 +1,14 @@
+---
+title: "Executable contract examples"
+description: "Run three small exercises on lease ownership, stream framing, and SQLite publication, then identify the real integration behavior each exercise leaves open."
+teaser: "A worker finishes late, a network chunk splits a character, and a publication fails halfway through. Each exercise isolates one failure you can reproduce."
+---
+
 # Executable contract examples
 
-These are newly written, synthetic teaching specifications. They are **not** imported private Ordo source and **not** the application backend. They make three repairs concrete before implementation. The CI run is the evidence for which examples passed; a code listing is not a test result.
+Pick one row and predict the failure before running the example. In Rust, an old worker may finish after someone else has claimed the job. In JavaScript, one character may span two network chunks. In SQLite, a partially written publication can expose inconsistent evidence.
+
+These synthetic teaching specifications were written for this repository. They use no private Ordo code and implement no application backend. The corresponding CI run is the evidence for which checks passed.
 
 | Lab | Requirement | Related donor observation | What is deliberately missing |
 | --- | --- | --- | --- |
@@ -8,7 +16,7 @@ These are newly written, synthetic teaching specifications. They are **not** imp
 | Stream framing · JavaScript | A-09 | Current gateway decodes separate byte chunks; workshop uses incremental decoding | HTTP/proxy, authenticated reconnect, persistence and live cancellation |
 | Atomic publication · SQLite/Python harness | A-03/A-06/A-14 | Candidate review needs exact content binding and a transaction-owned publication | Complete ontology, real source objects, reviewer authentication and disk/crash durability |
 
-Python is only a dependency-free harness for exercising SQLite transaction behavior. The planned application remains Rust-first. The browser example is JavaScript because the client must interpret transport bytes. No fixture calls a model or contacts a server.
+The Python example uses the standard library to exercise SQLite transactions. The JavaScript example runs where the client interprets bytes. The planned application remains Rust-first. All three fixtures run without a model account or a server.
 
 ## Lease ownership
 
@@ -66,6 +74,6 @@ This fixture's JSON encoding is explicitly Python-defined; it is not a cross-lan
 
 ## How an IS373 review uses these examples
 
-Predict the failure, run the test, inspect the corresponding pinned donor function, make one justified repair, and explain what the test cannot prove. Record the source commit, requirement, command, observed outcome and limitation. Do not replace an honest pending integration test with a passing toy test.
+Show a classmate one prediction, the command you ran, and what changed when you made a deliberate repair. Link the requirement and the donor revision you examined. End with one integration question the example leaves open. A passing in-memory transaction, for instance, leaves disk and crash recovery to a different test.
 
 The [roadmap](../project/roadmap.md) assigns each remaining proof to a specific implementation slice. These examples are maintained documentation: CI compiles/runs them alongside the site build.

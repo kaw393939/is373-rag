@@ -1,34 +1,37 @@
 ---
 title: Plan your individual RAG
-description: Select a user, five permitted sources, a justified retrieval method and questions you can evaluate.
+description: Plan an IS373 RAG app around one reader, five permitted documents, a retrieval choice, and questions you can use later to check whether the app works.
+teaser: Could you point to a passage that answers your reader’s first question? Find it before you choose a database or ask an agent to write code.
 ---
 
 # Plan one useful source-backed question
 
-You do **not** need a working RAG application for the Plan review. You need a small, defensible design that you can build next. Reuse the portfolio, FastAPI app, server and Git workflow you already have where practical.
+For the Plan review, bring a design you can explain and test. You’ll build the working app later. Reuse your existing portfolio, FastAPI app, server, and Git workflow where they fit.
 
 ## 1. Define the reader and the question
 
-Complete: **“My application helps [reader] answer [type of question] using [permitted content].”**
+Complete this sentence: **“My application helps [reader] answer [type of question] using [permitted content].”** For example, a new club member might need to know how to sign up for an event. What document would a person open to answer them?
 
-Good source domains are small and verifiable: fictional club policies, public product instructions with permitted use, your own tutorials, or synthetic help-center articles. Avoid private student records and other confidential information.
+Use a small, checkable collection such as your own tutorials, fictional club policies, or product instructions you have permission to use. Keep confidential material, including private student records, out of the corpus.
 
 ## 2. Select about five documents
 
-Keep one row per source: stable ID, title, origin/URL, author or owner, version/date, permission, and intended questions. Label synthetic content explicitly. A publicly readable document is not automatically licensed for redistribution.
+Keep one row per source with its stable ID, title, origin or URL, author or owner, version/date, permission, and the questions it can answer. Mark synthetic documents as fictional. Check permission to reuse or redistribute a public document before choosing it.
 
 ## 3. Compare retrieval approaches before choosing
 
-| Method | Good for | What to investigate |
+| Approach | A reason to try it | A case to test |
 | --- | --- | --- |
-| Keyword/SQL baseline | Exact names, codes and phrases | Paraphrases can be missed |
-| Vector | Semantically related passages | Similarity is not proof or identity |
-| Graph | Named entities and typed relationships | Wrong/missing edges distort answers |
-| Hybrid | Combining evidence types | Additional complexity needs justification |
+| Keyword/SQL baseline | Find an exact name or phrase. | What if the reader uses different words? |
+| Vector | Find passages with related meanings. | Does a similar passage actually answer this question? |
+| Graph | Follow a named relationship between entities. | Does each link point back to evidence? |
+| Hybrid | Combine different kinds of evidence. | Does the combination fix a failure worth the added work? |
 
-**The assignment asks you to research vector and graph approaches, but you may implement vector, graph or both.** Do not build an unused database to satisfy a diagram. Document which retrieval method you selected and why a simpler baseline might fail.
+Research **both vector and graph approaches**. Implement vector, graph, or both based on your question. Explain what your choice adds beyond a keyword baseline and which result might cause you to reconsider.
 
 ## 4. Sketch the path
+
+Trace one document into storage, then trace one question back out.
 
 ```text
 permitted source → import/clean → chunk or graph representation
@@ -36,17 +39,16 @@ permitted source → import/clean → chunk or graph representation
                  → real model → answer + checkable references
 ```
 
-Specify how source IDs and locations survive each step. For vector retrieval, include embedding model/version and the query's compatible encoder. For graph retrieval, include entity types, relationship types and supporting passages.
+Mark where the source ID and location survive each step. For vectors, identify the embedding model/version and compatible question encoder. For a graph, name the entities, relationship types, and supporting passages.
 
 ## 5. Write expected behavior before implementation
 
-Begin with five questions: exact-term, paraphrase, relationship (when relevant), ordinary useful, and intentionally unanswerable. Record the expected supporting sources **before** running the model.
+Prepare five questions: an exact term, a paraphrase, a relationship where relevant, an ordinary practical question, and one your documents cannot answer. Write the expected evidence before running anything.
 
-Two essential checks: repeat import should not create unintended duplicates; missing evidence should not result in an invented answer.
+Also decide how you’ll check repeat import. If importing the same document twice doubles the stored passages, you’ve found a problem worth fixing. If the model supplies a made-up date for a question with missing evidence, that’s a separate failure.
 
 ## 6. Record one decision and one next experiment
 
-Name two plausible approaches, your choice, costs or constraints, and a small experiment that might change your mind. Keep planned evidence labeled *planned* rather than claiming the test passed.
+Record two plausible approaches, your choice, and one cost or constraint that affected it. Name a small experiment that could change your mind. Until you run the experiment, label the outcome *planned*.
 
-Use the existing [project record](https://github.com/kaw393939/is373-studio/blob/main/docs/templates/project-record.md) under **2. Individual RAG app + technical research**. [Copy the Plan agent prompt](prompts.md#plan-prompt).
-
+Use the existing [project record](https://github.com/kaw393939/is373-studio/blob/main/docs/templates/project-record.md) under **2. Individual RAG app + technical research**. [Optional Plan prompt](prompts.md#plan-prompt)

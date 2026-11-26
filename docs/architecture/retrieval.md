@@ -1,8 +1,16 @@
+---
+title: "Hybrid retrieval and evidence"
+description: "Compare exact names, related meanings, and graph links in one retrieval plan, then evaluate SQLite against a dedicated service with the same workload."
+teaser: "A student remembers a quotation. A researcher remembers the report number. Both should be able to reach the same original passage."
+---
+
 # Hybrid retrieval and evidence
 
 <span class="status-label">DRAFT · SQLITE UNDER EVALUATION</span>
 
-Evaluate SQLite as a unified local retrieval tier: canonical document data, FTS5 BM25, a vector extension, and bounded graph expansion. Its potential advantage is shared local data with fewer network round trips. It must earn selection against the same relevance, filtering, ingestion, and latency workload as a dedicated retrieval service.
+Search for an exact report number, then try again using only a paraphrase of its conclusion. The first query rewards precise text matching. The second may need a vector search. Once you find a passage, a relationship can take you to its definition or a competing account.
+
+This draft evaluates keeping those operations together in SQLite using FTS5 BM25, a vector extension, and indexed graph relationships. Locality could save network round trips. Compare SQLite with a dedicated service using the same relevance targets, access filters, ingestion load, and latency measurements before selecting either.
 
 ## Three complementary signals
 
@@ -22,7 +30,7 @@ Compare exact and approximate search using an exact reference set. SQLite's own 
 
 The retrieval adapter must declare exact/ANN behavior, supported metrics, filtering semantics, snapshot identity, interruption behavior, and incremental-update behavior. Unsupported capabilities are explicit errors or documented fallbacks. Hiding these differences behind one unconstrained `search()` call would weaken correctness.
 
-Global top-k followed by eligibility filtering can miss useful eligible neighbors. Test filters inside candidate generation, overfetch behavior, selective tenants, empty subsets, and query plans. Authorization applies before evidence reaches a model or browser, including evidence found through graph expansion.
+Check filtering with a difficult case. If the closest overall matches are all outside the reader’s permitted scope, filtering only after a global top-k search can discard them and miss relevant eligible material. Test restrictive filters against an exact eligible reference set. Check filters inside candidate generation, overfetch behavior, selective tenants, empty subsets, and query plans. Measure recall and latency as the candidate budget changes. Enforce authorization before evidence reaches a model or browser, including passages found by following graph links.
 
 ## Candidate composition
 

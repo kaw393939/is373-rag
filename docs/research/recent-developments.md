@@ -1,11 +1,12 @@
 ---
-title: Recent developments
-description: Dated primary-source developments that affect the draft RAG architecture.
+title: "Recent developments"
+description: "A November 2026 research snapshot of seven changes to retrieval, extraction, workflow, and web tooling, with a concrete design question for each."
+teaser: "A changed parser can move the passage behind a citation. A new index can change which record reaches the reader. Here is what seven releases or updates made worth testing."
 ---
 
 # Recent developments
 
-**Sources checked: November 5, 2026.** This snapshot covers useful developments from November 5, 2025 through November 5, 2026. Dates below identify a release, announcement, merged change, paper revision, or documentation update; they are not search-engine crawl dates. Project claims are distinguished from implications for our design. Nothing here establishes a performance result for our corpus or application.
+**Snapshot checked November 5, 2026.** These seven entries cover November 5, 2025 through November 5, 2026. Each distinguishes a release, documentation change, announcement, or revised paper from the experiment it suggests for Ordo. Use the linked source to check what changed after this snapshot.
 
 ## October 28, 2026 — Docling improves document structure and OCR recovery
 
@@ -50,5 +51,7 @@ For our candidate matrix, keep a stable exact-search baseline separate from expe
 This is relevant when selecting compatible tooling for the proposed SvelteKit application. The VitePress documentation site has its own dependency constraints, so a major Vite upgrade should follow framework compatibility rather than be forced independently. Build-speed claims do not establish faster token delivery, lower input delay, or smoother Markdown rendering in the deployed browser. Those remain browser-benchmark questions.
 
 ## What to evaluate next
+
+Begin with a fixture small enough to inspect by hand. Save the expected source span and the version that produced it. If a dependency update changes the answer, you now have a starting point for finding out why.
 
 Prioritize filtered SQLite retrieval comparisons, an entity-centric retrieval baseline, and a short durable-workflow recovery exercise. Use parser fixtures to verify evidence anchors across upgrades. Preserve the existing separation between ingestion, live answer serving, and frontend rendering: these developments expand our options without proving that additional stages or services improve the experience.

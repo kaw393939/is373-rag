@@ -1,8 +1,14 @@
+---
+title: "Research library"
+description: "Find primary sources on retrieval, evidence processing, workflow engines, and streaming interfaces, then turn a reading question into a small test."
+teaser: "A library name is easy to put in a proposal. Use these readings to find a design choice you can actually test."
+---
+
 # Research library
 
 <span class="status-label">PRIMARY SOURCES CHECKED · NOVEMBER 5, 2026</span>
 
-Study existing approaches before fixing our specification. These resources were selected for their relevance to hybrid retrieval, AI-extracted knowledge, durable ingestion, and streaming interfaces. Each collection explains what a resource contributes and which design questions still need our own tests.
+Suppose an answer cites an old version of a handbook. The model may have written a perfectly clear sentence. The failure could still be in retrieval, the version record, or a stale index. Choose the collection below that can help you distinguish those explanations.
 
 ## Choose a collection
 
@@ -13,7 +19,7 @@ Study existing approaches before fixing our specification. These resources were 
 | [Concept reading guide](/research/concepts) | Fourteen annotated explanations connected to our own architecture | BM25, ANN, RRF, entity linking, DAGs, SSE |
 | [Recent developments](/research/recent-developments) | Seven dated releases, research updates, and project changes | Dependency status, vector indexing, extraction, Rust workflows |
 
-Use the site's search to find a project or term such as “entity resolution,” “DiskANN,” “Graphiti,” or “replay.” Each collection links to original project material and deeper explanations.
+For a short first session, follow one claim from a project’s documentation to one example you could try. Search terms such as “entity resolution,” “DiskANN,” “Graphiti,” and “replay” take you to narrower questions.
 
 ## A useful first reading session
 
@@ -36,6 +42,6 @@ Use the site's search to find a project or term such as “entity resolution,”
 
 ## From research to a portfolio
 
-Save the question, original sources, alternatives, decision, and a planned check. During construction, connect that decision to a real change. During testing, connect it to actual results and limitations. These records become credible case-study evidence for the career portfolio. The [IS373 assignment roadmap](/course-roadmap) shows what belongs at each course milestone.
+A useful portfolio entry can be one paragraph and a link. Name the choice you faced, link the primary source, show the test you ran, and explain the result that would change your recommendation. The [IS373 assignment roadmap](/course-roadmap) connects that evidence to the project milestones.
 
 Release dates and document-update dates are labeled separately. Linked projects and their claims are reference material, not proof that our proposed system is faster or that a dependency satisfies our requirements.

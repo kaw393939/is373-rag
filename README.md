@@ -22,7 +22,7 @@
 | [Capabilities](docs/guide/capabilities.md) | [Knowledge rules](docs/project/knowledge.md) | [Roadmap](docs/project/roadmap.md) | [Source audit](docs/reuse/source-audit.md) |
 | [Walkthrough](docs/guide/walkthrough.md) | [Streaming](docs/project/streaming.md) | [Twelve factors](docs/engineering/twelve-factor.md) | [Glossary](docs/reference/glossary.md) |
 
-**Public documentation:** [Ordo Knowledge Lab on GitHub Pages](https://kaw393939.github.io/knowledge-lab/), published as a verified-source VitePress mirror through the [portfolio repository](https://github.com/kaw393939/kaw393939.github.io). The [standalone project site](https://kaw393939.github.io/is373-rag/) is also enabled and publishes from this repository. The portfolio build pins this repository's source commit rather than copying or diverging the textbook. [Publishing and verification](docs/project/setup.md).
+**Public documentation:** [Ordo Knowledge Lab on GitHub Pages](https://keithwilliams.org/knowledge-lab/), published as a verified-source VitePress mirror through the [portfolio repository](https://github.com/kaw393939/kaw393939.github.io). The [standalone project site](https://kaw393939.github.io/is373-rag/) is also enabled and publishes from this repository. Both editions point search engines and social shares to the portfolio address. Their images and navigation stay local to each deployment. The portfolio build pins this repository's source commit rather than copying or diverging the textbook. [Publishing and verification](docs/project/setup.md).
 
 ## Run locally
 

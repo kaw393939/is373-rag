@@ -1,6 +1,14 @@
+---
+title: "Independent design reviews"
+description: "Compare three independent reviews of the proposed Ordo architecture and trace their recommendations to practical checks for streaming, storage, and review."
+teaser: "One design diagram can hide three different questions. Who owns a rule? Which parts genuinely vary? What happens when a worker disappears?"
+---
+
 # Independent design reviews
 
-These are original analyses applying published principles. Robert C. Martin, Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides, and Graydon Hoare did not participate, review this repository, or endorse it. The reviews do not imitate their voices or invent their opinions.
+Start with the failure you want to examine, then choose the review below. Clean Architecture asks where a rule belongs. Design patterns ask what can vary without changing that rule. The Rust review asks who owns work and how a stale result is prevented from taking effect.
+
+These are the project’s independent readings of published ideas. Robert C. Martin, Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides, and Graydon Hoare did not take part in or endorse these reviews.
 
 ## Three perspectives
 
@@ -14,7 +22,7 @@ Rust began with Hoare's initial design and implementation and subsequently evolv
 
 ## Findings carried into the architecture
 
-P1 means a design or implementation gate before depending on the affected behavior. P2 means a required refinement during the first vertical slice. These are priorities for a draft, not reports of deployed defects.
+A **P1** finding is a design or implementation question to resolve before relying on the affected behavior. A **P2** finding is a refinement due in the first vertical slice. Use those priorities to plan tests. They describe open questions in a draft design. No deployed defect was observed.
 
 | Priority | Finding | Draft response | Remaining proof |
 | --- | --- | --- | --- |

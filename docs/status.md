@@ -1,9 +1,12 @@
 ---
 title: Status and evidence
-description: What exists, what is planned, and what each verification result establishes.
+description: "Check the status of Ordo documentation, teaching labs, public mirrors and proposed application components against the evidence that actually exists."
+teaser: "The student guide is public. The proposed research application has a different status. Here is how to verify which deliverable someone is talking about."
 ---
 
 # Status and evidence
+
+Ask one short question before relying on a status claim: which artifact? The published documentation, a synthetic contract lab and a proposed Rust service require different evidence. This page records the November 11 baseline and tells you where to verify a later release.
 
 **Review baseline: November 11, 2026.** Software availability and publication are separate claims.
 
@@ -43,6 +46,8 @@ Docker Hub publication, live application deployment, portfolio DNS and account s
 The S0–S7 roadmap supersedes the earlier G-series ordering. Older architecture, reviews and research retain visible reference notices. Reuse the historical Rust kernel, repair its gaps, defer a broker, and separate the hosted API from the private stateful store. Local embedded storage remains an explicit twelve-factor exception.
 
 ## Next implementation gate
+
+If you are deciding what to work on next, take one proposed requirement and follow it to the roadmap slice, donor record and acceptance scenario. The open item is the missing implementation or run, even if the design page is already published.
 
 Complete S0's rights, dependency and contract decisions; then extract the bounded S1 job/event behavior. Carry requirement IDs, donor symbols and actual receipts into each issue and PR. Do not close runtime work because a page describes it.
 

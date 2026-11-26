@@ -1,6 +1,14 @@
+---
+title: "Clean builds and release evidence"
+description: "Run the documentation checks on a clean machine, interpret the Rust and Python examples correctly, and see what a future hosted release still needs to prove."
+teaser: "What does a green build certify? Here it certifies a concrete set of documents and examples. A future application release has a different bar."
+---
+
 # Clean builds and release evidence
 
-There are two distinct deliverables: the documentation site that exists now, and the application planned here. Their commands, test results and deployment claims must not be mixed.
+If a teammate starts from a clean checkout, they can build the documentation and run the synthetic exercises below. Each command has a visible result. Keep that record with the source revision so the next person can reproduce it.
+
+The application release is a separate, proposed deliverable. Its command names and release gates are included here for design review. Only the documentation and example commands in the first section are runnable in this repository today.
 
 ## Documentation: runnable now
 
@@ -25,7 +33,7 @@ rustc +1.90.0 --edition=2021 --test docs/examples/lease.rs -o /tmp/ordo-lease-te
 
 This compiler pin applies to a dependency-free documentation exercise, not a decision about the future runtime's supported toolchain. The application toolchain must be selected and security-reviewed at its own setup gate. The examples use synthetic data, no model credentials, no private donor checkout and no external service calls.
 
-The site build checks Markdown links; the repository checker also checks generated targets, the repository subpath and sitemap. These checks do not prove responsive design, keyboard access, real browser streaming or live Pages publication.
+Read the output as an inventory of checks. The build covers Markdown links. The repository checker verifies generated destinations, the repository subpath, and the sitemap. Use a browser to examine the layout and keyboard behavior, test streaming against a running application, and visit the public URL to confirm a deployment.
 
 ## Application: proposed commands, not available yet
 
@@ -39,7 +47,7 @@ lab admin     # scoped migration, import, export, verify or repair
 lab local     # explicit embedded-store authoring profile
 ```
 
-These names are design examples. Running them in the present docs-only repository will not start an application.
+Treat these `lab` commands as an interface sketch. The docs-only repository does not supply executables with those names. When an implementation exists, test each process independently and tie its release evidence to the exact artifact being promoted.
 
 Before implementation, pin the Rust toolchain and commit `Cargo.lock`; pin frontend dependencies and commit its lockfile. Declare ffmpeg/ffprobe and other external tools separately from Cargo dependencies. Each model manifest needs weights, tokenizer/preprocessing identity, dimensions where relevant, license/distribution policy and content hashes. A model name without an immutable identity is insufficient replay evidence.
 

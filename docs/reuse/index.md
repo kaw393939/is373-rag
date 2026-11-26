@@ -1,4 +1,12 @@
+---
+title: "Build from Ordo, not from scratch"
+description: "Compare two generations of Ordo and decide which durable job, review, event and streaming behaviors are worth carrying into the proposed Knowledge Lab."
+teaser: "A newer repository snapshot has a smaller gateway. An older one contains durable jobs and replay. The right starting point depends on which behavior you need."
+---
+
 # Build from Ordo, not from scratch
+
+Suppose the next slice must recover a queued task after restart. The current gateway at first glance looks like the natural starting point. The earlier daemon contains the durable kernel worth inspecting. Choosing between the two revisions is a question about behavior, contracts and proof.
 
 **Decision guide · reviewed November 10, 2026 · application implementation remains pending.**
 
@@ -28,6 +36,8 @@ There are two substantially different implementations in `StudioOrdo/ordo`. The 
 5. [Delivery roadmap](../project/roadmap.md): dependency-ordered slices and acceptance evidence.
 
 ## Keep, adapt, replace, defer
+
+Make the decision for one behavior at a time. Reusing how a donor claims a job can be sensible while replacing how it stores events. Record the part to keep, the changed assumption and the test that would demonstrate the behavior in the new application.
 
 **Keep** means preserve a behavior and its tests after confirming dependencies and reuse rights. **Adapt** means retain the idea but change a boundary or invariant. **Replace** means the existing mechanism conflicts with this project's requirements. **Defer** means useful later, not required to prove the first workflow.
 

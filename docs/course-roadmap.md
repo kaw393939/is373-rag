@@ -1,47 +1,53 @@
+---
+title: IS373 assignment roadmap
+description: Keep the IS373 portfolio, individual RAG app, and group content project organized. Find the Canvas links for each review and prepare for in-class demos.
+teaser: One portfolio shows your professional direction, one app shows what you built, and one team project shows how you work with others. Here’s where each belongs.
+---
+
 # IS373 assignment roadmap
 
-<span class="status-label">FA26 IS373-001 · CANVAS CHECKED NOVEMBER 5, 2026</span>
+This guide is for **Fall 2026, IS373-001**. Canvas is the source for exact deadlines, demo slots, instructions, and rubrics. Use the linked assignments below to check your section.
 
-Use this project as an instructor example of a traceable development process: **research → planning and specification → construction → testing and improvement**. The architecture and research library are drafts. The RAG application has not been implemented. Students develop their own evidence, bounded choices, and contributions; this stack is an option to study, not a new course requirement.
+Finish the individual and group projects during the **last week of class**. You have the full week after Thanksgiving break and the following week to finish and demonstrate the work. The final exam period is reserved for extenuating circumstances with Dean of Students verification or your instructor’s approval.
 
 ## Keep three deliverables distinct
 
-1. **Individual portfolio + career research:** investigate real employer needs and build your own professional presentation for a chosen role and reader.
-2. **Individual RAG app + technical research:** import permitted content and build your own hosted, source-supported retrieval/chat application using vector search, graph search, or both with a reason.
-3. **Group content system + problem research:** build one useful shared content workflow with your team, with attributable individual contributions and cross-review.
+| Deliverable | What you own | What someone can inspect |
+| --- | --- | --- |
+| Individual portfolio and career research | A particular professional reader, career direction, and presentation of your work. | A responsibility from an actual employer posting and evidence that you’ve practiced it. |
+| Individual RAG app and technical research | A hosted app built around your own question and permitted sources. | A real retrieval result, model answer, and supporting passage. |
+| Group content system and problem research | A useful shared workflow, your part of it, and someone else’s review. | A completed action a user can try and a change the team can trace to a contributor. |
 
-Your portfolio can showcase your RAG app and your contribution to the group system. They remain distinct deliverables. Each individual review collects two separately labeled sections; the group system uses its separate group review.
+Your portfolio can showcase the app and your group contribution. Keep the two individual sections in the same evolving record and the team work in its shared record.
 
 ## Research now, then plan and specify
 
-For career research, the Plan assignment asks for three original employer postings, a comparison of two career directions, a target role/reader, responsibility-to-evidence mapping, portfolio pages, and two lightweight layout alternatives.
+For **career research**, compare three original employer postings and two career directions. Identify your target reader, map responsibilities to evidence, sketch the portfolio pages, and try two lightweight layouts.
 
-For technical research, investigate vector/graph databases, RAG, chunking, embeddings, entities/relationships, and import. Choose permitted sources and a useful question. Compare approaches, define architecture and resource constraints, identify evaluation questions, and write three to five observable stories/checks. Begin at the [research library](/research/).
+For **technical research**, choose permitted sources and a question. Investigate vector and graph databases, RAG, imports, chunking, embeddings, entities, and relationships. Compare the alternatives and justify implementing vector, graph, or both. Define the constraints, the questions you will evaluate, and three to five observable stories or checks. [Research library](/research/)
 
-Our proposed specification artifacts include the [architecture](/architecture/overview), [contracts](/architecture/contracts), [decisions](/decisions/), and [validation plan](/validation). Use their structure to make your own scope reviewable. A working hosted application is not required at Plan; identify local setup and planned links honestly.
+For Plan, a diagram and a prediction are useful evidence of design. Label a planned deployment as planned. The instructor’s [architecture](/architecture/overview), [contracts](/architecture/contracts), [decisions](/decisions/), and [validation plan](/validation) show how to record choices. The full proposed research application is still a design. The lab’s runnable exercises are available separately.
 
 ## Course milestones
 
-All times are **Eastern**. Links require the normal Canvas course access. Assignment pages remain authoritative for instructions and any later changes.
+Each link opens a Canvas assignment and requires course access. Check Canvas for the date and time. Course times are Eastern.
 
-| Phase | Review and date | Evidence to demonstrate |
+| Review | Links | What to show |
 | --- | --- | --- |
-| Research → planning/specification | **Review 1 — Plan · November 17, 2026, 1 p.m.** [Individual](https://njit.instructure.com/courses/70733/assignments/769188) · [Group](https://njit.instructure.com/courses/70733/assignments/769189) | Sources, alternatives, reader/problem, bounded architecture and stories/checks. Portfolio and RAG sections remain distinct. Group work identifies owners and different reviewers. |
-| Construction | **Review 2 — Build · November 24, 2026, 1 p.m.** [Individual](https://njit.instructure.com/courses/70733/assignments/769190) · [Group](https://njit.instructure.com/courses/70733/assignments/769191) | Hosted foundations and a small real working journey. For the individual RAG app, show import → representation → retrieval → cited answer, with actual checks and honest limits. |
-| Testing and release | **Review 3 — Checked Release · December 3, 2026, 1 p.m.** [Individual](https://njit.instructure.com/courses/70733/assignments/769192) · [Group](https://njit.instructure.com/courses/70733/assignments/769193) | Working hosted links, persistent data, source traces, repeatable setup and checks. Evaluate missing evidence, repeat import, and permissions. Check portfolio navigation, keyboard use, mobile readability, and evidence links. |
-| Peer feedback, improvement, retest | **Review 4 — Improve · December 10, 2026, 11:59 p.m.** [Individual](https://njit.instructure.com/courses/70733/assignments/769194) · [Group](https://njit.instructure.com/courses/70733/assignments/769195) | A real peer observation, meaningful change, and retest. Complete accurate case studies and current final links. December 8/10 are protected for repairs, feedback, and rehearsal. |
-| Demonstration | **Demo Day · December 18, 2026, 8:30–11 a.m.** [Individual final](https://njit.instructure.com/courses/70733/assignments/769196) · [Group final](https://njit.instructure.com/courses/70733/assignments/769197) | Demonstrate final-ready work using the December 10 record/site/repository/check links. Final assessments show 8:30 a.m. in the gradebook and require no new duplicate upload. Joining details and slots follow in Canvas. |
-
-Checks begin during construction and continue through release; the phase labels identify the main emphasis, not a reason to postpone verification.
+| 1. Plan | [Individual](https://njit.instructure.com/courses/70733/assignments/769188) · [Group](https://njit.instructure.com/courses/70733/assignments/769189) | Reader or user problem, sources, alternatives, proposed design, and observable checks. Identify owners and different reviewers on the team. |
+| 2. Build | [Individual](https://njit.instructure.com/courses/70733/assignments/769190) · [Group](https://njit.instructure.com/courses/70733/assignments/769191) | Hosted foundations and a small working journey. In the RAG app, trace one import through retrieval to a cited answer. Show what you actually checked. |
+| 3. Checked Release | [Individual](https://njit.instructure.com/courses/70733/assignments/769192) · [Group](https://njit.instructure.com/courses/70733/assignments/769193) | A working URL, persistent data, source traces, repeatable setup, and checks for missing evidence, repeated imports, and permissions. Check portfolio links, keyboard navigation, and mobile readability. |
+| 4. Improve | [Individual](https://njit.instructure.com/courses/70733/assignments/769194) · [Group](https://njit.instructure.com/courses/70733/assignments/769195) | One real peer observation, the change it led to, and a retest. Bring the case studies and final links up to date. |
+| Final demonstration | [Individual final](https://njit.instructure.com/courses/70733/assignments/769196) · [Group final](https://njit.instructure.com/courses/70733/assignments/769197) | Show the finished work using your existing record, site, repository, and checks. Use Canvas for the demonstration arrangements. |
 
 ## Build evidence for your career portfolio
 
-Show the target reader and problem, the employer or user evidence behind your decisions, your actual contribution, the working result, and the checks that support your claims. Distinguish implemented, checked, hosted, and planned behavior. Explain assistance received accurately. Your RAG and group case studies should connect responsibilities and skills to concrete artifacts.
+What did you personally contribute? Who needed it? Give a reader the user or employer evidence behind a decision, a way to try the result, and one check that supports your claim. Distinguish a feature you implemented from one you verified on the hosted site. Credit the assistance you used.
 
-For Demo Day, prepare the short PowerPoint requested in the final assignment: problem and audience; solution and live demo; evidence/results; lessons and next steps. Presentation slots, duration, and delivery details will be confirmed in Canvas.
+The final assignment asks for a short PowerPoint. Introduce the problem and audience, demonstrate the live solution, show your evidence, and close with what you learned or would change next.
 
 ## Submission continuity
 
-Reuse one evolving individual record with the headings **1. Portfolio + career research** and **2. RAG app + technical research**, plus the shared team record for **3. Group system + problem research**. Add **changed / checked / next** under each relevant heading and keep site, repository, source, and check links current. Each member identifies their own group contribution. Avoid duplicate weekly reports.
+Reuse the individual record under **1. Portfolio + career research** and **2. RAG app + technical research**. Use the team record for **3. Group system + problem research**. Under the relevant heading, update **changed / checked / next** and the links to your site, repository, sources, and checks. Each team member identifies their own contribution. One clear update gives the reviewer something they can verify.
 
-The existing November 6 Studio assignments retain their scope and original rubrics. This roadmap does not change deadlines or grading. The project review rubrics assess Complete, Thoughtful, Checked, and Understood at 25 points each; use the linked assignment instructions for the full criteria.
+The earlier Studio assignments keep their original scope and rubrics. The project reviews use **Complete, Thoughtful, Checked, and Understood**, at 25 points each. Canvas supplies the full criteria.

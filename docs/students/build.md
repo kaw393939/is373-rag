@@ -1,40 +1,40 @@
 ---
 title: Build a small RAG system
-description: A bounded implementation path from permitted documents to real retrieval, generation, citations and hosted verification.
+description: Add one hosted RAG feature to the app you already have. Verify each step from document import to search, model output, and a citation a reader can open.
+teaser: Before you add chat to the interface, ask one question and look at what your search actually found. That one passage is your first useful checkpoint.
 ---
 
 # Build one complete source-to-answer path
 
-**Aim for a small, working system before adding features.** If retrieval vocabulary is unfamiliar, read [embeddings](embeddings.md) and [chunking](chunking.md) first. [Already have IS373 App Studio? Follow the FastAPI-to-RAG bridge](from-app-studio.md). [LangChain and other libraries are optional](library-survey.md). Reuse your current FastAPI application, Docker/HTTPS deployment and repository when possible. Do not replace existing services or pay for a new server simply to follow a tutorial.
+Choose a question that one of your documents answers. Write down its source ID and the words you expect to find. You now have a way to tell whether each part of the application works. If your FastAPI app and Docker/HTTPS setup already run, start there. [App Studio walkthrough](from-app-studio.md)
 
 ## Seven small steps
 
-1. **Import** around five permitted short documents. Assign stable source IDs, keep originals and record versions. Verify what the importer actually stores.
-2. **Prepare** text and source locations. Try heading/paragraph chunks versus a fixed-size split; inspect one broken boundary. If using a graph, define entities and typed edges with source passages.
-3. **Index** your chosen representation. For vectors, generate real embeddings with a recorded model version and compatible question encoder. For graphs, store real sourced relationships. A keyword baseline is useful but not a substitute for your chosen architecture.
-4. **Retrieve** from a real question. Display the returned source/chunk IDs, passages or graph paths before asking a model to answer.
-5. **Generate** with an actual accessible model/provider. Pass only authorized retrieved passages as context and show the answer with links to source locations. Model text is not automatically verified by a citation.
-6. **Handle insufficient evidence.** Include one question the documents cannot answer. Show an honest missing-evidence response and inspect whether the model invented details.
-7. **Host and verify.** Put the working app behind HTTPS, keep credentials and database services private, bound public use and demonstrate persistence after a process restart. Save the revision and actual check results.
+1. **Import.** Gather about five permitted documents. Give each one a stable ID and version. Keep the originals. Import a document twice and inspect what is actually stored.
+2. **Prepare.** For text, compare splitting by paragraph or heading with splitting at a fixed size. Open a passage that broke in an awkward place. For a graph, link each entity and relationship to the passage that supports it. [Chunking guide](chunking.md)
+3. **Index.** If you chose vectors, generate real embeddings, record the model version, and use a compatible encoder for questions. For a graph, store the actual relationships you found. Use keyword search as a baseline for comparison. [Embeddings guide](embeddings.md)
+4. **Retrieve.** Ask the original question with generation turned off. Look at the returned passages or graph paths. Can you see the expected evidence and its source ID?
+5. **Generate.** Give a real model the relevant passages it is authorized to see. Display its answer and a link to the source location. Open the link and check which words support the claim.
+6. **Try missing evidence.** Ask about a detail the documents leave out. Can the system tell the reader what it cannot establish? If it supplies a detail anyway, inspect the retrieved passages and model output separately.
+7. **Host and verify.** Open the HTTPS URL as a visitor. Keep credentials and database services private, limit public usage, and confirm that records survive a process restart. Save the working revision and your actual results.
 
-Work in **one issue or small change at a time**. Ask AI for the smallest patch and an explanation; inspect the code, run the tests yourself, then link a commit/PR and note what changed.
+Work in one issue or small change at a time. If AI helps, ask for the smallest patch, read the important code, run the test yourself, and link the commit or pull request.
 
 ## What to show at each checkpoint
 
-| Stage | Evidence to retain |
+| Stage | Something a classmate can check |
 | --- | --- |
-| Import | Manifest, actual stored records and repeat-import result |
-| Retrieval | Query, returned source IDs or graph paths and expected relevance |
-| Generation | Actual prompt/context, model/provider identification and answer |
-| Source support | Openable source location and a missing-evidence example |
-| Hosted operation | Working HTTPS URL, database persistence, logs without secrets and chosen source revision |
-| Improvement | Real peer observation, changed code/issue and retest |
+| Import | Source manifest, stored record, and what happened on repeat import |
+| Retrieval | Question, expected evidence, and the passages or graph paths actually returned |
+| Generation | Model/provider, the redacted context you supplied, and its actual response |
+| Source support | One citation a reader can open, plus one question with insufficient evidence |
+| Hosted operation | Working HTTPS link, durable data, safe logs, and the source revision |
+| Improvement | A peer’s observation, the change you made, and the result of the same check |
 
-For Nov 24 Build, the [course guide](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md) expects a small **hosted** import → retrieval → chat journey. For Dec 3, strengthen persistence, repeatable setup, evaluation and references. Canvas remains authoritative.
+For **Build**, demonstrate the small hosted import, retrieval, and chat path. For **Checked Release**, strengthen persistence, repeatable setup, evaluation, and citations. Canvas gives the official dates and instructions. [Course milestones](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md)
 
 ## Start with what you have
 
-If your existing app already has login, a dashboard or a working server, **do not rewrite those parts**. Add a tiny permitted corpus and inspect the import/retrieval path first. Use the [optional local reference](reference.md) for source IDs, SQLite/FTS and an Ollama-backed vector/generation exercise; it is **not** a hosted assignment solution or a mandatory technology choice.
+Use your existing login, dashboard, repository, and server if they work. A [local reference lab](reference.md) lets you inspect source IDs and SQLite search before trying optional Ollama embeddings and generation. [RAG libraries](library-survey.md) are tools you can compare when you have a specific problem.
 
-If a model is unavailable, develop the import and retrieval stages against fixed expected results, but label the unfinished generation stage accurately. Never claim a mock response proves RAG. See [debugging help](stuck.md) and [verification](check.md).
-
+If your model is unavailable, keep building and testing real import and retrieval. Mark generation as unfinished. A fixed response can test how the page renders, but you still need to observe what a real model does with the evidence. [Troubleshooting](stuck.md) · [Evaluation guide](check.md)

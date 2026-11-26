@@ -1,4 +1,12 @@
+---
+title: "Validation and delivery"
+description: "Plan a repeatable evaluation of retrieval, cited answers, response times and failure recovery while keeping documentation checks distinct from runtime experiments."
+teaser: "A fast answer can cite the wrong passage. A correct answer can vanish after reconnect. The validation plan makes room for both failures."
+---
+
 # Validation and delivery
+
+Imagine comparing two retrieval systems on the same question. One is faster because its corpus is smaller; the other cites a document from a different release. Record the corpus, target revision, hardware, model and relevance goal before comparing times. Otherwise the difference is difficult to interpret.
 
 The architecture is a hypothesis to test against relevance, responsiveness, consistency, and recovery. The documentation site is the current implementation; the application validation below is planned.
 
@@ -22,6 +30,8 @@ Define corpus size, vector dimensions, update rate, simultaneous chats, hardware
 Set numeric budgets after baseline measurements and product requirements. A fast status acknowledgment does not substitute for first grounded text. Node/edge counts do not establish knowledge quality.
 
 ## Failure exercises
+
+Choose one interruption and state the expected durable outcome before running it. For example, after a browser reconnects, a reviewer should be able to identify the original run and tell whether its answer completed or stopped early. Record the observed state as well as the elapsed time.
 
 - Disconnect and reconnect between snapshot and live subscription; expire retained events.
 - Cancel while retrieval or generation completes; restart a gateway; fence an obsolete owner.

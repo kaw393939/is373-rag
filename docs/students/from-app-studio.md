@@ -1,13 +1,14 @@
 ---
 title: From App Studio to your hosted RAG
-description: A gentle bridge from the current FastAPI template and Docker server to the original IS373 individual RAG requirements.
+description: Extend the FastAPI app you already deployed. Add import, real retrieval, a model response, and a source link, then test the same path on your server.
+teaser: You already have a server and an app. Follow one document through the new feature while keeping the accounts, routes, and deployment that work.
 ---
 
 # From your existing FastAPI app to a small hosted RAG
 
-**Do not rebuild your server or replace your existing app.** [IS373 App Studio](https://github.com/kaw393939/is373-app-studio) teaches FastAPI, accounts and permissions; [Server Studio](https://github.com/kaw393939/373_hosting) covers Docker, Traefik and HTTPS. This walkthrough connects them to your **own** individual RAG project.
+Start in your own working repository. [App Studio](https://github.com/kaw393939/is373-app-studio) supplied the FastAPI app, accounts, and permissions. [Server Studio](https://github.com/kaw393939/373_hosting) supplied the Docker, Traefik, and HTTPS setup. This optional walkthrough adds a single feature to that foundation.
 
-This is an optional pathway, not new Canvas work. See [embeddings](embeddings.md) for the numerical representations and [chunking](chunking.md) for source boundaries. A working hosted RAG demonstration still needs actual **retrieval and model generation**. The [local retrieval lab](reference.md) is preparation, not a submission. LangChain and similar [libraries](library-survey.md) are choices to research, not requirements.
+Choose a permitted document, a question it answers, and a model you can access. Your finished path needs real retrieval and generation. If those pieces are unfamiliar, try the [local retrieval lab](reference.md), [embeddings](embeddings.md), or [chunking](chunking.md). Add a [library](library-survey.md) only when you can name the job you need it to do.
 
 ## Picture the smallest complete product
 
@@ -27,21 +28,21 @@ If you choose vectors, use **real compatible embeddings** for both corpus and qu
 
 Open **your student repository**, not the instructor's template. Locate `app/main.py` and `create_app()`. Find the existing feature routers (`app/features/`), persistence/configuration, templates and tests. Identify your actual server URL and working Docker/HTTPS deployment. Don't alter accounts, roles, domains or unrelated services.
 
-**Explain:** Which function registers a route? Which part controls a database write? Which settings hold secrets? Bring one specific blocker to class, not a vague request to start everything over.
+**Check your starting point.** Find one existing route, the function that registers it, the code that writes to the database, and the settings that hold secrets. If a part is unclear, bring that file and one question to class.
 
 ## Checkpoint 2 — Trace one original source
 
 Choose one permitted short document and one useful question. Give the source a stable ID, title, origin, version/date and permission note. Prepare a chunk with a source location, or a graph entity/relationship that points back to an actual passage. First inspect this with the [15-minute offline lab](reference.md#your-first-15-minutes) if that helps.
 
-**Check:** Import the same data twice without duplicate records. Change a copied source and prove the updated representation can be found. Mark planned checks as planned until executed.
+**Try it twice.** Import the same document again and compare the stored IDs and counts. Then edit a copy, import the new version, and check that retrieval can find the changed passage. Keep any unrun checks marked as planned.
 
 ## Checkpoint 3 — Add one narrow retrieval feature
 
 Ask your AI coding partner to help add a **small feature router** to your existing FastAPI app (for example, `app/features/rag.py`), with one `POST /api/rag/ask` route and separate import/retrieval/generation functions. These are example names, **not** required file or endpoint names.
 
-Keep ingestion restricted to an authorized account or trusted CLI; don't expose arbitrary import to visitors. Retrieval should expose traceable evidence IDs in debug/test output. Start with a keyword baseline, then build the chosen **real vector or graph retrieval**. Don't send the entire document collection to a model and call that retrieval.
+Give ordinary visitors access to the question flow. Restrict import to an authorized account or a trusted command-line tool. Have the retrieval stage return evidence IDs in test or debug output. Keyword search gives you a baseline, then implement the vector or graph retrieval you chose.
 
-**Check:** A question produces actual retrieved IDs/passages or graph paths; an unsupported question can be recognized. Run existing App Studio checks and add focused tests without weakening APP-001–003 behavior.
+**Check the feature in isolation.** Ask a supported question and inspect the actual IDs, passages, or graph paths returned. Try a question with no supporting passage. Run the existing App Studio checks, including APP-001–003, along with focused checks for the new feature.
 
 ## Checkpoint 4 — Generate a grounded answer
 
@@ -59,7 +60,7 @@ Reuse the existing student server and Docker/Traefik/HTTPS setup. Put persistent
 
 ## What to show in class
 
-At **Plan (Nov 17)** bring the source plan, vector/graph comparison, a sketch and expected-evidence questions. A working RAG app is **not required yet**. At **Build (Nov 24)** demonstrate a **small real hosted import → retrieval → generation journey**. By **Checked Release (Dec 3)** improve persistence, source citations, repeatability and actual evaluation; by **Improve (Dec 10)** address real peer feedback. Follow Canvas for official deadlines.
+For **Plan**, bring the source plan, vector/graph comparison, sketch, and expected evidence. For **Build**, show a small hosted journey from import through retrieval to generation. At **Checked Release**, demonstrate persistence, usable citations, repeatable setup, and evaluation. For **Improve**, act on a real peer observation and retest. Use Canvas for deadlines and demo arrangements.
 
 ## Copyable AI coding-agent request
 

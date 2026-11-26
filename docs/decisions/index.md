@@ -1,6 +1,12 @@
+---
+title: "Decision register"
+description: "Read the proposed serving, storage, and workflow decisions, then see the evidence that would justify adopting, revisiting, or rejecting each one."
+teaser: "Read the status column before the technology column. A promising database, an adopted design rule, and an unanswered product question call for different next steps."
+---
+
 # Decision register
 
-The draft separates requirements, recommended technology, and decisions that still need workload evidence. An architecture recommendation is not a measured performance result.
+This register records an earlier architecture draft. Use it to see how a decision was framed, which alternatives were considered, and what evidence was still missing. A proposed baseline gives the team somewhere to start testing. An adopted design constraint determines what every candidate must preserve.
 
 | ID | Decision | Draft status | Evidence needed |
 | --- | --- | --- | --- |
@@ -13,6 +19,6 @@ The draft separates requirements, recommended technology, and decisions that sti
 
 ## Recording a decision
 
-Document the concrete problem, alternatives, selected behavior, consequences, and validation required. Supersede a decision explicitly when it changes; retain the reason for the change. Avoid freezing an extension, provider, or service split before its capabilities and failure semantics are known.
+Write down the concrete problem, the alternatives, the chosen behavior, the cost of the choice, and the evidence still needed. Name a result that could change your mind. If a later test changes the decision, publish a replacement record and link back to the reason the earlier choice was made.
 
 The [review findings](/reviews/) are constraints for implementation. They do not imply that the future system already passes those checks.

@@ -1,4 +1,12 @@
+---
+title: "System breakdown"
+description: "See how proposed Rust services, workers, evidence storage and the reader interface divide responsibility for one reproducible research result."
+teaser: "Follow a single imported passage across the system. At each step, one component must be able to say what changed and who had authority to change it."
+---
+
 # System breakdown
+
+The easiest way to understand the proposed architecture is to follow one passage. An importer identifies its source, a worker suggests a claim, a reviewer qualifies the change, and a reader can later retrieve it. The boundaries below identify which component may make each change durable.
 
 **Proposed application architecture.** The documentation site and synthetic contract labs exist; the runtime below does not yet exist in this repository. The [reuse map](../reuse/index.md) identifies the implementation starting points.
 
@@ -49,6 +57,8 @@ Task execution is at least once. Result acceptance is idempotent and lease-fence
 Publish revisions through verified export/import. Retain evidence needed by older conversations. Mac processing capability is optional: the hosted library must still open when the Mac is offline. Inference/query capabilities that are unavailable are reported honestly rather than silently replaced.
 
 ## First vertical slice
+
+Use the proposed first slice to answer a narrow question: after a restart, can a second reader recover the same accepted result and identify its input? This check gives the team a starting point before it adds richer extraction, retrieval or interface behavior.
 
 A synthetic source becomes an artifact and mention, an unresolved identity becomes a review decision, and an approved changeset becomes a published revision. Retrieval selects authorized evidence; a worker produces an answer; the API streams recorded outcomes and citations. Each transition can be inspected without reading an entire business platform.
 

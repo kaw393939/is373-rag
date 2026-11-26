@@ -1,12 +1,20 @@
+---
+title: "Twelve-factor design, with explicit storage boundaries"
+description: "Apply twelve-factor criteria to a proposed hosted API, workers, and a stateful SQLite store, with explicit tests for the local workstation exception."
+teaser: "Replace the API process in the middle of a conversation. Which records should still be there and who owns the disk that holds them?"
+---
+
 # Twelve-factor design, with explicit storage boundaries
 
-The [Twelve-Factor App](https://12factor.net/) describes deployable services. We apply it to the hosted API and workers without pretending that a portable research database is stateless. These are **design requirements, not a compliance certificate**. Runtime gates remain pending until the application exists and is tested.
+Suppose the hosted API is replaced during a deployment. A reader should still be able to recover their conversation and its citations. That expectation leads to a more useful question than whether the project uses containers. Which process may disappear, and which component owns a record that must survive?
+
+The matrix applies the published twelve-factor model to the proposed API and workers. The portable local research library needs an explicit storage exception. Each row is an acceptance test for a future implementation. [The Twelve-Factor App](https://12factor.net/)
 
 ## Two profiles, one codebase
 
-**Hosted:** the API and compute workers are replaceable processes. A private Rust store process owns SQLite and durable artifacts as an attached backing service. Sessions, runs, leases, review decisions and replay cursors survive replacing an API process. The browser has one public origin; the store is not publicly exposed.
+**Hosted profile.** Replace an API or compute worker while the private Rust store continues to own SQLite and durable artifacts. Verify that sessions, runs, leases, review decisions, and replay cursors survive. The browser connects through one public origin. The store remains private.
 
-**Local appliance:** the same domain/storage modules may run together with an explicitly selected library directory. This stateful convenience is a documented exception to strict process disposability and horizontal scale. It must still pass backup, recovery, configuration and provenance tests.
+**Local appliance.** On a workstation, an explicitly selected library directory can hold the same domain and storage modules together. This stateful profile trades horizontal scaling and process disposability for portability. Recovery, configuration, backup, and provenance still need direct tests.
 
 A volume is not a magic statelessness switch. The hosted store remains stateful and single-writer per writable library; it needs its own backup/restore contract. We do not mount a live SQLite WAL database over a network filesystem. SQLite documents that WAL processes must operate on the same host. [SQLite WAL](https://sqlite.org/wal.html).
 

@@ -1,62 +1,46 @@
 ---
 title: IS373 student RAG guide
-description: Finish the existing individual RAG assignment with a small source-backed application, guided steps and AI coding prompts.
+description: Build a small hosted RAG app for IS373, starting with documents you can use and ending with an answer a classmate can trace to a real passage.
+teaser: Pick a question that matters to one reader. A small set of sources is enough to test how your app finds an answer and what it does when the answer is missing.
 ---
 
 # Build a small RAG system you can explain
 
-**Start with one useful question, around five permitted documents, and a visible source-to-answer trace.** You do not need to build Ordo Knowledge Lab or train a model to finish your IS373 independent project.
+Imagine a new club member asking who organizes events. Can your app find the relevant line in a handbook, use it to answer, and let the reader open it? What happens if the member asks for a date the handbook leaves out?
 
-This is **optional help**, not a new assignment, grade, submission or required stack. The authoritative instructions are the [IS373 individual RAG brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md), [research handout](https://github.com/kaw393939/is373-studio/blob/main/docs/handouts/database-rag-research.md), and Canvas.
+That’s the idea behind **retrieval-augmented generation (RAG)**. Your system retrieves relevant material, then gives that material to a model to help it answer. Start with one reader, one useful question, and about five short documents you have permission to use.
 
-**Have your App Studio and Server Studio work already?** [Extend your existing FastAPI app, one step at a time](from-app-studio.md). [Compare what AI/RAG libraries do](library-survey.md) without installing a new stack.
-
-**Understanding retrieval?** Start with the [embeddings handout](embeddings.md) and [chunking handout](chunking.md). Each has a small, checkable exercise and questions you can ask your AI agent.
-
-**New here?** [Spend your first 15 minutes finding a real source passage](reference.md#your-first-15-minutes). No API key or model download needed.
-
-**Choosing an AI provider?** [Compare Groq, Gemini, OpenAI, Claude and DeepSeek, and learn to budget tokens](ai-costs.md).
+These pages are optional project support. Use the [individual assignment](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md), [research handout](https://github.com/kaw393939/is373-studio/blob/main/docs/handouts/database-rag-research.md), and Canvas for the actual requirements. You can use a model you already have access to.
 
 ## Choose your next step
 
-| Where you are | Go here |
+| If you want to… | Start here |
 | --- | --- |
-| Unsure what to build | [Plan one question and small source set](plan.md) |
-| Embeddings and vectors are confusing | [Understand embeddings through a story and experiment](embeddings.md) |
-| Unsure how to split documents | [Try chunking strategies and source traces](chunking.md) |
-| Ready to implement | [Build the smallest complete source-to-answer path](build.md) |
-| Already using FastAPI and Docker | [Extend your existing App Studio app](from-app-studio.md) |
-| Curious about LangChain or other libraries | [Survey optional RAG/AI frameworks](library-survey.md) |
-| Want AI coding help | [Copy a bounded agent prompt](prompts.md) |
-| Something doesn't work | [Diagnose one failure at a time](stuck.md) |
-| Have an answer and need evidence | [Run five evaluation questions](check.md) |
-| Want a safe, inspectable example | [Optional local retrieval lab](reference.md) |
+| See retrieval work before choosing a stack | [Find a source passage in 15 minutes, without a model or API key](reference.md#your-first-15-minutes) |
+| Decide what to build | [Choose a reader, sources, and five test questions](plan.md) |
+| Understand how search works | [Try embeddings](embeddings.md), [compare ways to split a document](chunking.md), or [compare databases and retrieval methods](data-choices.md) |
+| Use software you’ve already built | [Extend your FastAPI app and Docker deployment](from-app-studio.md) |
+| Get a complete question-to-answer path working | [Build one small feature at a time](build.md) |
+| Compare tools and costs | [Check which libraries help](library-survey.md) and [compare AI providers and token budgets](ai-costs.md) |
+| Ask a coding assistant for help | [Choose a prompt for your next step](prompts.md) |
+| Find out why an answer is wrong | [Trace one failure](stuck.md) or [compare the result with an expected source](check.md) |
 
 ## The five things your demo should show
 
-1. **Import:** where the permitted sources came from and what was stored.
-2. **Represent:** how text becomes chunks/vectors or graph relationships with source IDs.
-3. **Retrieve:** which source IDs or graph paths a real question returned.
-4. **Generate:** how a real model used that evidence, with usable source references.
-5. **Check:** what happened on a missing-evidence question and what you improved.
+1. Open a permitted original document and the record your importer actually stored.
+2. Show how a passage became a chunk or a sourced graph relationship.
+3. Ask a question. Inspect the source IDs, passages, or graph paths the search returned.
+4. Show the answer from a real model and open a reference that supports a particular claim.
+5. Try a question the sources cannot answer. Show what happened and one improvement you checked.
 
-Research **both vector and graph approaches**, then justify implementing vector, graph or both. A keyword-only baseline or a mocked model is helpful for learning but is **not** the finished RAG application.
+Research both vector and graph retrieval. Your app can implement either approach or a combination you can justify. Keyword search helps establish a baseline. A mock response can help you build the interface. The finished individual project needs real retrieval and model generation. [Inspect the optional local lab](reference.md).
 
 ## Keep your three deliverables separate
 
-Your **portfolio** presents your professional direction and showcases the app. Your **individual RAG app** is this technical product. Your **group system** is a separate shared content workflow. Keep the existing individual and group project records; do not create another weekly report for this guide.
+Your **individual RAG app** answers questions from your chosen sources. Your **portfolio** presents your professional direction and provides a place to show that work. The **group content system** is a shared workflow with identifiable contributions from each member. Use the existing project records.
 
 ## Pacing from the course guide
 
-| Stage | Course guide date (2026, Eastern) | Useful next result |
-| --- | --- | --- |
-| Plan | Nov 17, 1 p.m. | Reader, sources, chosen retrieval approach, evaluation questions |
-| Build | Nov 24, 1 p.m. | Hosted small real import → retrieval → chat |
-| Checked Release | Dec 3, 1 p.m. | Persistent hosted app, sources, actual checks, repeatable setup |
-| Improve | Dec 10, 11:59 p.m. | Peer feedback, meaningful fix and retest |
-| Demo | Dec 18 | Explain the system and show your real evidence |
+At **Plan**, show your reader, sources, retrieval choice, and expected evidence. At **Build**, show a small hosted journey from import through retrieval to an answer. At **Checked Release**, verify persistence, citations, and repeatable setup. At **Improve**, use real peer feedback, make a change, and try the same check again.
 
-Use [course milestones](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md) and Canvas for official instructions. Dates here summarize the published guide, not a Canvas update.
-
-**Start small. Show one working path. Be able to explain it.**
-
+Individual and group projects finish in the **last week of class**. Use Canvas for the dates and demo slots. The [course roadmap](../course-roadmap.md) links to each Canvas assignment and explains the exception for extenuating circumstances. [Course milestone guide](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md)

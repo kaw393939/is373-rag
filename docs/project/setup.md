@@ -1,9 +1,12 @@
 ---
 title: Local docs and Pages
-description: Run the VitePress site locally and publish it to GitHub Pages without changing application infrastructure.
+description: "Preview and verify the VitePress documentation locally, then trace a standalone Pages or portfolio-mirror release to the source revision it serves."
+teaser: "You fixed a page locally. How do you know your students can read that exact revision? Follow the change through a build, a deployment and the public URL."
 ---
 
 # Run and publish the documentation
+
+The documentation has two public paths. This repository publishes its standalone site, while the portfolio embeds a pinned revision under its own domain. A typo can be resolved in one release while the other still serves the previous wording. Before debugging, identify which address the reader opened.
 
 This procedure affects only documentation. It does not deploy the research application or change portfolio DNS.
 
@@ -53,6 +56,8 @@ An unavailable or incorrectly configured Pages source **fails the publication jo
 Default address: `https://kaw393939.github.io/is373-rag/`. The Pages action's actual URL is authoritative. The workflow reads an existing Pages address before building, so a later account-level domain change does not require hard-coded origin edits. This repository does not create a `CNAME` or change DNS.
 
 ## Ongoing updates
+
+After a release, open the page you actually changed and compare its deployed revision with the intended commit. A healthy homepage checks routing. It does not show whether a learner following a deep link reached the corrected lesson.
 
 Edit Markdown, retain canonical requirement links, run tests and merge a reviewed PR. Successful main updates publish automatically after activation. [Documentation editing rules](../reference/documentation-map.md).
 

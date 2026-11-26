@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { withBase } from 'vitepress'
+import { useData, withBase } from 'vitepress'
+import { editorialImage } from '../../publication'
+import LabShare from './LabShare.vue'
+const { frontmatter } = useData()
+const cover = editorialImage('index.md')
 const sections = [
   { number: '01', title: 'Plan', text: 'Choose one useful question and a small set of documents you can trust.', link: '/students/plan', label: 'Choose your starting point' },
   { number: '02', title: 'Build', text: 'Connect your sources, retrieval and answer. Get one small path working first.', link: '/students/build', label: 'Build a working slice' },
@@ -11,46 +15,51 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 
 <template>
   <div class="lab-home">
-    <div class="lab-status"><span class="lab-status-dot" aria-hidden="true"></span><span>PROJECT DOCUMENTATION · IS373</span><a :href="withBase('/status')">What exists today <span aria-hidden="true">↗</span></a></div>
+    <div class="lab-status"><span class="lab-status-dot" aria-hidden="true"></span><span>NJIT · IS373 FIELD GUIDE</span><a :href="withBase('/status')">What exists today <span aria-hidden="true">↗</span></a></div>
     <section class="lab-hero" aria-labelledby="lab-title">
       <div class="lab-intro">
-        <p class="lab-kicker">IS373 · START SMALL. SHOW YOUR EVIDENCE.</p>
+        <p class="lab-kicker">Retrieval-augmented generation</p>
         <h1 id="lab-title">Build answers you<br>can <em>explain.</em></h1>
-        <p class="lab-lead">Give your app a few trusted documents. Ask a useful question. Show where the answer came from.</p>
-        <p class="lab-summary">Start your IS373 individual RAG project with small steps, examples and prompts that help you understand what you build. No new assignment or required stack.</p>
+        <p class="lab-lead">{{ frontmatter.teaser }}</p>
+        <p class="lab-summary">Start with the club handbook example. Then use the same test on a question from your own collection.</p>
         <div class="lab-actions"><a class="lab-primary" :href="withBase('/students/')">Start your IS373 project <span aria-hidden="true">→</span></a><a class="lab-secondary" :href="withBase('/students/reference')">Try the first 15 minutes</a></div>
-        <p class="lab-scope">Your assignment and Canvas remain the source of truth.<br>This guide is optional help, not extra graded work.</p>
+        <p class="lab-scope">Canvas and the original assignment set the requirements. Choose the examples you need from this optional guide.</p>
+        <LabShare />
+        <figure class="lab-hero-art">
+          <img :src="withBase('/' + cover.path)" :alt="cover.alt" width="1200" height="630" fetchpriority="high" decoding="async">
+          <figcaption>AI-generated editorial illustration.</figcaption>
+        </figure>
       </div>
       <aside class="lab-evidence" aria-label="Illustrated RAG example with a fictional club handbook">
         <div class="lab-evidence-head"><span>ONE COMPLETE RAG EXAMPLE</span><span class="lab-tag">Fictional</span></div>
-        <h2>A question.<br>An answer you can check.</h2>
+        <h2>Can I bring a friend?</h2>
         <ol class="lab-example">
           <li class="lab-report"><span class="lab-report-id">01 · QUESTION</span><p>“Can I bring a friend to the club?”</p></li>
           <li class="lab-report"><span class="lab-report-id">02 · RETRIEVED PASSAGE</span><p>“Members may bring one guest. Register your guest before the meeting.”</p><span class="lab-report-note">Retrieved from Club handbook · §2</span></li>
           <li class="lab-report"><span class="lab-report-id">03 · EXAMPLE ANSWER</span><p>Yes, you can bring one friend. Register them before the meeting. <a href="#club-handbook-source" aria-label="Check source 1: Club handbook section 2">[1]</a></p></li>
           <li class="lab-report" id="club-handbook-source" tabindex="-1"><span class="lab-report-id">04 · CHECK THE SOURCE</span><p><strong>[1] Club handbook · §2: Guests</strong></p><p>Members may bring one guest. Register your guest before the meeting.</p><span class="lab-report-note">This is the complete fictional source for this example. It says nothing about guest fees, so the answer should not invent one.</span></li>
         </ol>
-        <div class="lab-verdict"><strong>Retrieval finds evidence. Generation writes the answer.</strong><span>This is a written illustration, not a live chatbot or measured model output. A citation helps only when its source supports the claim.</span></div>
+        <div class="lab-verdict"><strong>Retrieval finds evidence. Generation writes the answer.</strong><span>This written example is not a live chatbot. Follow the citation yourself, then ask what the handbook tells you about guest fees.</span></div>
         <a class="lab-case-link" :href="withBase('/students/reference')">Try real retrieval locally <span aria-hidden="true">→</span></a>
       </aside>
     </section>
 
-    <section class="lab-student" aria-labelledby="ai-budget-title"><div><p class="lab-kicker">AI WITHOUT SURPRISE BILLS</p><h2 id="ai-budget-title">Choose a model. Understand the cost.</h2><p>Start with Groq, compare Gemini and other APIs, and learn what tokens mean for your project budget.</p></div><a :href="withBase('/students/ai-costs')">Compare models and budgets →</a></section>
+    <section class="lab-student" aria-labelledby="ai-budget-title"><div><p class="lab-kicker">Model costs</p><h2 id="ai-budget-title">Choose a model. Understand the cost.</h2><p>Compare Groq, Gemini and other providers. Use the size of one question and one answer to estimate the cost of running your demo.</p></div><a :href="withBase('/students/ai-costs')">Compare models and budgets →</a></section>
     <section class="lab-flow" aria-labelledby="lab-flow-title">
       <div class="lab-flow-label"><p class="lab-kicker">THE BASIC RAG LOOP</p><h2 id="lab-flow-title">From source to answer.</h2></div>
       <ol><li v-for="(step, index) in steps" :key="step"><span class="lab-step-number">0{{ index + 1 }}</span><span>{{ step }}</span></li></ol>
     </section>
     <section class="lab-explore" aria-labelledby="lab-explore-title">
-      <div class="lab-section-heading"><div><p class="lab-kicker">YOUR STUDENT PROJECT</p><h2 id="lab-explore-title">Find your next step.</h2></div><p>Four ways to move forward, not four new assignments.</p></div>
+      <div class="lab-section-heading"><div><p class="lab-kicker">YOUR STUDENT PROJECT</p><h2 id="lab-explore-title">Find your next step.</h2></div><p>Choose the step that matches what you have on your screen.</p></div>
       <div class="lab-cards"><a v-for="section in sections" :key="section.number" :href="withBase(section.link)" class="lab-card"><span class="lab-card-number">{{ section.number }}</span><h3>{{ section.title }}</h3><p>{{ section.text }}</p><span class="lab-card-link">{{ section.label }} <span aria-hidden="true">↗</span></span></a></div>
     </section>
-    <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">LOOKING BEYOND THIS SEMESTER</p><h2 id="lab-student-title">Future research vision</h2><p>Explore the planned Rust-first knowledge workspace, reviewable AI workflows and streaming answers. This larger system is not your current assignment, and the research application is not live.</p></div><a :href="withBase('/guide/vision')">Explore the future vision <span aria-hidden="true">→</span></a></section>
+    <section class="lab-student" aria-labelledby="lab-student-title"><div><p class="lab-kicker">Research notebook</p><h2 id="lab-student-title">Future research vision</h2><p>Follow a proposal for a Rust workspace that connects answers to evidence and leaves consequential decisions with a reviewer. The research application is not live.</p></div><a :href="withBase('/guide/vision')">Explore the future vision <span aria-hidden="true">→</span></a></section>
     <details class="lab-research">
       <summary>Optional deeper reading: the research system</summary>
-      <p>These proposed designs and small contract labs explore a larger knowledge workspace. They are not requirements for your student RAG app.</p>
+      <p>A contract lab is a small executable check of how two parts should work together. Use one to explore a design decision in the larger research proposal.</p>
       <div class="lab-practice-links"><a :href="withBase('/guide/walkthrough')">A fictional research workflow <span aria-hidden="true">→</span></a><a :href="withBase('/project/knowledge')">Identity, evidence and disagreement <span aria-hidden="true">→</span></a><a :href="withBase('/engineering/examples')">Run the contract labs <span aria-hidden="true">→</span></a></div>
     </details>
-    <p class="lab-ending">Start small. Keep your sources visible. Explain what your app can and cannot do. <a href="https://github.com/kaw393939/is373-rag">View the repository <span aria-hidden="true">↗</span></a></p>
+    <p class="lab-ending">Find the code, fixtures and tests for the examples in the public project. <a href="https://github.com/kaw393939/is373-rag">View the repository <span aria-hidden="true">↗</span></a></p>
   </div>
 </template>
 
@@ -60,10 +69,11 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 .lab-status{display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.08em;color:var(--vp-c-text-2);padding:0 0 25px;border-bottom:1px solid var(--vp-c-divider)}
 .lab-status a{margin-left:auto;letter-spacing:0;font-size:13px;color:var(--vp-c-brand-1);text-decoration:underline;text-underline-offset:4px}
 .lab-status-dot{width:7px;height:7px;background:var(--vp-c-brand-1);border-radius:50%;flex-shrink:0}
+.lab-hero-art{margin:1rem 0 0}.lab-hero-art img{display:block;width:100%;height:auto}.lab-hero-art figcaption{font-size:.78rem;margin-top:.28rem;color:var(--vp-c-text-2)}
 .lab-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:64px;align-items:center;padding:64px 0 66px}
 .lab-kicker{font-size:11px;font-weight:650;letter-spacing:.13em;color:var(--vp-c-brand-1);margin:0 0 18px;line-height:1.7}
-.lab-intro h1{font-size:clamp(40px,4.7vw,64px);line-height:1.07;letter-spacing:-.055em;font-weight:650;margin:0 0 24px}
-.lab-intro h1 em{font-style:normal;color:var(--vp-c-brand-1)}
+.lab-intro h1{font-size:clamp(40px,4.7vw,64px);line-height:1.07;letter-spacing:-.055em;font-family:Georgia,serif;font-weight:500;margin:0 0 24px}
+.lab-intro h1 em{font-style:italic;color:var(--vp-c-brand-1)}
 .lab-lead{font-size:21px;line-height:1.55;letter-spacing:-.018em;max-width:500px;margin:0 0 16px}
 .lab-summary{font-size:16px;line-height:1.75;color:var(--vp-c-text-2);max-width:490px;margin:0 0 26px}
 .lab-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
