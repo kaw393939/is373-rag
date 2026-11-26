@@ -67,3 +67,41 @@
 @media (max-width: 960px) { .path-nodes { grid-template-columns: repeat(2, 1fr); } .map-header { align-items: flex-start; flex-direction: column; } }
 @media (max-width: 640px) { .architecture-map { margin: 40px 24px 24px; padding: 22px; } .path-nodes { grid-template-columns: 1fr; } .path-node { min-height: 145px; } .map-bottom { flex-wrap: wrap; } .map-bottom a { margin-left: 13px; } .VPHomeHero .tagline { font-size: 17px; } }
 @media (prefers-reduced-motion: reduce) { .path-node, .path-switch button { transition: none; } .path-node:hover { transform: none; } }
+
+/* Keep the surrounding page in place when a diagram, table or example needs more room. */
+.vp-doc { min-width: 0; }
+.vp-doc :is(h1, h2, h3, h4, p, li, td, th) { overflow-wrap: anywhere; }
+.vp-doc :is(h2, h3, h4) { text-wrap: pretty; }
+.vp-doc a, .lab-home a { text-underline-offset: .18em; }
+.vp-doc .lab-scroll-block { min-width: 0; max-width: 100%; margin: 1.4rem 0; }
+.vp-doc .lab-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.vp-doc .lab-scroll-hint { margin: 0 0 .35rem; color: var(--vp-c-text-2); font-size: .875rem; line-height: 1.5; }
+.vp-doc .lab-scroll-table table { display: table; width: max-content; max-width: 100%; margin: 0; overflow: visible; font-size: .94rem; line-height: 1.55; }
+.vp-doc .lab-scroll-table :is(th, td) { min-width: min(9rem, 40vw); vertical-align: top; padding: .55rem .75rem; }
+.vp-doc .lab-scroll-diagram :is(.mermaid, svg) { overflow: visible; margin: 0; }
+.vp-doc .lab-scroll-diagram svg { height: auto; }
+.vp-doc pre { overscroll-behavior-x: contain; }
+:where(a, button, input, summary, [tabindex]):focus-visible { outline: 3px solid var(--vp-c-brand-1); outline-offset: 3px; }
+.vp-doc :is(.lab-scroll, pre):focus-visible { outline: 3px solid var(--vp-c-brand-1); outline-offset: -3px; }
+.VPSkipLink:focus-visible { outline: 3px solid var(--vp-c-brand-1); outline-offset: 2px; }
+.VPNavScreenMenuLink, .VPNavScreenMenuGroup .button, .VPLocalNav .menu { min-height: 44px; }
+.VPSidebar a.link { min-height: 32px; }
+.path-switch button { min-height: 44px; }
+@media (max-width: 959px) {
+  .VPSidebar a.link { min-height: 44px; align-content: center; }
+}
+@media (min-width: 768px) and (max-width: 900px) {
+  .VPNavBarSearch .DocSearch-Button :is(.DocSearch-Button-Placeholder, .DocSearch-Button-Keys) { display: none; }
+  .VPNavBarSearch .DocSearch-Button .DocSearch-Search-Icon { margin: 0; }
+  .VPNavBarMenu .VPNavBarMenuLink { padding-inline: .45rem; }
+}
+@media (max-width: 480px) {
+  .vp-doc [class*='language-'] button.copy { opacity: 1; width: 44px; height: 44px; }
+  .vp-doc [class*='language-'] pre { padding-top: 3rem; }
+  .architecture-map { margin-inline: 0; padding: 1rem; }
+  .map-bottom a { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

@@ -36,6 +36,8 @@ Check filtering with a difficult case. If the closest overall matches are all ou
 
 ```mermaid
 flowchart LR
+  accTitle: How retrieval produces cited evidence
+  accDescr: Lexical and vector searches start with the same access scope. Their results are combined, deduplicated, expanded through selected graph edges, and optionally reranked before the reader sees versioned source evidence.
   Q["Question and access scope"] --> L["BM25 candidates"]
   Q --> EMB["Query embedding"]
   EMB --> V["Eligible vector candidates"]

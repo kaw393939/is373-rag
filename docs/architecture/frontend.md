@@ -20,6 +20,8 @@ SvelteKit supports page-level rendering choices and hydration. Its state-managem
 
 ```mermaid
 flowchart LR
+  accTitle: Initial navigation and live updates
+  accDescr: SvelteKit requests an authorized snapshot from Rust for initial navigation. The browser then sends commands directly to Rust and receives streamed events. A browser worker can handle expensive view processing.
     Browser[Browser] -->|Initial navigation| Kit[SvelteKit rendering]
     Kit -->|Authorized snapshot| API[Rust HTTP API]
     Browser -->|Start and cancel commands| API

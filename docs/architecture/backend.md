@@ -16,6 +16,8 @@ In the draft, Rust with Axum/Tokio handles authenticated chat, retrieves evidenc
 
 ```mermaid
 flowchart LR
+  accTitle: Run ownership and index publication
+  accDescr: Axum passes browser commands to the run owner, which retrieves evidence, calls the model, and streams events. A separate ingestion workflow publishes searchable projections and records event intent in an outbox.
   UI[Browser] -->|HTTP commands| API[Axum adapters]
   API --> UC[Chat use cases and run owner]
   UC -->|Direct SSE| UI

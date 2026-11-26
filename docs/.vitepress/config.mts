@@ -21,6 +21,30 @@ export default withMermaid(defineConfig({
   ],
   markdown: {
     preConfig(md) {
+      // Preserve native tables and Mermaid output inside separately scrollable regions.
+      md.core.ruler.after('inline', 'lab-reading-regions', state => {
+        const wrapped = []
+        let section = ''
+        const html = (markup: string) => {
+          const token = new state.Token('html_block', '', 0)
+          token.content = markup + '\n'
+          return token
+        }
+        for (let i = 0; i < state.tokens.length; i++) {
+          const token = state.tokens[i]
+          if (token.type === 'heading_open') section = state.tokens[i + 1]?.content || section
+          const diagram = token.type === 'fence' && token.info.trim() === 'mermaid'
+          if (token.type === 'table_open' || diagram) {
+            const kind = diagram ? 'diagram' : 'table'
+            const label = md.utils.escapeHtml(section ? kind + ' for ' + section : kind)
+            wrapped.push(html('<LabScroll kind="' + kind + '" label="' + label + '">'))
+          }
+          if (token.type === 'th_open') token.attrSet('scope', 'col')
+          wrapped.push(token)
+          if (token.type === 'table_close' || diagram) wrapped.push(html('</LabScroll>'))
+        }
+        state.tokens = wrapped
+      })
       md.core.ruler.after('inline', 'lab-article-teaser', state => {
         const path = state.env.relativePath
         if (!path || path === 'index.md' || path === '404.md') return

@@ -16,6 +16,8 @@ The draft represents those dependencies as a directed acyclic graph (DAG). The g
 
 ```mermaid
 flowchart TD
+  accTitle: Two outputs from a source revision
+  accDescr: After parsing and normalization, retrieval chunks feed lexical and vector indexes. A second branch extracts mentions, resolves entities, and publishes a graph for grounded augmentation.
   SOURCE["Immutable source revision"] --> PARSE["Structured document and source anchors"]
   PARSE --> NORMAL["Normalization and linguistic annotations"]
   NORMAL --> CHUNKS["Retrieval chunks"]

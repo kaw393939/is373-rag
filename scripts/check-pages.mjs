@@ -130,7 +130,7 @@ function publicDateFinding(html) {
   for (const value of fields) {
     const text = clean(value)
       // Keep actual references and tool identifiers intact (URLs, file paths, and Rust edition flags).
-      .replace(/\{#[a-z][\w:.-]*\}/gi, ' ')
+      .replace(/\{#[a-z][\w:.-]*\}|\b[A-Z]{1,5}-\d{1,3}(?:\/(?:[A-Z]{1,5}-)?\d{1,3})+\b/g, ' ')
       .replace(/(?:https?:\/\/|www\.)\S+|(?:^|\s)(?:\.\.?\/|\/)[^\s<>]+/gi, ' ')
       .replace(/\b[\w.-]*\d{4}[-.\w]*\.(?:json|csv|pdf|md|png|jpe?g|webp)\b|--edition(?:\s*=\s*|\s+)\d{4}\b|\b(?:RFC|ISO|IEEE)\s+\d{4}(?=\b)/gi, ' ')
     const visibleYear = /(?<![\w/])(?:1[6-9]|20)\d{2}(?:s)?(?![\w/])/i
@@ -165,6 +165,8 @@ function checkEditorial(file, html) {
     expect(!canonical.length && !meta('og:url') && !head.includes('application/ld+json'), '404 must not be advertised as a canonical page')
     return
   }
+  const publications = [...html.matchAll(/<nav\b[^>]*aria-label="Publication information"[^>]*>([\s\S]*?)<\/nav>/gi)]
+  expect(publications.length === 1 && /<a\b[^>]*href="https:\/\/keithwilliams\.org\/site-notes"[^>]*>[^<]*Site notes[^<]*<\/a>/i.test(publications[0]?.[1] || ''), 'missing publication notice for privacy, accessibility and credits')
   const doc = relative.replace(/\.html$/, '.md')
   const original = path.join(sourceRoot, doc)
   expect(fs.existsSync(original), 'missing editable Markdown source ' + doc)

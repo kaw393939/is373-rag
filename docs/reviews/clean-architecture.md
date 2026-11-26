@@ -20,6 +20,8 @@ In this system the long-lived rules cover evidence provenance, authorized retrie
 
 ```mermaid
 flowchart BT
+  accTitle: Dependency direction in the proposed system
+  accDescr: Frameworks call adapters. Adapters call application use cases or implement application-owned ports. Application code depends on the domain and its own ports.
     Frameworks[Axum / SQLite / NATS / model SDKs] --> Adapters[Transport and persistence adapters]
     Adapters --> Application[StartRun / RetrieveEvidence / PublishRevision]
     Application --> Domain[Run / DocumentRevision / Claim / Evidence]

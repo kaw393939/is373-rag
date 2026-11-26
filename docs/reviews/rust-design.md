@@ -24,6 +24,8 @@ The architecture has useful isolation boundaries: one run owner, narrow adapters
 
 ```mermaid
 flowchart TD
+  accTitle: Run ownership and cancellation
+  accDescr: A run owner starts bounded child tasks. Before publishing, it verifies its ownership epoch and discards stale results. Cancellation signals those tasks, waits within a deadline, and records the outcome.
   INPUT[Validated and authorized command] --> OWN[Acquire run ownership and epoch]
   OWN --> WORK[Bounded child tasks]
   WORK --> CHECK{Owner epoch still current?}

@@ -22,7 +22,8 @@ const art = computed(() => editorialImage(page.value.relativePath))
 .vp-doc p.lab-page-deck { margin: 0; font: 1.23rem/1.48 Georgia, 'Times New Roman', serif; color: var(--vp-c-text-1); }
 .lab-article-entry .lab-page-share { margin-top: .45rem; }
 @media (max-width: 600px) {
- .lab-deck-row { grid-template-columns: minmax(0, 1fr) minmax(5.5rem, 26%); gap: .7rem; }
+ .lab-deck-row { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+ .lab-deck-row img { max-width: 28rem; }
  .vp-doc p.lab-page-deck { font-size: 1.1rem; }
 }
 </style>

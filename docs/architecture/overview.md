@@ -16,6 +16,8 @@ Trace the live conversation first, then follow a source through ingestion. The d
 
 ```mermaid
 flowchart TB
+  accTitle: Chat and publication paths
+  accDescr: The browser exchanges commands and streamed answers with Rust. Rust retrieves published evidence and calls the model. In a separate path, source revisions go through parsing and publication, which updates the index and emits an event.
   UI["SvelteKit browser interface"] <-->|"HTTP commands / SSE"| CHAT["Rust chat service"]
   SSR["SvelteKit initial rendering"] --> UI
   CHAT --> RET["Retrieval application boundary"]

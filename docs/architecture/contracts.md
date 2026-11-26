@@ -44,6 +44,8 @@ A cursor identifies a position in one retained run attempt's history. Its encodi
 
 ```mermaid
 stateDiagram-v2
+  accTitle: States of a single answer run
+  accDescr: An accepted request retrieves evidence, generates text, and completes. It can fail or be cancelled at any active stage. A generating run can also end as interrupted. Each terminal state ends the run.
   [*] --> Accepted
   Accepted --> Retrieving
   Retrieving --> Generating

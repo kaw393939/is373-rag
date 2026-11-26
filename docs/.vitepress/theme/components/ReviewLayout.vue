@@ -18,6 +18,12 @@ const section = computed(() => {
 
 <template>
   <Layout>
+    <template #layout-bottom>
+      <div class="lab-publication-footer">
+        <span>Search runs in your browser using this guide’s index.</span>
+        <nav aria-label="Publication information"><a href="https://keithwilliams.org/site-notes">Site notes</a></nav>
+      </div>
+    </template>
     <template #doc-before>
       <div class="doc-context"><a :href="withBase(section.href)">{{ section.label }}</a><a :href="withBase(page.relativePath.startsWith('students/') ? '/students/' : '/status')">{{ page.relativePath.startsWith('students/') ? 'Optional project support' : 'Research runtime planned' }}</a></div>
       <aside v-if="reference" class="reference-notice" aria-label="Reference material">
@@ -37,4 +43,11 @@ const section = computed(() => {
 .doc-context a:hover{text-decoration:underline}.doc-context a:focus-visible{outline:3px solid var(--vp-c-brand-1);outline-offset:3px}
 .reference-notice{margin:0 0 24px;padding:16px 20px;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg-soft);color:var(--vp-c-text-1);font-size:14px;line-height:1.7}
 .reference-notice strong{display:block;margin-bottom:4px}.reference-notice a{color:var(--vp-c-brand-1);text-decoration:underline}
+.doc-context { flex-wrap: wrap; justify-content: flex-start; gap: .4rem 1rem; font-size: .875rem; }
+.doc-context a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.doc-context a:last-child { margin-inline-start: auto; padding: .35rem .6rem; font-size: .8rem; }
+.lab-publication-footer { display: flex; align-items: center; flex-wrap: wrap; justify-content: center; column-gap: 1.2rem; padding: .65rem 1.25rem; border-top: 1px solid var(--vp-c-divider); color: var(--vp-c-text-2); text-align: center; font-size: .875rem; line-height: 1.6; }
+.lab-publication-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--vp-c-brand-1); text-decoration: underline; text-underline-offset: .18em; }
+@media (max-width: 420px) { .doc-context { gap: .25rem .6rem; } .doc-context a:last-child { margin-inline-start: 0; } }
+@media (min-width: 960px) { :global(.VPContent.has-sidebar) ~ .lab-publication-footer { padding-inline-start: var(--vp-sidebar-width); } }
 </style>
