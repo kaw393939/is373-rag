@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted } from 'vue'
 import { useData, withBase } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 const { Layout } = DefaultTheme
 const { page } = useData()
+
+function dismissMobileMenu(event: KeyboardEvent) {
+  if (event.key !== 'Escape' || event.defaultPrevented || document.querySelector('.VPLocalSearchBox')) return
+  const toggle = document.querySelector<HTMLButtonElement>('button[aria-controls="VPNavScreen"][aria-expanded="true"]')
+  if (!toggle) return
+  event.preventDefault()
+  toggle.click()
+  toggle.focus({ preventScroll: true })
+}
+
+onMounted(() => document.addEventListener('keydown', dismissMobileMenu))
+onBeforeUnmount(() => document.removeEventListener('keydown', dismissMobileMenu))
+
 const reference = computed(() => /^(architecture|decisions|reviews|research)\//.test(page.value.relativePath)
   || ['course-roadmap.md', 'validation.md', 'sources.md'].includes(page.value.relativePath))
 const section = computed(() => {

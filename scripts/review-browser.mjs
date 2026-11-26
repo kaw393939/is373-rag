@@ -69,9 +69,11 @@ try {
     return result.result.value
   }
   const press = async (key, virtualKey) => {
-    for (const type of ['keyDown', 'keyUp']) {
-      await call('Input.dispatchKeyEvent', { type, key, code: key, windowsVirtualKeyCode: virtualKey })
-    }
+    const event = { key, code: key, windowsVirtualKeyCode: virtualKey }
+    // Chrome activates a native button on the Enter keypress generated from this text.
+    const text = key === 'Enter' ? '\r' : undefined
+    await call('Input.dispatchKeyEvent', { ...event, type: 'keyDown', text, unmodifiedText: text })
+    await call('Input.dispatchKeyEvent', { ...event, type: 'keyUp' })
   }
   const expectInPage = async (expression, message) => {
     for (let i = 0; i < 100; i++) {
@@ -173,12 +175,26 @@ try {
   await press('Escape', 27)
   await call('Emulation.setDeviceMetricsOverride', { width:390,height:844,deviceScaleFactor:1,mobile:false })
   await navigate('')
-  const expanded = await evaluate('new Promise(resolve=>{const button=document.querySelector(".VPNavBarHamburger");button.click();requestAnimationFrame(()=>resolve(button.getAttribute("aria-expanded")))})')
-  assert.equal(expanded,'true','Mobile menu must open')
-  await evaluate('document.querySelector(".VPNavBarHamburger").focus()')
+  const menu = 'button[aria-controls="VPNavScreen"]'
+  const menuState = state => `document.querySelector('${menu}').getAttribute('aria-expanded') === '${state}'`
+  const toggleFocus = `document.activeElement === document.querySelector('${menu}')`
+  await expectInPage('document.querySelector(".lab-page-share button")', 'Mobile navigation must hydrate before the keyboard check')
+  await evaluate(`document.querySelector('${menu}').focus()`)
+  await expectInPage(toggleFocus, 'The mobile navigation toggle must receive focus')
   await press('Enter', 13)
-  await expectInPage('document.querySelector(".VPNavBarHamburger").getAttribute("aria-expanded") === "false"', 'Keyboard must close the mobile menu')
-  receipt.interactions.push({ mobileMenu:'opened and closed with keyboard' })
+  await expectInPage(menuState('true'), 'Enter on the toggle must open the mobile menu')
+  await evaluate(`document.querySelector('${menu}').focus()`)
+  await expectInPage(toggleFocus, 'The open mobile navigation toggle must receive focus')
+  await press('Enter', 13)
+  await expectInPage(menuState('false'), 'Enter on the toggle must close the mobile menu')
+  await press('Enter', 13)
+  await expectInPage(menuState('true'), 'The mobile menu must reopen')
+  await press('Tab', 9)
+  await expectInPage("document.getElementById('VPNavScreen')?.contains(document.activeElement)", 'Tab must move from the toggle into the menu')
+  await press('Escape', 27)
+  await expectInPage(menuState('false'), 'Escape from a menu link must dismiss the mobile menu')
+  await expectInPage(toggleFocus, 'Escape must return focus to the mobile navigation toggle')
+  receipt.interactions.push({ mobileMenu:'opened and closed with Enter; Tab reached navigation links; Escape returned focus to the toggle' })
   await navigate('students/reference')
   await call('Browser.grantPermissions', { origin, permissions:['clipboardReadWrite','clipboardSanitizedWrite'] })
   const copied = await evaluate(`new Promise((resolve,reject)=>{
