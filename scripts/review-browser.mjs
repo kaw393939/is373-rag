@@ -11,7 +11,7 @@ const root = path.resolve('dist')
 const base = process.env.DOCS_BASE || '/is373-rag/'
 const output = path.resolve(process.env.BROWSER_REVIEW_DIR || 'browser-review')
 await fs.mkdir(output, { recursive: true })
-const mime = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript', '.json':'application/json', '.svg':'image/svg+xml', '.woff2':'font/woff2', '.png':'image/png' }
+const mime = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript', '.json':'application/json', '.svg':'image/svg+xml', '.woff2':'font/woff2', '.png':'image/png', '.jpg':'image/jpeg', '.webp':'image/webp' }
 const server = http.createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://local').pathname)
@@ -68,7 +68,22 @@ try {
     if (result.exceptionDetails) throw Error(JSON.stringify(result.exceptionDetails))
     return result.result.value
   }
+  const press = async (key, virtualKey) => {
+    const event = { key, code: key, windowsVirtualKeyCode: virtualKey }
+    // Chrome activates a native button on the Enter keypress generated from this text.
+    const text = key === 'Enter' ? '\r' : undefined
+    await call('Input.dispatchKeyEvent', { ...event, type: 'keyDown', text, unmodifiedText: text })
+    await call('Input.dispatchKeyEvent', { ...event, type: 'keyUp' })
+  }
+  const expectInPage = async (expression, message) => {
+    for (let i = 0; i < 100; i++) {
+      if (await evaluate(expression)) return
+      await new Promise(resolve => setTimeout(resolve, 75))
+    }
+    assert.fail(message)
+  }
   await call('Page.enable'); await call('Runtime.enable')
+  await call('Page.bringToFront')
   const navigate = async route => {
     const loaded = new Promise((resolve, reject) => {
       const key = `${sessionId}:Page.loadEventFired`
@@ -86,18 +101,53 @@ try {
     await fs.writeFile(path.join(output, name + '.png'), Buffer.from(image.data,'base64'))
   }
   const receipt = { scope:'Built static documentation on local CI HTTP; not live Pages, Safari or full accessibility certification.', browser:await send('Browser.getVersion'), routes:[], interactions:[] }
-  for (const [name, width, height, scheme] of [['desktop',1440,1000,'light'],['mobile',390,844,'light'],['dark',1440,1000,'dark']]) {
+  const allRoutes = ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference', 'students/ai-costs', 'students/data-choices']
+  const readingRoutes = ['', 'architecture/overview', 'engineering/twelve-factor', 'students/reference']
+  const viewports = [
+    ['desktop', 1440, 1000, 'light', allRoutes],
+    ['mobile', 390, 844, 'light', allRoutes],
+    ['dark', 1440, 1000, 'dark', allRoutes],
+    ['small-phone', 320, 640, 'light', readingRoutes],
+    ['tablet', 768, 1024, 'light', readingRoutes],
+  ]
+  for (const [name, width, height, scheme, routes] of viewports) {
     await call('Emulation.setDeviceMetricsOverride', { width,height,deviceScaleFactor:1,mobile:false })
     await call('Emulation.setEmulatedMedia', { features:[{ name:'prefers-color-scheme',value:scheme }] })
-    for (const route of ['', 'guide/vision', 'guide/walkthrough', 'design/', 'build/', 'reference/glossary', 'engineering/twelve-factor', 'students/', 'students/plan', 'students/build', 'students/prompts', 'students/stuck', 'students/check', 'students/reference', 'students/ai-costs', 'students/data-choices']) {
+    for (const route of routes) {
       await navigate(route)
+      await expectInPage('document.querySelector(".lab-page-share button")', `${name}/${route}: share controls did not hydrate`)
       const state = await evaluate('({h1:document.querySelectorAll("h1").length, overflow:document.documentElement.scrollWidth>innerWidth+1, revision:document.querySelector("meta[name=lab-docs-revision]")?.content, dark:document.documentElement.classList.contains("dark")})')
       assert.equal(state.h1,1,`${name}/${route}: H1`)
       assert.equal(state.overflow,false,`${name}/${route}: page overflow`)
       assert.ok(state.revision,`${name}/${route}: revision`)
       assert.equal(state.dark,scheme==='dark',`${name}/${route}: color scheme`)
+      assert.equal(await evaluate('document.querySelector(\'nav[aria-label="Publication information"] a\')?.href'), 'https://keithwilliams.org/site-notes', `${name}/${route}: site notes`)
+      if (readingRoutes.includes(route) && route && routes === readingRoutes) {
+        if (route === 'architecture/overview') {
+          await expectInPage('document.querySelector(".lab-scroll-diagram svg")', `${name}: diagram did not render`)
+        }
+        if (route === 'engineering/twelve-factor') {
+          assert.ok(await evaluate('document.querySelector(".lab-scroll-table table") !== null'), `${name}: table wrapper`)
+        }
+        await expectInPage(`[...document.querySelectorAll('.lab-scroll')].every(el => {
+          const wide = el.scrollWidth > el.clientWidth + 2
+          return wide
+            ? el.tabIndex === 0 && el.getAttribute('role') === 'region' && !!el.getAttribute('aria-label')?.trim()
+            : !el.hasAttribute('tabindex')
+        })`, `${name}/${route}: keyboard access for scrollable content`)
+        assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth + 1'), false, `${name}/${route}: hydrated page overflow`)
+      }
       receipt.routes.push({ viewport:name, route:route||'/', ...state })
       if (!route) {
+        await press('Tab', 9)
+        const skip = await evaluate(`(() => {
+          const el = document.activeElement
+          const rect = el.getBoundingClientRect()
+          return { href: el.getAttribute('href'), visible: rect.width > 1 && rect.height > 1 && rect.left >= 0 }
+        })()`)
+        assert.deepEqual(skip, { href: '#VPContent', visible: true }, `${name}: first Tab shows the skip link`)
+        await press('Enter', 13)
+        await expectInPage("document.activeElement.id === 'VPContent'", `${name}: skip link did not move keyboard focus to the content`)
         const learningPath = await evaluate('[...document.querySelectorAll(".lab-card h3")].map(e=>e.textContent)')
         assert.deepEqual(learningPath, ['Plan','Build','Test','Explain'], 'Student path stays first')
         await evaluate('document.querySelector(".lab-example a").click()')
@@ -122,13 +172,29 @@ try {
   const results = await evaluate('new Promise((resolve,reject)=>{let n=0;const t=setInterval(()=>{const list=document.querySelectorAll("[role=option] a.result");if(list.length){clearInterval(t);resolve([...list].map(a=>a.getAttribute("href")))}else if(++n>100){clearInterval(t);reject(Error("Search returned no results"))}},50)})')
   assert.ok(results.every(href=>href.startsWith(base)), 'Search escaped project path')
   receipt.interactions.push({ search:'portable', resultCount:results.length, allResultsWithinBase:true })
-  await call('Input.dispatchKeyEvent', { type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27 })
-  await call('Input.dispatchKeyEvent', { type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27 })
+  await press('Escape', 27)
   await call('Emulation.setDeviceMetricsOverride', { width:390,height:844,deviceScaleFactor:1,mobile:false })
   await navigate('')
-  const expanded = await evaluate('new Promise(resolve=>{const button=document.querySelector(".VPNavBarHamburger");button.click();requestAnimationFrame(()=>resolve(button.getAttribute("aria-expanded")))})')
-  assert.equal(expanded,'true','Mobile menu must open')
-  receipt.interactions.push({ mobileMenu:'opened' })
+  const menu = 'button[aria-controls="VPNavScreen"]'
+  const menuState = state => `document.querySelector('${menu}').getAttribute('aria-expanded') === '${state}'`
+  const toggleFocus = `document.activeElement === document.querySelector('${menu}')`
+  await expectInPage('document.querySelector(".lab-page-share button")', 'Mobile navigation must hydrate before the keyboard check')
+  await evaluate(`document.querySelector('${menu}').focus()`)
+  await expectInPage(toggleFocus, 'The mobile navigation toggle must receive focus')
+  await press('Enter', 13)
+  await expectInPage(menuState('true'), 'Enter on the toggle must open the mobile menu')
+  await evaluate(`document.querySelector('${menu}').focus()`)
+  await expectInPage(toggleFocus, 'The open mobile navigation toggle must receive focus')
+  await press('Enter', 13)
+  await expectInPage(menuState('false'), 'Enter on the toggle must close the mobile menu')
+  await press('Enter', 13)
+  await expectInPage(menuState('true'), 'The mobile menu must reopen')
+  await press('Tab', 9)
+  await expectInPage("document.getElementById('VPNavScreen')?.contains(document.activeElement)", 'Tab must move from the toggle into the menu')
+  await press('Escape', 27)
+  await expectInPage(menuState('false'), 'Escape from a menu link must dismiss the mobile menu')
+  await expectInPage(toggleFocus, 'Escape must return focus to the mobile navigation toggle')
+  receipt.interactions.push({ mobileMenu:'opened and closed with Enter; Tab reached navigation links; Escape returned focus to the toggle' })
   await navigate('students/reference')
   await call('Browser.grantPermissions', { origin, permissions:['clipboardReadWrite','clipboardSanitizedWrite'] })
   const copied = await evaluate(`new Promise((resolve,reject)=>{
@@ -141,6 +207,15 @@ try {
   })`)
   assert.ok(copied.includes('git clone https://github.com/kaw393939/is373-rag.git'),'Mobile copy must preserve setup command')
   receipt.interactions.push({ mobileLabCopy:'verified clipboard contents' })
+  const canonical = await evaluate('document.querySelector(\'link[rel="canonical"]\').href')
+  const linkedIn = new URL(await evaluate('document.querySelector(".lab-page-share a").href'))
+  assert.equal(linkedIn.origin + linkedIn.pathname, 'https://www.linkedin.com/sharing/share-offsite/', 'LinkedIn share destination')
+  assert.equal(linkedIn.searchParams.get('url'), canonical, 'LinkedIn must receive the public article address')
+  await evaluate(`[...document.querySelectorAll('.lab-page-share button')].find(el => el.textContent.trim() === 'Copy link').focus()`)
+  await press('Enter', 13)
+  await expectInPage("document.querySelector('.lab-page-share [role=status]')?.textContent.toLowerCase().includes('copied')", 'Readers need confirmation that the article link was copied')
+  assert.equal(await evaluate('navigator.clipboard.readText()'), canonical, 'Keyboard copy must write the canonical article URL')
+  receipt.interactions.push({ articleShare:'copied canonical URL by keyboard; verified LinkedIn destination without opening it' })
   await screenshot('student-lab-mobile')
 
   assert.equal(errors.length,0,`Browser exceptions: ${errors.join('; ')}`)

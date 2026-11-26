@@ -1,4 +1,12 @@
+---
+title: "Project brief"
+description: "Follow a portable research library from an imported record to a cited answer. Explore the proposed system, its first demonstration and the current implementation boundary."
+teaser: "Two accounts name the same incident and disagree about the date. The first job of a useful research library is to let a reader see both accounts."
+---
+
 # Project brief
+
+Imagine importing two reports about a single event. One gives a date the other disputes. The intended library can identify the shared incident, retain the two claims and let a learner open the lines of evidence behind each. That small example explains why the project starts with identity, source records and review.
 
 **Ordo Knowledge Lab · IS373 · documentation and contract-review phase.**
 
@@ -23,6 +31,8 @@ The hosted API and workers follow [twelve-factor requirements](../engineering/tw
 The [executable examples](../engineering/examples.md) make specific failure contracts testable. The [requirements](acceptance.md) describe broader application acceptance that those small labs do not satisfy on their own.
 
 ## First complete demonstration
+
+A useful demonstration has a second reader. Give that person the published library on another machine and ask them to find the passage behind one answer. If an optional processor is missing, the existing evidence should still open and the unavailable operation should be identifiable.
 
 Import synthetic reports containing aliases, two people sharing a name, copied testimony and a contradiction. Repeat the import without duplicate acceptance. Resolve ambiguity, publish a reviewed revision, stream a cited answer, and open the library on Linux without the Mac worker. Inspect what a stopped worker or disconnected browser did and did not preserve.
 

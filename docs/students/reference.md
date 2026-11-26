@@ -1,11 +1,14 @@
 ---
 title: Optional runnable retrieval lab
-description: Run a small local source-and-retrieval example without paid APIs, then try real Ollama embeddings and generation if available.
+description: Run the Knowledge Lab’s free offline retrieval exercise with Python and SQLite, inspect a cited passage, and optionally try real embeddings and generation.
+teaser: Five fictional documents are enough to see search work. Run the importer twice, ask who organizes events, and open the exact passage you got back.
 ---
 
 # Inspect a source-to-answer pipeline locally
 
-The optional [student-reference folder](https://github.com/kaw393939/is373-rag/tree/main/student-reference) is a **teaching lab**, not a ready-to-submit hosted RAG application. It introduces stable source IDs, paragraph chunks, persisted SQLite FTS search, real Ollama embeddings and actual model generation.
+The [student-reference folder](https://github.com/kaw393939/is373-rag/tree/main/student-reference) is a runnable local exercise. You can finish the first four steps with Python, SQLite, and the included fictional documents. The optional model extension comes afterward.
+
+Your individual assignment uses your own hosted app and sources. This lab lets you see what import and retrieval look like before you connect them to a model.
 
 ## Your first 15 minutes
 
@@ -39,7 +42,7 @@ python3 student-reference/rag_lab.py search --db student-reference/lab.sqlite --
 
 Look at the returned source ID, filename and passage. Open the matching file in `student-reference/fixtures` and read it yourself. Can you point to the words that answer the question?
 
-This output is **retrieved text, not a generated answer**. Keyword search is a useful baseline, not the assignment's finished vector/graph RAG implementation.
+**What just ran?** SQLite searched for text and returned a stored passage. You supplied no model and asked it to generate nothing. Keep that distinction when you explain this keyword baseline or compare it with your chosen vector or graph method.
 
 ### 4. Check your setup and explain it (about 5 minutes)
 
@@ -66,7 +69,7 @@ If Ollama and compatible local models are already available, follow the [lab REA
 5. Test a missing-evidence question and inspect what the model actually says.
 6. Adapt small ideas to your existing FastAPI/server project instead of copying the whole reference as your individual app.
 
-The lab deliberately omits public authentication, user accounts, web UI, remote inference credentials and deployment. Its tests exercise local data handling, **not** a complete hosted system or model quality. Keep the [original assignment](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) as your checklist.
+A passing test here checks local data handling. You still need to verify model quality, authentication, the web interface, public deployment, and your chosen retrieval workflow in your own app. Keep public accounts and remote inference credentials in that app’s appropriate configuration. Use the [original assignment](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) as your project checklist.
 
 [Read the build steps](build.md) · [Try the agent prompts](prompts.md)
 

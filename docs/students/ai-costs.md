@@ -1,25 +1,28 @@
 ---
 title: AI models, tokens and your budget
-description: Compare Groq, Gemini, OpenAI, Anthropic and DeepSeek, understand token bills, and build a small RAG app without surprise costs.
+description: "Estimate a small RAG app’s token bill with seven worked price examples. Compare two models on citation quality, retries, latency and cost per usable answer."
+teaser: "One answer can trigger several paid calls. Follow a single request from retrieved passages to the bill, then see which costs scale with a class."
 ---
 
 # Good answers. Small budget. No surprises.
 
-**Start with Groq for a small public-data experiment. Keep Gemini as another free-tier option.** Then compare results, not just prices. The cheapest answer is not useful if its citations are wrong.
+A model produced a ten-word answer. Your app may still have paid to send three pages of evidence, run a second check, and retry a failed request. Start with the usage from one call. Can you explain every item before multiplying it by a thousand?
 
-This is optional project help, not a requirement to buy a subscription or change your assignment. You can [test retrieval locally](reference.md) without any key. Hosted generation is a separate step; this page does not claim that every provider is already implemented in the local lab.
+**For the IS373 project**, the [local retrieval exercise](reference.md) works without an API key. Use Groq as a starting point for a small public-data generation experiment, or consider Gemini. Hosted generation is optional practice on this page. Check which provider adapters your application implements before choosing one.
+
+[See the example model prices](#compare-actual-models-not-company-names) · [Calculate one request](#read-your-bill-before-you-grow-it) · [Set limits](#keep-the-budget-and-the-key-under-control)
 
 ## Choose a starting point
 
-- **Groq:** a useful first stop for fast interactive experiments with a free API allowance. Groq hosts models; `openai/gpt-oss-20b` on Groq is not a ChatGPT subscription or an OpenAI API bill.
-- **Gemini:** another free API starting point for permitted public or synthetic material. Check the data terms before uploading anything.
+- **Groq:** check which hosted models and allowances your account can use for an interactive experiment. Groq hosts models; `openai/gpt-oss-20b` on Groq is not a ChatGPT subscription or an OpenAI API bill.
+- **Gemini:** check whether the selected model offers a free API option for your permitted public or synthetic material. Check the data terms before uploading anything.
 - **OpenAI, Anthropic and DeepSeek:** useful comparison candidates when you have API access and a small approved budget. Don't assume that a free chatbot account supplies free API calls.
 
 Try the same five source-backed questions with two models. Record citation correctness, unsupported claims, latency and **cost per acceptable answer**. A higher price alone does not prove higher quality.
 
 ## Compare actual models, not company names
 
-**Official prices checked November 11, 2026. USD per 1 million tokens.** These are selected examples, not an exhaustive catalog or a ranking of equal capabilities. Standard text generation, uncached input, no batch discount; taxes, hosting, embedding and tool charges excluded. Confirm the live pricing and model availability before enabling billing.
+**Illustrative rates in USD per million tokens.** These figures are worked budgeting examples. To estimate a real bill, replace the sample rates with current prices from the linked provider pages. The calculations assume standard text generation and uncached input, and exclude batch discounts, taxes, hosting, embeddings, and tools.
 
 *On a narrow screen, swipe the table sideways to see all prices.*
 
@@ -35,15 +38,15 @@ Try the same five source-backed questions with two models. Record citation corre
 
 \*Each answer uses **3,000 input + 500 total billed output tokens**. This is a calculation, not measured performance or a promise about how many visible words you receive. Different tokenizers can count the same text differently; measure real usage when comparing providers.
 
-**Conditions matter.** Haiku 5.5's row applies to prompts up to 100,000 tokens; above that its base input/output rates are $0.50/$2.50. DeepSeek's current `deepseek-flash` resolves to V4.1-Flash-1017. Its peak window is weekdays 01:00–04:00 and 06:00–10:00 UTC, excluding Chinese public holidays; other hours are off-peak. Use peak rates when budgeting conservatively. OpenAI regional processing has an additional uplift. Cached input, cache writes/storage, search and other tools can change every provider's bill. Don't price an entire application from its cheapest cached-token headline.
+**Which rate applies?** The Haiku example assumes a prompt of up to 100,000 tokens. Longer prompts can fall into another price tier. A provider can also change the model behind an alias or apply peak rates, off-peak rates, regional charges, cache fees, and tool fees. Look up the model ID and conditions for your account. For a conservative estimate, use the highest applicable rate.
 
 ## What does “free” actually mean?
 
-**Groq:** the [published free limits](https://console.groq.com/docs/rate-limits) for both GPT-OSS examples are 30 requests/minute, 1,000/day, 8,000 tokens/minute and 200,000/day, applied at the organization level. Your console is authoritative. A 3,500-token request can exhaust the token allowance well before the request allowance. Queue calls; respect `429` and retry guidance rather than creating accounts to bypass limits.
+**Groq.** Open the [rate limits](https://console.groq.com/docs/rate-limits) and your account console. Compare the organization’s requests-per-minute limit with its tokens-per-minute limit. A 3,500-token request can exhaust the token allowance well before the request allowance. Queue calls; respect `429` and retry guidance rather than creating accounts to bypass limits.
 
-**Gemini:** the selected Flash-Lite model lists free input/output with rate limits. Google's pricing page says free-tier content can be used to improve products, while paid-tier content is not used for that purpose, subject to its terms. Free access is not permission to upload classmates' work or private records.
+**Gemini.** Check the selected Flash-Lite model’s pricing, rate limits, and data-use terms. Free and paid tiers can handle submitted content differently. Free access is not permission to upload classmates' work or private records.
 
-**OpenAI:** the selected model lists no free API tier. ChatGPT is the user-facing app; the API powers your code. Treat billing separately. Some eligible subscriptions have a limited [API-credit benefit](https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions); check eligibility and activation rather than assuming your plan covers it.
+**OpenAI.** Check whether your account has an API allowance for the model you want to use. ChatGPT is the user-facing app; the API powers your code. Treat billing separately. Some eligible subscriptions have a limited [API-credit benefit](https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions); check eligibility and activation rather than assuming your plan covers it.
 
 **Anthropic and DeepSeek:** budget for paid API usage unless your account explicitly shows usable credits. Trials, grants or subscriber benefits are not a permanent free allowance. Check credit expiry and what happens when it runs out.
 
@@ -72,11 +75,11 @@ For a product, start with `active users × answers/user × calls/answer`. Add em
 
 ## Can graphs or vectors lower the token bill?
 
-**Yes, by helping you select better evidence, not by making information magically free.** A vector is a numeric representation used to find similar content; a graph stores entities and relationships you can traverse. Usually the model receives selected text or serialized facts, not the entire database or its vector index. That text still becomes input tokens.
+Start with the text your app actually put in the request. A vector is a numeric representation used to find similar content; a graph stores entities and relationships you can traverse. Usually the model receives selected text or serialized facts, not the entire database or its vector index. That text still becomes input tokens.
 
 Think of **useful evidence per token**, rather than a universal “density of meaning” score. A compact graph fact such as `Course A → requires → Course B` can replace a long irrelevant passage, but may omit the exception, date or source that makes the fact true. Keep provenance and retrieve the supporting passage when needed. Graph construction, summaries and embeddings can themselves cost money; stale or incorrect summaries can make cheap answers worse.
 
-**Illustrative comparison:** suppose a long-context approach sends 20,000 input tokens per question, while targeted retrieval sends 3,000. At Groq 20B's listed paid input rate, that is $1.50 versus $0.225 for 1,000 questions: **$1.275 saved on input**, holding output fixed. These are assumed token counts, not a benchmark proving graph search beats vector search. A good SQL filter may save just as much. If building the index costs more than the savings, a tiny demo may never break even.
+**Illustrative comparison:** suppose a long-context approach sends 20,000 input tokens per question, while targeted retrieval sends 3,000. At the sample Groq 20B input rate, that is $1.50 versus $0.225 for 1,000 questions: **$1.275 saved on input**, holding output fixed. These are assumed token counts, not a benchmark proving graph search beats vector search. A good SQL filter may save just as much. If building the index costs more than the savings, a tiny demo may never break even.
 
 Compare SQL filters, keyword search, vector search, graph traversal and combinations on the **same questions and source snapshot**. Measure retrieval quality, citation accuracy, input/output tokens, indexing cost, latency and abstention when evidence is missing. Count only correct, adequately supported answers as successes. [Choose a database and retrieval approach](data-choices.md).
 
@@ -88,4 +91,6 @@ Compare SQL filters, keyword search, vector search, graph traversal and combinat
 4. Keep one provider adapter behind your application's interface. Configure provider/model on the server. Test differences in streaming, tools, JSON, token accounting and errors; “OpenAI-compatible” does not mean identical.
 5. Log model/version, usage, latency and estimated cost, not secrets or sensitive prompt text. Compare logs with the billing dashboard.
 
-**Try it:** run five questions, calculate the actual cost, then halve your retrieved context. Did the bill fall? Did citation quality survive? Keep the improvement only if both the evidence and the budget make sense. This is a learning exercise, not another graded deliverable.
+**Try it with five questions.** Mark which answers contain a claim the cited passage supports. Divide the cost of *all* attempts by the number of acceptable answers. If four answers qualify and all five attempts cost $0.02, each acceptable answer cost $0.005. If none qualify, record the spend and zero successes. Then halve the retrieved context and repeat the same questions.
+
+If the estimate and dashboard disagree, check the model ID, recorded input and billed output, calls per answer, and retry count before changing providers. You can do the arithmetic on paper. Use this comparison when it helps your project.

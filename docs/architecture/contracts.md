@@ -1,8 +1,16 @@
+---
+title: "Contracts and event lifecycle"
+description: "Follow a proposed chat request from acceptance through reconnect or cancellation, with example endpoints, event fields, and the rules for restoring a run."
+teaser: "A browser reconnects after missing part of an answer. Its last event number means something only if the server knows which run and attempt it belongs to."
+---
+
 # Contracts and event lifecycle
 
 <span class="status-label">DRAFT · ILLUSTRATIVE CONTRACTS</span>
 
-These contracts describe required behavior for future implementation. They are not live endpoints. Transport DTOs map to domain commands; domain policies do not depend on HTTP, a broker, or a model provider's event format.
+Imagine reloading a page halfway through a streamed answer. The server needs enough information to return the right conversation, distinguish a retry from a new request, and identify the last event the reader saw. These proposed contracts describe that exchange. No live endpoints are supplied here.
+
+Translate HTTP request and response shapes into domain commands at the boundary. The rules governing a run should survive a change of transport, broker, or model provider.
 
 ## Browser commands
 
@@ -13,7 +21,7 @@ These contracts describe required behavior for future implementation. They are n
 | `POST /v1/runs/{id}/cancel` | Idempotently record cancellation intent and notify the current run owner |
 | `GET /v1/conversations/{id}` | Return a bounded authorized snapshot with per-run checkpoints |
 
-Choose cookie or token authentication before implementation. Native EventSource and fetch-based SSE have different header and reconnection behavior. The browser client must implement the behavior of its chosen transport explicitly. Browser subscriptions terminate at the authorized gateway, not at internal broker subjects.
+The endpoint table leaves a real design choice open. Select cookie or token authentication, then demonstrate reconnection with the actual browser transport. Native EventSource and fetch-based SSE differ in how they send headers and reconnect. A browser subscribes through an authorized gateway. Internal broker subjects stay behind it.
 
 ## Event envelope
 
@@ -36,6 +44,8 @@ A cursor identifies a position in one retained run attempt's history. Its encodi
 
 ```mermaid
 stateDiagram-v2
+  accTitle: States of a single answer run
+  accDescr: An accepted request retrieves evidence, generates text, and completes. It can fail or be cancelled at any active stage. A generating run can also end as interrupted. Each terminal state ends the run.
   [*] --> Accepted
   Accepted --> Retrieving
   Retrieving --> Generating
@@ -69,7 +79,7 @@ Replay of persisted deltas restores output. It does not reconstruct a provider's
 
 ## Durability policy to decide
 
-Direct delivery with asynchronous batched persistence minimizes synchronous storage work, but recently displayed text may be absent after a crash. Persist-and-ack before delivery provides a stronger displayed-output guarantee at additional cost. Measure both before choosing. Record transcript durability separately from short-lived status events.
+Direct delivery with asynchronous batched persistence minimizes synchronous storage work, but text displayed since the last persistence checkpoint may be absent after a crash. Persist-and-ack before delivery provides a stronger displayed-output guarantee at additional cost. Measure both before choosing. Record transcript durability separately from short-lived status events.
 
 ## Evidence and publication contracts
 

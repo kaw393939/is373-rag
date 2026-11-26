@@ -1,10 +1,18 @@
+---
+title: "ADR 001 · Serving boundaries"
+description: "An architecture decision record on the proposed SvelteKit and Rust boundary, with alternatives and concrete measurements for streaming, cancellation, and recovery."
+teaser: "A reader gets the first line of an answer and then loses the connection. The design of that handoff matters more than the framework names."
+---
+
 # ADR 001 · Serving boundaries
 
-**Status:** Proposed baseline. **Date:** November 5, 2026.
+*Architecture decision record · Proposed baseline.*
+
+This record asks where live chat should run after the first page loads. It sets out a starting architecture and the measurements that could change the choice.
 
 ## Context
 
-The primary interaction is streaming text chat. Developer familiarity is not a selection criterion. Retrieval and inference latency, browser responsiveness, cancellation, and recovery must be measured together.
+A useful comparison starts with the reader’s experience. How long until a cited answer appears? Can the reader keep typing while it arrives, stop it, and recover after a disconnect? Measure browser responsiveness, retrieval, inference, cancellation, and recovery together. Developer familiarity alone cannot settle the choice.
 
 ## Proposed decision
 
@@ -18,7 +26,7 @@ React with Vite or Next.js remains viable. Go or a carefully isolated FastAPI ba
 
 ## Consequences
 
-The UI needs an explicit event client, snapshot cursor, state reducer, replay/gap policy, and cancellation protocol. Initial rendering and active token delivery are separate paths. Retained output fanout is added when independent generation or multiple-viewer requirements justify it.
+The split gives the UI responsibility for its event client, state reducer, snapshot cursor, replay gaps, and cancellation protocol. Initial page rendering and live answer delivery follow separate paths. Add retained output fanout when independent generation or multiple viewers create a need for it.
 
 ## Validation
 

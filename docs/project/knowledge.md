@@ -1,4 +1,12 @@
+---
+title: "Portable knowledge and identity"
+description: "Distinguish an immutable source, a mention, an entity and a qualified claim, then trace how review and portable export retain their history."
+teaser: "Two people can share a name. Two witnesses can describe one event. The library needs a way to connect records while preserving what each source actually said."
+---
+
 # Portable knowledge and identity
+
+Consider two documents that both mention “A. Lee.” The matching text gives the system two mentions. Deciding they refer to the same person requires a separate decision, with candidate identities, evidence and a recorded reason. If a later source changes that judgment, the original passages must still be available.
 
 **Proposed format and invariants.** The historical graph supplies candidate/review patterns, not a finished research ontology. See H-03 in the [source audit](../reuse/source-audit.md).
 
@@ -31,6 +39,8 @@ A text span identifies the immutable extracted-text artifact, parser/version and
 Media evidence identifies the source hash, track and interval in an explicit rational time base. Preserve extraction receipts and selected frames where needed. Narration, visual detection and calibrated measurement are different assertion kinds.
 
 ## Confidence and disagreement
+
+One number cannot answer three different questions: how clearly the words were recorded, how likely the speaker was a particular person, and how well the speaker supported a claim. Keep each assessment attached to the decision it describes so a reviewer knows which one to revisit.
 
 Separate extraction quality, identity score, source quality, dependence/corroboration and claim assessment. A fixed heuristic score is not a probability of truth. Record the scoring method/version and its calibration evidence when available.
 

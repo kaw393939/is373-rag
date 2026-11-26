@@ -1,4 +1,12 @@
+---
+title: "Reference map"
+description: "Use the pinned source audit, project records and primary technical documentation to identify which evidence supports an implementation choice."
+teaser: "An API manual tells you what a library permits. A pinned source line tells you what one implementation did. A test run answers a third question."
+---
+
 # Reference map
+
+Start with the kind of claim you need to check. To understand the behavior of a donor module, use its pinned source and inspection range. For the semantics of a database or protocol, use its primary documentation. To say the new application works, ask for a run of that application.
 
 The authoritative reuse map is the [pinned source audit](../reuse/source-audit.md), not a moving README. It separates historical Rust implementation, current rebuild contracts and owner-only executor work. No donor runtime test-pass claim is made by the audit.
 
@@ -23,5 +31,7 @@ The [twelve-factor matrix](../engineering/twelve-factor.md) links each original 
 Use current official instructions when changing dependencies, infrastructure or account settings. A reference link is not evidence of an executed deployment.
 
 ## Evidence policy
+
+For a review note, write down the claim first and then the evidence that supports precisely that claim. “This revision contains a lease check” and “a late result was rejected in a restart test” need different citations. This page helps find the first, and the acceptance record should carry the second.
 
 A source inspection, authored example, executed test, published artifact and live observation are different levels of evidence. Preserve the commit, command, fixture, platform and limitations for each. New examples are synthetic. UFO testimony is recorded as testimony; neither an LLM score nor agreement among copied reports establishes scientific truth.

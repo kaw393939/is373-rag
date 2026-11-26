@@ -1,4 +1,12 @@
+---
+title: "Delivery roadmap: harvest, prove, then extend"
+description: "The proposed Ordo build sequence moves from donor rights and durable jobs through evidence review, retrieval, portability and a verified hosted release."
+teaser: "A polished chat window can hide a job queue that forgets its work. The roadmap starts with a restartable task and leaves the interface until its underlying decisions can be replayed."
+---
+
 # Delivery roadmap: harvest, prove, then extend
+
+Read the slices in dependency order. If work disappears on restart, a convincing streamed answer says little about whether the system can later reproduce it. The earliest build therefore has to demonstrate a small durable state change before later slices rely on it.
 
 **Status: implementation plan, not delivered runtime.** Each slice is deliberately bounded. A slice closes only against its own code, tests and evidence; the documentation exercises do not close application acceptance.
 
@@ -84,6 +92,8 @@ Independent workstreams: portfolio DNS and documentation Pages activation. Neith
 **Exit:** all applicable A-01–A-15 and TF-01–TF-12 have actual evidence or an explicitly accepted local-profile exception. Test production-path proxy streaming, empty-disk API replacement, schema compatibility and restore into an isolated target. A failed deployment must not require deleting the only library or production volume. Pages serves documentation, not this application.
 
 ## Work packaging and review
+
+A short review should answer three questions about a slice. Which earlier contract does it depend on? Which requirement does it discharge? What run can another person repeat? Record anything outside that check as open work for its own slice.
 
 Each implementation issue contains: slice and requirement IDs, pinned donor symbols, proposed target module, scope/non-goals, tests, dependencies, public/private boundary and rollback considerations. Link a test-plan issue, atomic commits, PR and command receipts. A merge should not close a requirement whose evidence is still only a design paragraph.
 

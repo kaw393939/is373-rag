@@ -1,19 +1,20 @@
 ---
-title: Project vision
-description: Build knowledge that remains useful when sources disagree, models change, or hardware disappears.
+title: "Project vision"
+description: "Follow the design of a research library that keeps source passages, disputed claims, and review decisions together as evidence changes."
+teaser: "Three reports tell the same story. How many independent observations do you have? A useful research library lets you find out."
 ---
 
 # Knowledge you can stand behind
 
-**Turn raw sources into knowledge you can inspect, correct, move and publish.**
+Suppose six articles repeat a witness’s description. A list of six citations looks persuasive. Opening those citations might reveal one observation and five retellings.
 
-Ordo Knowledge Lab is a local-first research workspace. AI helps process material and propose connections. People and explicit policies decide what enters the published library. The library retains the evidence behind those decisions.
+Ordo’s proposed local-first research workspace would keep that relationship visible. AI could identify the repeated passage. A reviewer could accept or correct the link. Later readers could inspect both the passage and the decision.
 
 ## The problem
 
-An answer alone is not a maintained body of knowledge. We need to know which source supported a statement, whether several reports are independent, whether two names refer to one entity, and what changed when new evidence arrived.
+A reader should be able to open the evidence behind a sentence, see which reports are independent, and discover what changed after a correction. A name shared by two people is a particularly revealing test.
 
-Our design treats those questions as records and workflows—not as instructions we hope a chatbot follows.
+The design records source versions, identity links, and review decisions so another person can repeat the check.
 
 ## The promise
 
@@ -27,7 +28,7 @@ Our design treats those questions as records and workflows—not as instructions
 
 ## Who it serves
 
-Researchers build and correct a library. Instructors demonstrate how evidence moves through a real system. Students trace requirements into code, reproduce failures, and explain what tests prove. Readers explore an approved snapshot through search and streaming chat.
+Researchers need to correct a library without losing earlier decisions. Students can practice a smaller version now: trace one answer to a passage, find a reason to doubt it, and explain which check would settle that doubt.
 
 UFO reports are the first teaching domain. The engine should support other evidence-heavy collections without embedding UFO-specific assumptions in its core.
 
@@ -35,7 +36,7 @@ UFO reports are the first teaching domain. The engine should support other evide
 
 Import conflicting synthetic reports. Resolve one alias without merging two people who share a name. Publish a reviewed revision. Stream an answer whose citations open the exact evidence. Move the library to a machine with a processing capability missing.
 
-That is the first complete demonstration. It is not yet implemented. [Follow the walkthrough](walkthrough.md).
+That sequence defines a proposed demonstration. The current labs verify narrower pieces of it. [Follow one case through the design](walkthrough.md).
 
 ## Deliberate limits
 

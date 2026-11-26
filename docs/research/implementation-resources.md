@@ -1,13 +1,16 @@
 ---
-title: Implementation resources
-description: Annotated primary repositories and guides for retrieval, document enrichment, durable execution, and streaming adapters.
+title: "Implementation resources"
+description: "Twelve annotated software resources for retrieval, document parsing, workers, and streaming, with specific adoption tests for the Ordo design."
+teaser: "Before adding a dependency, decide what would make you remove it. Here are twelve candidates and the checks that matter for each."
 ---
 
 # Implementation resources
 
-**Reviewed November 5, 2026.** These twelve resources map to concrete implementation boundaries in the [retrieval design](/architecture/retrieval), [ingestion DAG](/architecture/ingestion), and [Rust backend](/architecture/backend). Reuse and evaluation recommendations below are our assessment; project documentation is evidence of capabilities, not comparative performance results. Pin the chosen release or commit before implementation because live documentation and default branches change.
+Trace one section of a handbook from upload to citation. Pick the point most likely to fail in your system. The twelve resources below address specific responsibilities in [retrieval](/architecture/retrieval), the [ingestion pipeline](/architecture/ingestion), and the [Rust service](/architecture/backend). The recommendations describe experiments to run. Record the release or commit you use so another person can repeat your comparison.
 
 ## Retrieval and SQLite adapters
+
+Start a comparison with the same corpus, access rules, and expected passage IDs. When two search methods disagree, open the passages before interpreting their scores.
 
 ### 1. SQLite core: FTS5 and bounded graph queries
 
@@ -105,4 +108,4 @@ Reuse routing, per-route rendering choices, and request-scoped SSR state. Implem
 5. **Evaluate enrichment independently:** spaCy versus GLiNER mentions, then KB candidate generation/linking, source-backed claims, and reversible corrections.
 6. **Choose execution semantics:** run the same document update, crash, retry, deletion, and backfill scenario in Dagster and Temporal; choose one progression owner, then integrate committed boundary events through async-nats.
 
-Record versions, configuration, corpus, correctness results, and timings for each experiment. These studies are planned work; no package installation, integration, or comparative benchmark is represented as completed here.
+For each experiment, keep the software version, configuration, corpus, expected result, actual result, and timing together. A fast answer that cites the wrong paragraph fails the test. These studies are planned work; no package installation, integration, or comparative benchmark is represented as completed here.

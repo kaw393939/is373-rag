@@ -1,13 +1,23 @@
+---
+title: "Ingestion and enrichment DAG"
+description: "Trace how a revised document moves through parsing, chunking, and entity extraction, and see which outputs should be rebuilt after a source correction."
+teaser: "A corrected page arrives while the old version is still being indexed. The important question is which version a reader can actually retrieve."
+---
+
 # Ingestion and enrichment DAG
 
 <span class="status-label">DRAFT · EXECUTION ENGINE OPEN</span>
 
-Represent ingestion as a durable dependency graph over versioned artifacts. The DAG determines what can run; the orchestrator owns execution state and retries. Document processing runs independently of chat, with its own CPU, GPU, model quotas, and database publication capacity.
+Suppose a report arrives with a corrected name while a worker is extracting relationships from the previous edition. A successful worker can still produce an obsolete result. Before publication, the system needs to check exactly which source revision each piece of work used.
+
+The draft represents those dependencies as a directed acyclic graph (DAG). The graph records which outputs depend on which inputs. One durable orchestrator owns retries and execution state. Parsing has separate CPU, GPU, model quotas, and database publication capacity so chat can keep serving readers.
 
 ## Artifact dependencies
 
 ```mermaid
 flowchart TD
+  accTitle: Two outputs from a source revision
+  accDescr: After parsing and normalization, retrieval chunks feed lexical and vector indexes. A second branch extracts mentions, resolves entities, and publishes a graph for grounded augmentation.
   SOURCE["Immutable source revision"] --> PARSE["Structured document and source anchors"]
   PARSE --> NORMAL["Normalization and linguistic annotations"]
   NORMAL --> CHUNKS["Retrieval chunks"]
@@ -22,7 +32,7 @@ flowchart TD
   GRAPH --> AUG["Grounded augmentation"]
 ```
 
-Nodes are outputs with explicit dependencies, not a requirement to schedule every noun as a remote job. Execute document operations or useful batches. Dependent metadata and source context are part of the input fingerprint.
+Read the diagram as a map of artifacts. A parser can process a document or a useful batch in one job. The output records its source revision, relevant context, and input fingerprint. That record tells the next worker what it can reuse when one page changes.
 
 ## Parsing and chunking
 
@@ -32,7 +42,7 @@ Docling is a candidate for structure-aware and token-aware chunking. Parser accu
 
 ## NLP and entity extraction
 
-Choose linguistic processing by task and language: sentence boundaries, abbreviations, named entities, relevant domain concepts, coreference, and relationship candidates. Keep annotations separate from original text. General NER labels alone may omit concepts important to a technical corpus.
+Start with a passage that contains a pronoun, an acronym, and a domain term. Choose sentence boundaries, entity recognition, coreference, and relationship extraction for the language and task. Keep each annotation alongside the original wording. Then check which domain concepts a general-purpose named-entity recognizer misses.
 
 Entity linking is a separate decision from mention detection. Candidate generation can use identifiers, aliases, types, dates, surrounding entities, and semantic context. Resolve when supported; preserve unresolved local identities otherwise. Record merge and split decisions so corrections can be reversed. spaCy documents context-based linking to canonical IDs as a distinct component. [spaCy entity linking](https://spacy.io/api/entitylinker)
 
@@ -64,4 +74,4 @@ Evaluate Dagster's asset/dependency model for ETL lineage and backfills and Temp
 
 ## Study and compare
 
-The [implementation resources](/research/implementation-resources) link parsing, extraction, and orchestration repositories. The [concept guide](/research/concepts) explains entity linking and workflow durability. Read the [dated developments](/research/recent-developments) before choosing an upstream dependency or assuming a release is stable.
+The [implementation resources](/research/implementation-resources) link parsing, extraction, and orchestration repositories. The [concept guide](/research/concepts) explains entity linking and workflow durability. Read the [research and release notes](/research/recent-developments) before choosing an upstream dependency or assuming a release is stable.

@@ -1,6 +1,14 @@
+---
+title: "Source audit and reuse decisions"
+description: "Read pinned Ordo source findings, exact inspection ranges and explicit reuse decisions, including which donor behaviors still need independent tests."
+teaser: "A line of code can show how a job was leased. Only a run can show what happened when a worker stopped. This audit records which form of evidence exists."
+---
+
 # Source audit and reuse decisions
 
-**Snapshot: November 10, 2026.** This is a targeted inspection of the paths and ranges below. It does not certify either Ordo generation as production-ready. Donor tests were not executed in this review. All links identify immutable commits rather than moving default branches.
+Read an audit entry beside its pinned source. Locate the named function, check the claim against the cited range, then read the proposed changes before adopting it. The pinned-source inspection identifies candidates and gaps; direct execution of the donor suites was outside its scope.
+
+**Source audit.** This is a targeted inspection of the paths and ranges below. It does not certify either Ordo generation as production-ready. Donor tests were not executed in this review. All links identify immutable commits rather than moving default branches.
 
 ## Source register
 
@@ -102,5 +110,7 @@ Source: [`frontend/src/api.ts`](https://github.com/kaw393939/is373-ai-chat/blob/
 Transfer those requirements to the Svelte client. Add bounded buffers, run/library-scoped replay and revision-pinned evidence. Do not copy the React/Python stack merely to reuse a protocol. Referenced donor test suites require their own execution evidence before claiming reuse validation.
 
 ## Reuse rights and limits
+
+A useful handoff can say “inspect this function at this commit” even when redistribution rights are unresolved. Before a transfer, record the license or owner decision, the exact code considered, what was adapted, and the new test. Private material stays within its approved boundary.
 
 The historical Ordo snapshot includes an [AGPL license file](https://github.com/StudioOrdo/ordo/blob/39138562f112bed79babf5824d887dfef1b8ace6/LICENSE). Before importing source, record the exact applicable license, notices, ownership and dependency obligations. Do not assume current and historical trees have identical licensing or that code can be relicensed because repositories share an owner. The initial documentation change imports no donor implementation.

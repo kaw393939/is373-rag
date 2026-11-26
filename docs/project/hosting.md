@@ -1,6 +1,14 @@
+---
+title: "Portfolio, documentation and dev/prod application hosting"
+description: "Read the intended portfolio, documentation, development and production hosting layout, including the independent checks that establish a live release."
+teaser: "A public textbook can be working while its proposed research service is still on the drawing board. Each hostname here has a specific job and a separate release check."
+---
+
 # Portfolio, documentation and dev/prod application hosting
 
-**Owner-selected layout · November 10, 2026.** Configuration/code preparation is separate from account changes, registry publication and live deployment. No DNS or server change is established by this document.
+First identify the thing you want to publish. A change to this textbook goes through its static documentation workflow. A release of the proposed interactive research application needs a verified application host and a separate review of its configuration. The address list below records the intended arrangement.
+
+**Owner-selected layout.** Configuration/code preparation is separate from account changes, registry publication and live deployment. No DNS or server change is established by this document.
 
 ## Selected addresses
 
@@ -18,7 +26,7 @@ This replaces earlier `ordo` / `ordo-qa` recommendations for this project. A por
 
 ## Current execution boundary
 
-Safari access failed because the Browser connection requires the originating browser context. The logged-in GoDaddy, Docker Hub and DigitalOcean sessions could not be inspected. No account write, DNS edit, registry creation, server authentication or live application deployment is claimed. Public DNS probes from the isolated authoring workspace also failed at local resolution, which does **not** establish that the domains or server are down.
+The infrastructure planning review could not inspect authenticated GoDaddy, Docker Hub or DigitalOcean account state. It did not verify a DNS edit, registry publication, server access or deployment. The reviewer’s environment could not resolve the public records, leaving their status unverified. Use current provider records and a public HTTPS check when recording a later release.
 
 The private server manual holds the previous provider inventory and recovery procedure. It does not prove current authenticated shell access or spare host capacity. Do not reset root, change boot mode or modify SSH/firewalls merely to work around the connection limitation.
 
@@ -56,6 +64,8 @@ The [deployment definitions](https://github.com/kaw393939/is373-rag/tree/main/de
 The Welcome CI workflow tests source and a Linux amd64 image. A separate manual publish workflow pushes the **same tested image** to a confirmed public Docker Hub repository. Source commit, CI artifact, registry push, host deployment and public HTTPS verification are distinct receipts. Docker Hub credentials remain in GitHub secrets; no credentials go in documentation or browser bundles.
 
 ## Research publication boundary
+
+A reachable landing page can answer “Does this hostname serve a page?” Reviewing research data requires a different check. Trace one authorized published revision through to the exact source evidence a reader can open, and confirm the application is using the intended environment.
 
 Local authoring publishes a validated immutable library revision. The future cloud application reads that snapshot and stores conversations/run state separately. It does not sync live SQLite files or become a second canonical graph writer. Real hosted generation needs a selected provider/worker, data policy and usage controls. Missing capabilities must be visible.
 

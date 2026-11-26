@@ -1,11 +1,12 @@
 ---
-title: Concept reading guide
-description: Primary explanations of retrieval, document knowledge, workflows, and streaming UI concepts.
+title: "Concept reading guide"
+description: "Learn the mechanics behind keyword and vector search, entity linking, durable work, and streaming answers through fourteen annotated explanations."
+teaser: "Start with a phrase nobody paraphrases, a sentence everyone paraphrases, and two people with the same name. Each exposes a different retrieval problem."
 ---
 
 # Concept reading guide
 
-**Sources checked: November 5, 2026.** Use this guide to connect the vocabulary in the draft architecture to primary explanations. The links teach mechanisms; they do not establish that a particular product is our final choice. Each annotation identifies why the concept matters and where it appears in our design.
+Use one small document collection while you read. Ask for an exact identifier first, then paraphrase a sentence, then ask about an ambiguous name. Which passage comes back in each case? The annotated readings explain why the three results can differ.
 
 ## Suggested reading order
 
@@ -15,6 +16,8 @@ description: Primary explanations of retrieval, document knowledge, workflows, a
 4. Finish with **reactivity, SSE, and recovery**, then trace one document upload and one interrupted answer through the [system overview](/architecture/overview).
 
 ## Retrieval foundations
+
+For a keyword check, invent a course code that appears in exactly one document. For a meaning-based check, ask for the same information without using its original wording. Decide what a good result would look like before comparing rankings.
 
 ### BM25 and full-text search
 
@@ -65,6 +68,8 @@ description: Primary explanations of retrieval, document knowledge, workflows, a
 **Learn here:** [SQLite write-ahead logging](https://sqlite.org/wal.html). Readers can overlap a writer, while long read transactions can delay checkpoint progress. Our retrieval transactions should finish before answer streaming, and ingestion must account for the single-writer boundary. **Related:** [SQLite operating boundary](/architecture/retrieval#sqlite-operating-boundary).
 
 ## Frontend and streaming contracts
+
+A student closes a laptop halfway through an answer. On reopening it, they need to know whether the old run finished, stopped, or can be resumed. These three readings separate what the screen shows from what the service can actually recover.
 
 ### Granular reactive state
 

@@ -83,7 +83,7 @@ const reference = [
     { text: 'Similar projects', link: '/research/similar-projects' },
     { text: 'Implementation resources', link: '/research/implementation-resources' },
     { text: 'Concept guide', link: '/research/concepts' },
-    { text: 'Dated developments', link: '/research/recent-developments' },
+    { text: 'Research developments', link: '/research/recent-developments' },
     { text: 'Original sources', link: '/sources' },
   ] },
 ]

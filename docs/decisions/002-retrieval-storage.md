@@ -1,10 +1,18 @@
+---
+title: "ADR 002 · Retrieval storage"
+description: "An architecture decision record on evaluating SQLite for hybrid retrieval, including the workload, eligibility filters, and recovery tests that should drive selection."
+teaser: "A single database can simplify deployment. The test is whether it still returns the right permitted passage while another document is being indexed."
+---
+
 # ADR 002 · Retrieval storage
 
-**Status:** Under evaluation. **Date:** November 5, 2026.
+*Architecture decision record · Storage selection under evaluation.*
+
+The candidate is a local SQLite database that holds text, vectors, and relationships. The decision depends on a representative workload and on what happens to search when the index changes.
 
 ## Context
 
-The system needs BM25, vector similarity, and relationship-guided evidence retrieval over a changing corpus. The desired scale and write rate are not yet specified.
+One reader searches by a case number. Another describes the same case in their own words. A third follows a relationship to a source. Compare BM25, vector similarity, and bounded graph retrieval on all three. Corpus size, update rate, and required concurrency still need to be specified.
 
 ## Candidate design
 
@@ -14,7 +22,7 @@ Expose vector/search capabilities explicitly. Preserve canonical IDs and evidenc
 
 ## Alternatives
 
-A dedicated retrieval service can provide a different scaling, indexing, filtering, and replication model. A mixed deployment may retain SQLite metadata while externalizing a measured bottleneck. Compare at equivalent retrieval quality and access scope; local storage alone does not establish superiority.
+A dedicated service offers different indexing, filtering, replication, and scaling choices. A mixed deployment could keep canonical metadata in SQLite and move one measured bottleneck. Run the comparison at equivalent retrieval quality and permitted scope. Otherwise a faster result may simply reflect a different question.
 
 ## Consequences
 

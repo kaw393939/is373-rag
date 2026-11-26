@@ -1,13 +1,16 @@
 ---
 title: Libraries for RAG and AI applications
-description: A student-friendly comparison of LangChain, LlamaIndex, Haystack, DSPy, LangGraph, LiteLLM and direct SDKs without extra requirements.
+description: "Compare direct Python with LangChain, LlamaIndex, Haystack, DSPy and LangGraph. Use one question and known source to test what a library adds to a RAG app."
+teaser: "Your app returns an answer. Can a teammate follow it back to the passage? Use that test to decide which part of a RAG pipeline deserves a new dependency."
 ---
 
 # AI libraries: what they do, and when to use them
 
-**You do not need to install any library on this page.** This is a comparison handout for the existing IS373 RAG assignment—not another deliverable. Build a small hosted application using tools you already have. Research before adding dependencies.
+Your FastAPI app answers a question about a club rule. A classmate asks which passage it used. Can you show the question, the records returned by your search and the exact words that support the answer? That short walkthrough gives you a useful standard for choosing a library.
 
-A **library** provides reusable functions or classes. A **framework** organizes how several components work together. An **SDK** helps your code call an external service. A **model** generates or classifies content. A **database** stores records and indexes. These are different layers; a RAG framework is not itself a vector database, a language model or a hosted server.
+**For IS373, this is optional reading.** You can keep your existing tools and hosted app. Use the [comparison table](#six-useful-library-families) if you have a specific integration problem. Use the [one-question experiment](#a-tiny-experiment-for-learning) if you're deciding whether to keep a component.
+
+A **library** supplies reusable code. A **framework** helps you organize components and the order in which they run. An **SDK** gives your code an interface to a service. A **model** generates or classifies content. A **database** stores and searches records. Your app might use all of these, and each helps with a different part of the job.
 
 ## The problem that motivates these tools
 
@@ -19,7 +22,7 @@ source documents → chunks and metadata → search/index → retrieved evidence
 reader's question → query representation → retrieval → model → cited answer
 ```
 
-No framework verifies citations automatically. Your code and evaluation still need to prove that cited passages support the answer.
+When a framework returns a citation, open it. An ID can point to a real document while the quoted passage fails to support the claim. Try a question whose answer is missing to see what the pipeline does.
 
 ## Six useful library families
 
@@ -52,7 +55,11 @@ For the underlying concepts, use [embeddings](embeddings.md) and [chunking](chun
 
 Choose one question whose expected source passage you already know. Compare *the same input and output contract* using your own retrieval code and one optional library component.
 
-Record the real query, selected source IDs, relevant passage, whether it supports the claim, number of dependencies, and what a classmate can explain from the code. Do not claim one is faster, cheaper or more accurate without measuring. Avoid changing providers, embedding models and chunking choices simultaneously: that makes comparisons hard to interpret.
+1. Run your existing code and save the query, source ID and passage. Check the returned text against the answer you expected.
+2. Replace one step, such as the document loader. Hold the documents, chunking settings and retrieval method constant unless one of those is the step being tested.
+3. Run the question again. If the source ID disappears, find the first step that dropped it. If both versions pass, compare the code a teammate has to understand, the new dependencies and the work required to maintain them.
+
+For a speed or cost comparison, measure the same workload in both versions. A single successful response can establish that the path works.
 
 ### Copyable AI research prompt
 
@@ -69,12 +76,12 @@ Finish by asking which tradeoff matters most to me.
 
 ### A note from the AI
 
-> I can generate working-looking framework code very quickly. But if you cannot tell what text was retrieved, where it came from, or whether the model relied on it, the abstraction has hidden a lesson you need to learn. Ask me to show the **actual evidence objects and outputs**, not just a green test summary.
+> Ask me to print the evidence object immediately before the model call. You should be able to read its text, follow its source ID and explain how it affects the answer.
 
 ## What still belongs to you
 
 Regardless of library: explain your source permissions, chunk/graph representation, retrieval method, model/provider, access controls, persistence, missing-evidence behavior, costs and test results. Compare a simple keyword/structured baseline with your chosen vector or graph approach. The [course brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) and Canvas are authoritative.
 
-*Primary documentation reviewed November 11, 2026. Library APIs and versions change: check official documentation and pin compatible dependencies before implementing anything.*
+*Before adopting a library, open its official documentation, confirm the APIs you need, and pin compatible dependencies.*
 
 [Start with your existing FastAPI application](from-app-studio.md) · [Compare database approaches](data-choices.md) · [Evaluate your RAG](check.md)

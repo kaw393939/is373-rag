@@ -1,44 +1,38 @@
 ---
 title: Troubleshoot your RAG project
-description: Diagnose missing documents, irrelevant retrieval, model failures, bad citations and deployment without destructive resets.
+description: Find the first broken link in your RAG app, from document import to hosted answers. Use a repeatable check before changing the model, database, or server.
+teaser: If an answer cites the wrong policy, first ask what the search returned. One source ID can narrow a confusing problem to a single part of your app.
 ---
 
 # Stuck? Find the first broken step
 
-You do not need to debug the entire application at once. Trace **one source and one question** from import to visible answer. Record expected versus actual behavior. Use [the debugging agent prompt](prompts.md#debug-prompt) with redacted output.
+Pick one question that failed and one document you expected to find. Write down your prediction. Check the steps below in order and stop at the first place where what you see differs from what you expected. [Optional debugging prompt](prompts.md#debug-prompt)
 
-| What you see | First safe check | Likely next action |
+| What you see | Try this first | If that check fails |
 | --- | --- | --- |
-| No source in the database | Count imported rows and source IDs | Inspect path, permissions, parser and importer error |
-| Duplicate rows after reimport | Import twice, compare IDs/counts | Add stable IDs and an update/skip rule |
-| Search finds nothing | Query the index directly, inspect stored text | Check chunking, tokenization, model/index readiness |
-| Irrelevant vector results | Confirm corpus/query embedding model IDs, inspect scores | Compare a keyword baseline; improve corpus/chunks/filters |
-| Graph traversal gives wrong facts | Inspect stored edges and supporting passages | Repair extraction/identity decisions and provenance |
-| Model responds but ignores documents | Print the **redacted** retrieved context before the model call | Fix retrieval or context selection before rewriting prompts |
-| Citation does not match answer | Open source ID and passage, compare claim | Correct citation wiring, add grounded evaluation |
-| Model refuses or endpoint fails | Check server logs for status and readiness, not tokens | Confirm configured provider, access and resource limit |
-| Local app works but hosted app fails | Compare runtime config/health without exposing secrets | Check proxy, HTTPS, bind address, environment and persistence |
-| Works until restart | Restart a test instance and read persistent state | Move durable data outside disposable container storage |
+| A source is missing after import | Count imported rows and look for its stable ID. | Check the file path, permission to read it, parser, and importer error. |
+| A second import creates duplicates | Compare IDs and counts before and after repeating the import. | Check how the importer recognizes an existing version. |
+| Search finds nothing | Inspect the stored text or graph and query the index directly. | Check the chunk boundaries, tokenization, and whether the model/index is ready. |
+| Vector results look unrelated | Compare the embedding model/version for documents and questions. Open the passages behind the scores. | Compare with a keyword baseline, then test one change in chunking or filters. |
+| A graph points to the wrong person or fact | Follow one relationship back to its source passage. | Check whether two entities were merged or a relationship was extracted incorrectly. |
+| The answer ignores the documents | Inspect a redacted copy of the passages actually sent to the model. | Fix the search or context selection if the expected passage is missing. |
+| A citation opens the wrong passage | Compare the source ID and text with the claim on screen. | Check how the app maps IDs to links and add a test for this case. |
+| The model call fails | Check service readiness and the returned status. Keep credentials out of logs. | Confirm the provider configuration, account access, and resource limits. |
+| The app works locally but fails online | Compare the active configuration and health of the two environments. | Check HTTPS, proxy, bind address, and database persistence. |
+| Everything disappears after a restart | Restart a test instance and look for the same source ID. | Check whether the data lives in a durable volume or store. |
 
 ## Diagnostic order
 
-1. **Source:** Can you open the original document and see its stable ID?
-2. **Stored representation:** Can you inspect real chunks/metadata or graph edges?
-3. **Retrieval:** Can you run one question without generation and see actual evidence IDs?
-4. **Generation:** Is a real configured model called, and what authorized context did it receive?
-5. **Browser and deployment:** Can the hosted UI show the source and answer after a restart?
-
-Do not solve a retrieval problem by asking the model to be more confident.
+Follow one source through five places: **original document → stored record → retrieved passage or path → model context and answer → hosted result**. If the expected sentence is already missing at retrieval, changing the response wording cannot bring it back.
 
 ## Two safe fallbacks
 
-If advanced retrieval is blocked, demonstrate a **keyword baseline** to identify whether import and source mapping work, then return to the selected vector/graph implementation. Label the baseline; it is not a finished substitute for the assigned method.
+**Retrieval is blocked.** Use a keyword search on the same source to see whether import and IDs work. Label it as a baseline and return to your chosen vector or graph implementation once you’ve isolated the problem.
 
-If your model is blocked, demonstrate real import/retrieval and mark generation as incomplete. Investigate existing supported local/shared/provider access rather than buying hardware or silently inserting canned answers. A mock can test UI wiring but must remain labeled.
+**The model is unavailable.** Demonstrate the real import and search that you can run. Mark generation as incomplete. Check your existing local, shared, or provider access. If you use a fixed response to test a button, label it as a mock.
 
 ## What to bring to class or office hours
 
-Your repo and URL, the **single action** you attempted, expected result, actual redacted error, source ID or query, and what you tried. Never share passwords, API keys, full .env files or private student material.
+Bring the repo and URL, one action you tried, the source ID or query, what you expected, and the actual result or redacted error. Include the checks you already ran. Remove API keys, passwords, full environment files, and private student information.
 
 [Small build path](build.md) · [Verification worksheet](check.md) · [Official course brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md)
-

@@ -1,11 +1,12 @@
 ---
-title: Start here
-description: Understand Ordo Knowledge Lab and choose a reading path.
+title: "Start here"
+description: "Choose a path through Ordo Knowledge Lab for an IS373 assignment, a runnable exercise, or a proposed evidence-backed research system."
+teaser: "You can run a small lab today or explore the research system it points toward. Start with the question you came to answer."
 ---
 
 # Start here
 
-**Ordo Knowledge Lab turns source material into a portable, evidence-backed library you can maintain and chat with.** It is an IS373 teaching project built by selectively reusing Ordo's existing code.
+If you are here for IS373, start by asking a question of your own documents and opening the passage behind the answer. The [student guide](../students/index.md) takes you through that assignment. The research design asks a further question: how do you maintain a library when sources disagree, names change, or somebody corrects an earlier decision?
 
 ## Choose your path
 
@@ -19,15 +20,17 @@ description: Understand Ordo Knowledge Lab and choose a reading path.
 | What can I run today? | [Local documentation setup](../project/setup.md) and [executable examples](../engineering/examples.md) |
 | Where did the design come from? | [Ordo reuse map](../reuse/index.md) and [reference library](../reference/index.md) |
 
+If you have ten minutes and no software, try the [three-report source check](/kits/three-report-source-check.txt). Decide how many people actually observed motion, then give someone else the line they can use to check your count.
+
 ## The idea in one minute
 
-Sources become preserved artifacts. Extractors propose mentions, identities and claims. Reviewers resolve ambiguity and approve a revision. Search retrieves evidence from that revision; chat explains it with citations. Export moves the published library without requiring the original processing hardware.
+Imagine two articles quote the same witness. Keep each article, mark where its quotation came from, and record the reviewer’s decision about the shared source. When someone later asks how many witnesses there were, the library should let them inspect that decision.
 
-The rule is **canonical identity, not canonical truth**: one incident can have conflicting accounts. Resolving its identity does not erase disagreement.
+The design gives an incident a stable identity. People can disagree about that incident, and their differing accounts belong in the record.
 
 ## What exists today
 
-The repository contains these docs, runnable synthetic contract labs and a separately tested Svelte welcome-page scaffold. The research backend, interactive research interface and native workers remain planned. A passing documentation test is not proof of a working research application. [Check status and evidence](../status.md).
+Today you can read the guides, run the synthetic contract labs, and inspect a separately tested Svelte welcome page. The proposed research backend, interactive research interface, and native workers are future work. [See what has been verified](../status.md).
 
 ## How to read these docs
 

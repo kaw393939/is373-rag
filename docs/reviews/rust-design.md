@@ -1,14 +1,22 @@
+---
+title: "Rust design review through historical priorities"
+description: "An independent design review of the proposed Rust backend that asks who owns work after a failure, where resources are bounded, and how evidence stays current."
+teaser: "A Rust lock can coordinate a process. A restarted worker still needs a way to tell whether its old result is allowed to reach somebody’s screen."
+---
+
 # Rust design review through historical priorities
 
-Status: design review, 2026-11-05. Scope: the proposed backend architecture; no Rust implementation has been inspected. Findings below are requirements to resolve or demonstrate, not claims of observed code defects.
+A worker loses its connection, waits, and comes back carrying a completed answer. Another worker has already taken over. The safety question is whether that late answer can change the record now. Local ownership inside a Rust process resolves only part of the problem.
+
+This review examines the proposed backend through historical Rust design priorities. It identifies guarantees to specify and demonstrate. No application implementation was inspected.
 
 ## Attribution and method
 
 Graydon Hoare created Rust's initial design and implementation, as the Rust project's own alumni page records. Rust subsequently evolved through a wider project and community; its current design must not be attributed entirely to one person. Hoare's author-published archive describes the personal project and later Mozilla work. [Rust attribution](https://rust-lang.org/governance/people/graydon/), [Hoare's archive](https://github.com/graydon/rust-prehistory)
 
-This is our analysis through documented priorities, not a simulated review, quotation, or endorsement by Hoare. His 2010 presentation emphasizes safety, concurrency, isolation, controlled mutation, auditable departures from safety, and established techniques. It also describes supervision and task ownership. These are historical positions, not evidence that he endorses Axum, Tokio, a particular database, or today's Rust feature set. [Hoare's primary presentation, slides 3–6 and 13–19](https://venge.net/graydon/talks/intro-talk-2.pdf)
+This is our analysis through documented priorities, not a simulated review, quotation, or endorsement by Hoare. His early design presentation emphasizes safety, concurrency, isolation, controlled mutation, auditable departures from safety, and established techniques. It also describes supervision and task ownership. These are historical positions, not evidence that he endorses Axum, Tokio, a particular database, or the modern Rust feature set. [Hoare's primary presentation, slides 3–6 and 13–19](https://venge.net/graydon/talks/intro-talk-2.pdf)
 
-The early presentation supplies the historical lens; modern Rust/Tokio documentation supplies current behavior.
+Use the early presentation to understand the historical priorities. Use modern Rust and Tokio documentation when a conclusion depends on what the current language or runtime actually does. The distinction matters when a design review becomes a test plan.
 
 ## Assessment
 
@@ -16,6 +24,8 @@ The architecture has useful isolation boundaries: one run owner, narrow adapters
 
 ```mermaid
 flowchart TD
+  accTitle: Run ownership and cancellation
+  accDescr: A run owner starts bounded child tasks. Before publishing, it verifies its ownership epoch and discards stale results. Cancellation signals those tasks, waits within a deadline, and records the outcome.
   INPUT[Validated and authorized command] --> OWN[Acquire run ownership and epoch]
   OWN --> WORK[Bounded child tasks]
   WORK --> CHECK{Owner epoch still current?}
@@ -50,7 +60,7 @@ Avoid retaining a database transaction during model generation. SQLite WAL has o
 
 JetStream can redeliver work. Use deterministic operation identities and idempotent database commits, then acknowledge. Persist outbox intent with the state change and tolerate duplicate publication. Keep broker acknowledgment, database commit, and external model execution as separate failure boundaries; do not label the combined system exactly once. Test crashes before/after each boundary. [JetStream delivery](https://docs.nats.io/learn/jetstream/delivery-and-acknowledgment)
 
-Similarly, distinguish replaying accepted output from restarting inference. Decide whether displayed deltas must survive a crash; asynchronous persistence cannot promise that without an explicit loss window. A reconnect must never invisibly create a second generation attempt.
+A reconnect has two possible effects worth testing separately. It can replay an output already accepted by the store, or a user can explicitly start another generation attempt. Decide whether displayed deltas must survive a crash. Asynchronous persistence leaves a loss window that the interface must describe. A reconnect alone must never silently start a second attempt.
 
 ## P1: Audit the native extension boundary
 

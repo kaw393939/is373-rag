@@ -1,9 +1,12 @@
 ---
 title: Glossary
-description: Plain-language definitions of knowledge, workflow and deployment terms.
+description: "Translate Ordo terminology into plain language and see how an artifact, a claim, a lease and a published revision fit together."
+teaser: "A file, a statement in that file and a decision to publish that statement are three different records. The vocabulary below lets a team discuss each one precisely."
 ---
 
 # Shared vocabulary
+
+Read down the table as you encounter an unfamiliar term. For example, an *artifact* is the acquired material; a *mention* points to a location in it. If a worker proposes that two mentions refer to the same person, the proposal still needs the review appropriate to its use.
 
 | Term | Meaning here |
 | --- | --- |
@@ -33,3 +36,5 @@ description: Plain-language definitions of knowledge, workflow and deployment te
 | Release | A tested software artifact plus approved configuration and compatibility information. |
 
 The [knowledge rules](../project/knowledge.md) and [worker contract](../project/plugins.md) define the invariants behind these terms.
+
+Try the same distinction on a job that returns twice. Its lease says which worker may act now, the fencing epoch identifies the attempt, and idempotency lets the store accept a repeated delivery without repeating its effect.

@@ -1,4 +1,12 @@
+---
+title: "Sources and terminology"
+description: "Find primary references for serving, retrieval, data models and evaluation, with guidance on what each source can support about the proposed Knowledge Lab."
+teaser: "Does a quoted source support the design, or does it only document an available feature? A source is easier to use once the technical question is explicit."
+---
+
 # Sources and terminology
+
+Start with a concrete claim. A server-sent event reference can explain how a browser receives frames. It cannot establish that a particular installation recovers a disconnected reader’s session. Use the sources below to understand the building blocks, then look to the project’s own tests and release records for implementation evidence.
 
 Primary documentation supports technical capabilities and attribution. Technology selection and review findings are our analysis. Links on each architecture page attach evidence to the relevant claim.
 
@@ -24,6 +32,8 @@ Primary documentation supports technical capabilities and attribution. Technolog
 - [Dagster ETL modeling](https://dagster.io/docs/guides/build/assets/modeling-etl-pipelines) and [Temporal workflows](https://docs.temporal.io/workflow-execution): orchestration candidates.
 
 ## Review foundations
+
+When comparing two evaluation methods, write down what each one measures. A well-formed citation, a relevant passage and a faithfully supported answer are related outcomes, but each can fail independently. A primary reference helps establish which check a method supports.
 
 - [Robert C. Martin: The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 - [Gang of Four: Design Patterns](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610).

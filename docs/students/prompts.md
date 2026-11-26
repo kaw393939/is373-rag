@@ -1,15 +1,20 @@
 ---
 title: Prompts for AI coding partners
-description: Copy-ready, scoped prompts for planning, building, debugging, inspecting and evaluating an IS373 RAG application.
+description: Use eight copyable prompts to plan, build, debug, and rehearse an IS373 RAG project. Each one limits the agent’s scope and asks for evidence you can check.
+teaser: When an agent says it fixed your project, which result would convince you? Start with one job and ask for the smallest change you can inspect.
 ---
 
 # Ask an AI coding agent for one small result
 
-These prompts are **optional tools**, not assignments to submit. See the [existing-app walkthrough](from-app-studio.md) and [library survey](library-survey.md) before proposing a new framework. Replace bracketed details with your own facts. Give your agent access to the *appropriate repository* if your environment permits it; never paste API keys, student records or private data.
+Choose the prompt that matches today’s task. Replace the brackets with your own question, permitted sources, and actual results. These are optional working tools. You can use your regular project record for evidence.
 
-**Working agreement:** The agent should inspect before editing, explain its plan, change only the agreed scope, run checks, and distinguish tests actually executed from suggestions. You read the important code, test the result and make the design decision.
+Working in your existing FastAPI app? Open the [walkthrough](from-app-studio.md) first. Considering a new framework? The [library survey](library-survey.md) can help you decide whether you need one.
+
+**Before you paste a prompt**, decide what would count as success. Give your agent only the approved repository or files it needs. Remove API keys, private records, and credentials. Have it inspect first, propose a small change, and tell you what it actually ran. You choose the design and check the result.
 
 ## 1. Help me understand without doing it for me
+
+Use this when you can name what confuses you but still want to make the decision yourself.
 
 ```text
 I'm an IS373 student building my own hosted RAG app. My current knowledge:
@@ -35,6 +40,8 @@ Label all experiments PLANNED. Do not add extra requirements or a new stack.
 
 ## 3. Add the smallest import and inspect it
 
+First confirm which file the agent may read. Compare the stored IDs after the first and second import.
+
 ```text
 Read my existing project before editing. My authorized input corpus is [path].
 Add only a small importer with source ID, origin, version and repeat-import
@@ -58,6 +65,8 @@ replace my hosting or implement an unused second database.
 ```
 
 ## 5. Add generation and source references
+
+Use this after a test can already show the expected retrieved passage. That way you can check generation separately.
 
 ```text
 Connect my real retrieval result to an available model through server-side
@@ -108,7 +117,7 @@ Give constructive feedback using only evidence I actually provide.
 
 ## Agent safety and ownership
 
-Never ask an AI to fabricate logs, commit history, peer reviews, citations, source permissions or personal reflections. Don't upload secrets. If you don't understand an agent's change, ask for an explanation and a smaller patch before merging it.
+When you finish, open one file the agent changed, reproduce one result, and describe what the check establishes. Attribute the help you used. Keep your own reflections, actual peer feedback, source permissions, commit history, citations, and test logs grounded in what happened. If you cannot explain a change, ask for a smaller patch. Keep credentials out of the conversation.
 
 [Return to the student path](index.md) · [Check the work](check.md)
 

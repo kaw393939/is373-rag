@@ -1,15 +1,16 @@
 ---
 title: Chunking, source structure and retrieval
-description: Learn how to divide documents without losing meaning, compare two strategies, and evaluate evidence using existing IS373 sources.
+description: "See how a document split can separate a rule from its exception. Compare two chunking strategies in an offline lab using source IDs and real questions."
+teaser: "The right paragraph can lose its meaning at a page break. Two small experiments show which cuts preserve the evidence a reader needs."
 ---
 
 # Chunking: where should we cut a document?
 
-A company has an employee handbook. An assistant must answer: **“Who approves a travel reimbursement?”** The answer is in one paragraph, but the word **“approves”** is on one page and the approving job title is on the next. A careless split can separate the question from its answer.
+A travel handbook says, “Your manager approves reimbursements,” then adds an exception on the next page. An assistant retrieves only the first page. It can quote every word correctly and still send an employee to the wrong person.
 
-**Chunking means dividing source material into manageable, retrievable pieces.** Each piece should carry its original source ID and location. We chunk to fit processing limits, improve retrieval granularity, and avoid passing entire documents to every model call.
+**Chunking** divides documents into pieces your search system can return. A useful piece carries enough context to interpret the claim and a source ID and location that let the reader check it. Choose a boundary by trying questions your users will ask. Document structure, model limits and the cost of retrieving extra text all matter. [Technical overview of chunking strategies](https://www.pinecone.io/learn/chunking-strategies/)
 
-There is no universally best chunk size: good boundaries depend on the document, the questions and the embedding/retrieval method. [Pinecone's technical overview](https://www.pinecone.io/learn/chunking-strategies/) discusses these tradeoffs.
+Start with the [club bulletin](#one-fictional-example), then [try two splits without an API key](#two-experiments-you-can-do-without-an-api-key).
 
 ## One fictional example
 
@@ -24,7 +25,7 @@ SOURCE: S-events — Harbor Club bulletin, section "Events"
 
 **Option B: paragraph/heading chunks.** Keeps each statement together and helps preserve the section title, but a paragraph can be too long or need neighboring context.
 
-Both methods must preserve source metadata. **Chunk S-events-C02 is not a separate publication or verified fact.** It is a slice of source S-events.
+**What should the citation say?** Keep the parent source and the location with each piece. The ID `S-events-C02` directs a reader back to one slice of `S-events`. It lets them recover the surrounding paragraph and check the meaning.
 
 ## Choose a boundary deliberately
 
@@ -37,7 +38,7 @@ Both methods must preserve source metadata. **Chunk S-events-C02 is not a separa
 | Semantic splitting | Tries to keep related ideas together | Requires extra modeling, cost and tuning |
 | Parent-child retrieval | Search small units, return a larger parent section | More complex indexing and source mapping |
 
-**Start simple.** An exact, verified example beats a sophisticated algorithm whose outputs you cannot inspect.
+**Start with a paragraph.** Inspect one result where it works and one where a needed name, table header or exception falls outside the boundary. Those observations give you a reason to try a different split.
 
 ## The metadata that makes retrieval trustworthy
 
@@ -45,7 +46,7 @@ Each stored chunk should identify:
 
 \`\`\`text
 source_id          S-events
-source_version     2026-11-11-teaching-fixture
+source_version     teaching-fixture-v1
 chunk_id           S-events-C02
 ordinal            2
 source_location    section: Events / paragraph: 2
@@ -61,7 +62,7 @@ This is an illustrative record, not proof that every field exists in our teachin
 
 **Experiment B — compare a proposed different split.** In a copied test fixture, place a key sentence across an artificial 60-character boundary. Ask an AI coding agent to propose a fixed-character splitter and a paragraph splitter as **separate experiments**. Compare what each returns to **“Who organizes workshops?”** Keep the original fixture unchanged, save actual outputs and decide which split better preserves support.
 
-We deliberately do not provide a “magic 500-token” rule. The right experiment specifies **characters or tokens, a tokenizer when relevant, source and version, chunk count, retrieved IDs, and the query**. Larger chunks can hide precise answers; tiny chunks can lose context.
+Record **the unit you counted** (characters or tokens), tokenizer where relevant, source version, chunk count, retrieved IDs and question. If several hits repeat the same sentence, inspect overlap. If the answer is spread across two adjacent hits, try returning the parent section. Rerun the same question after one change.
 
 ## Evaluate the result before changing your design
 
@@ -90,7 +91,7 @@ Ask me which strategy I prefer and what evidence supports that choice.
 
 ### A note from the AI
 
-> I might retrieve a passage that sounds relevant while leaving out its exception on the next line. Before trusting the answer, inspect **what the chunk includes and what it excludes**. Retrieval is a software design choice, not an oracle.
+> If my answer sounds too general, ask me to display the retrieved text beside the paragraph that follows it. You may find the exception one line beyond the cut.
 
 ## More to explore
 

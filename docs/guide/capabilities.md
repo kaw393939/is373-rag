@@ -1,11 +1,12 @@
 ---
-title: Capabilities
-description: The proposed research workflow and the limits of its first release.
+title: "Capabilities"
+description: "See what the proposed Ordo system would do, which checks would establish each capability, and where to find the contracts that define it."
+teaser: "Open a citation, correct an identity, or move a library to another machine. Each proposed capability needs a check a reader can repeat."
 ---
 
 # What the system is designed to do
 
-**These are target capabilities, not implemented features.** Current deliverables are on the [status page](../status.md).
+Pick a row and read it as a request from a user. What would that person need to see before accepting the feature? The table describes the proposed system. The [status page](../status.md) lists the deliverables you can try today.
 
 | Capability | What you would do | Design contract |
 | --- | --- | --- |
@@ -20,13 +21,12 @@ description: The proposed research workflow and the limits of its first release.
 
 ## Four useful distinctions
 
-**A mention is not an entity.** A name in a report needs contextual resolution.
-
-**A copy is not an independent confirmation.** Repeated copies of one account do not become separate witnesses.
-
-**A draft is not published knowledge.** Public retrieval uses an approved revision; draft access is explicit.
-
-**A disconnected stream is not a finished answer.** Completion, refusal, cancellation and interruption remain distinct outcomes.
+| When you see… | Ask this before accepting the result |
+| --- | --- |
+| A name in two documents | What connects those mentions to the same person? Keep them separate if the evidence is thin. |
+| Several sources saying the same thing | Did the authors observe it independently, or did they quote each other? |
+| An approved statement | Which version was reviewed? Can a reader find the passage that supported it at that time? |
+| An answer that stops halfway through | Did the model finish, did the reader cancel, or did the connection drop? The interface should show which occurred. |
 
 ## First release versus later
 

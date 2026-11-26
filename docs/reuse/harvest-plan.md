@@ -1,4 +1,12 @@
+---
+title: "Harvest plan for a clean build"
+description: "Extract useful Ordo behaviors one bounded slice at a time, beginning with contracts and durable jobs, while tracking rights, dependencies and new acceptance evidence."
+teaser: "You find a job scheduler with most of the behavior you need. Before copying it, show which behavior survives the move into a smaller research library."
+---
+
 # Harvest plan for a clean build
+
+Use a single behavior as the unit of transfer. “Create one durable job when a request is delivered twice” gives a reviewer something to reproduce. “Move the scheduler” bundles dependencies, policies and assumptions that may belong only to the original product.
 
 **Goal:** preserve tested behaviors from Ordo while creating a small, comprehensible research system. This is a plan for subsequent implementation, not a claim that the application already builds.
 
@@ -52,6 +60,8 @@ Retain the old candidate ID and origin as import provenance. Assign stable canon
 For edges, distinguish a qualified proposition from each source's assertion about it. A repeated source import may be deduplicated; independent testimony must remain independent. Aliases are scoped many-to-many lookup records, not global uniqueness keys.
 
 ## Admission checklist for every transferred module
+
+Ask another maintainer to trace one input from the old source to the new test. They should be able to find the pinned revision, identify the changed assumptions and reproduce the new result without access to the original author’s private environment.
 
 | Check | Required evidence |
 | --- | --- |

@@ -1,4 +1,12 @@
+---
+title: "Capability workers and durable jobs"
+description: "Design versioned worker capabilities for optional hardware, portable research jobs and safe acceptance of results after retries or interruptions."
+teaser: "Move a library from a Mac to a Linux machine without its image processor. A reader should still be able to inspect evidence the library already contains and see why a new job is waiting."
+---
+
 # Capability workers and durable jobs
+
+The proposed design separates what the library can **read** from what the current machine can **compute**. A worker may supply a capability for transcription, embeddings or another bounded operation. The store remains responsible for deciding which result belongs to an authorized job.
 
 **Proposed contracts.** Existing Ordo executor behavior is a donor, not evidence that native plugins are already implemented here.
 
@@ -31,6 +39,8 @@ Review the existing HTTP/JSON host-worker proposal before choosing a different s
 Native process isolation is not a sandbox by itself. Define permitted directories/artifact handles, device access, network egress, executable identity and cancellation limits. Remote worker attachment requires explicit authorization; it is not an arbitrary public command runner.
 
 ## Durable task state
+
+Consider a worker that finishes after its lease has expired. A second worker may already own the task. Checking the attempt identity at acceptance gives the store a way to preserve the valid result without letting a late delivery replace it.
 
 Plans are versioned snapshots. Validate dependency cycles, missing keys and required stages before creating a job. Human review is durable waiting state, not a worker holding an open transaction.
 

@@ -1,6 +1,14 @@
+---
+title: "Decisions and open questions"
+description: "Which Ordo decisions are settled, which alternatives were considered, and what evidence would justify choosing an implementation?"
+teaser: "The direction to keep state in Rust is settled. The choice of a storage package still needs tests. This register makes the difference visible."
+---
+
 # Decisions and open questions
 
-Planning baseline: November 10, 2026. Confirmed direction comes from the user; detailed implementation choices remain proposed until their review gates. Earlier ADRs remain reference material.
+Use the **status** column before treating any row as an implementation instruction. For example, the team can design a worker interface around Rust-owned state. Committing to a particular portable package requires the transaction and export checks attached to that choice.
+
+The project owner selected the directions marked confirmed. Detailed implementation choices remain proposed until the corresponding review gates pass. Earlier ADRs remain reference material.
 
 | ID | Decision | Status / consequence |
 | --- | --- | --- |
@@ -30,6 +38,8 @@ The current rebuild's JSON event store is not the selected durability adapter. H
 The workshop's React/Python/PostgreSQL application is a behavior/test donor, not the target stack. The historical graph is a review-lifecycle donor, not a complete canonical identity or scientific-confidence model. [Source-specific rationale](../reuse/source-audit.md).
 
 ## Decisions still required before implementation
+
+For a review, state the decision in one sentence, name the alternative, and identify an observation that would change the choice. A portable export that loses the source of a claim would reopen a storage decision even if the package copies quickly.
 
 At S0 choose the runtime toolchain, initial corpus/media budget, authentication approach and exact wire/schema versioning policy. At S4 choose an embedding model and evaluation set; lexical baseline work need not wait for an unselected model. At S6 choose format migration/retention policy and native worker authentication/isolation. At S7 select hosting capacity and model egress policy from verified inventory and measurements.
 

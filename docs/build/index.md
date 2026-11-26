@@ -1,17 +1,18 @@
 ---
-title: Build guide
-description: Reuse Ordo deliberately through small, verifiable implementation slices.
+title: "Reuse, repair, prove, extend"
+description: "Start with an existing Ordo behavior, record its source, and build the smallest independently verifiable change before expanding the research application."
+teaser: "Before moving a useful-looking file, identify one behavior worth keeping and the test that will tell you whether it survived the move."
 ---
 
 # Reuse, repair, prove, extend
 
-**Do not import all of Ordo. Do not ignore the useful code we already have.** Extract bounded behaviors, repair identified gaps, and connect them through tested contracts.
+A working function in an older project can save a team days. It can also carry an assumption that the new system cannot afford. Start with one behavior from Ordo, trace its source, and decide which observation would justify reusing it. Each stage below builds something small enough for a teammate to verify.
 
 ## Start with evidence
 
 The [reuse map](../reuse/index.md) separates the historical Rust/SQLite daemon, current rebuild, executor lab and streaming workshop. The [source audit](../reuse/source-audit.md) pins files and symbols to exact revisions. The [extraction plan](../reuse/harvest-plan.md) defines the boundary before code moves.
 
-A source file's tests are not a current pass receipt. Private source is not automatically public teaching material.
+Record the donor revision and the exact command you ran in your checkout. A test included with the donor tells you what someone intended to check. Your own run establishes what passed in this environment. Check reuse rights before taking any material from a private repository into a public lesson.
 
 ## Build in this order
 
@@ -41,7 +42,7 @@ These commands validate and serve documentation plus synthetic examples. They do
 
 A requirement, a bounded issue, relevant donor references, tests, atomic commits and a review receipt. Use the [acceptance register](../project/acceptance.md) for stable IDs and the [twelve-factor matrix](../engineering/twelve-factor.md) for operating properties.
 
-Build once; test the artifact; promote that artifact with reviewed configuration. Keep application release, library publication and documentation deployment separate.
+Build an identifiable artifact once. Run the tests against that artifact, then promote the same artifact with reviewed configuration. Record application release, library publication, and documentation deployment as separate outcomes so a successful site build cannot accidentally certify the application.
 
 ## First implementation target
 

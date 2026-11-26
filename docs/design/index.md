@@ -1,11 +1,14 @@
 ---
-title: System design
-description: The architecture and boundaries that protect knowledge, identity and publication.
+title: "Design around the evidence"
+description: "Choose the right Ordo design contract for source identity, review, publication, or streaming, and understand what a hosted demonstration is allowed to change."
+teaser: "Follow one proposed claim from a worker to a reader. The interesting handoff is the moment it becomes eligible for publication."
 ---
 
 # Design around the evidence
 
-**Rust owns durable state. Workers propose results. The interface exposes authorized views.** The research application is planned; these pages define its contracts.
+In the proposed application, a worker might find two people with similar names and suggest a match. The store records the proposal. An authorized decision determines what enters a published library. The interface lets a reader inspect only the material they are permitted to see.
+
+Use this guide to find the contract for the step you own. The research application is planned. The documentation and teaching examples are available now.
 
 ## The system at a glance
 
@@ -15,7 +18,7 @@ Sources → workers → draft proposals → review → published library
 Browser ← streamed answer + citations ← authorized retrieval
 ```
 
-A private Rust store owns transactions. The hosted API and compute workers are replaceable processes attached to that store. Local authoring may embed it. This is a small deployment with clear boundaries, not seven mandatory microservices.
+The private Rust store owns durable transactions. A hosted API or compute worker can be replaced while the store retains the record. A local authoring workstation may embed the same store. Start with those responsibilities, then decide how many processes the deployment needs.
 
 ## Read by responsibility
 
@@ -38,7 +41,7 @@ Export/import connects the profiles. It is not concurrent synchronization of a l
 
 ## Non-negotiable boundaries
 
-Names and vectors generate candidates; they do not authorize merges. Source confidence is separate from claim assessment. Publication is a reviewed transaction. Model output cannot grant access. Public export physically excludes private records and artifacts.
+A name or vector match can put two records on a reviewer's desk. A merge needs a recorded decision. Keep source reliability separate from the assessment of an individual claim. Publish in a reviewed transaction, enforce access outside the model, and construct public exports using only the approved records and artifacts.
 
 The [twelve-factor matrix](../engineering/twelve-factor.md) explains hosted process requirements and the local-appliance exception.
 

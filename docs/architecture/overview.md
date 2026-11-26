@@ -1,13 +1,23 @@
+---
+title: "System architecture"
+description: "Follow one question and one document revision through the proposed RAG architecture, from browser request to evidence retrieval and index publication."
+teaser: "One reader wants an answer now. Someone else has just uploaded a corrected report. Follow those two requests to see why chat and ingestion need different owners."
+---
+
 # System architecture
 
 <span class="status-label">DRAFT · DESIGN BASELINE</span>
 
-Deliver fast, grounded answers from a versioned document corpus. Keep document enrichment outside the live answer path and publish useful retrieval capabilities as they become ready. Performance is an end-to-end property: model processing, retrieval, queueing, network placement, and browser work all contribute.
+There are two clocks in this design. A reader is waiting for a cited answer. In the background, a new document may take minutes to parse, link, and index. The system should answer using an eligible, published revision and switch to newer evidence only when the declared retrieval capabilities are ready.
+
+Trace the live conversation first, then follow a source through ingestion. The design makes both paths measurable. Model time, retrieval, queueing, network travel, and browser rendering all contribute to what the reader experiences.
 
 ## System boundaries
 
 ```mermaid
 flowchart TB
+  accTitle: Chat and publication paths
+  accDescr: The browser exchanges commands and streamed answers with Rust. Rust retrieves published evidence and calls the model. In a separate path, source revisions go through parsing and publication, which updates the index and emits an event.
   UI["SvelteKit browser interface"] <-->|"HTTP commands / SSE"| CHAT["Rust chat service"]
   SSR["SvelteKit initial rendering"] --> UI
   CHAT --> RET["Retrieval application boundary"]
@@ -21,7 +31,7 @@ flowchart TB
   SOURCE["Document revisions"] --> ORCH
 ```
 
-These are responsibility boundaries, not a requirement to deploy every box separately. Start with the fewest processes that preserve resource isolation and failure ownership. Database locality and model placement must be tested before adding service hops.
+Use the boxes to find the owner of a failure. If the browser receives a stale completion, start with run ownership. If search returns a superseded source, start with publication and retrieval. Several boxes can share one process. Add a process boundary only after checking resource isolation, failure ownership, database locality, and model placement.
 
 ## Conversation path
 
