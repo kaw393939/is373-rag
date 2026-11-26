@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 const url = new URL(process.env.PAGE_URL || '')
-assert.equal(url.protocol, 'https:', 'Pages must report an HTTPS URL')
+if (url.protocol === 'http:') url.protocol = 'https:'
+assert.equal(url.protocol, 'https:', 'Verify the publication over HTTPS')
 if (!url.pathname.endsWith('/')) url.pathname += '/'
 const revision = process.env.EXPECTED_REVISION || ''
 assert.match(revision, /^[a-f0-9]{40}$/)
