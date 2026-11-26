@@ -125,7 +125,7 @@ try {
         }).slice(0, 8).map(el => el.tagName + '.' + el.className + ' right=' + Math.round(el.getBoundingClientRect().right)).join(', ')`)
         assert.fail(`${name}/${route}: page overflow: ${outside}`)
       }
-      if (name === 'small-phone') {
+      if (name === 'small-phone' || name === 'tablet') {
         const headerFits = await evaluate(`(() => {
           const selectors = ['.VPNavBarTitle .title', '.lab-journal-return', '.VPNavBarSearch button', '.VPNavBarHamburger']
           const boxes = selectors.map(selector => document.querySelector(selector)?.getBoundingClientRect())
@@ -133,6 +133,20 @@ try {
             box.left >= 0 && box.right <= innerWidth && (!i || box.left >= boxes[i - 1].right - 1))
         })()`)
         assert.ok(headerFits, `${name}/${route}: Lab title, journal link, search and menu must all fit`)
+      }
+      if (name === 'tablet' && route === '') {
+        await evaluate("document.querySelector('.VPNavBarHamburger').focus()")
+        await press('Enter', 13)
+        await expectInPage(`(() => {
+          const panel = document.querySelector('#VPNavScreen')
+          const links = [...(panel?.querySelectorAll('.VPNavScreenMenuLink') || [])]
+          return links.length === 5 && links.every(link => link.getBoundingClientRect().height > 0) &&
+            panel.querySelector('.VPNavScreenAppearance button')?.getBoundingClientRect().height > 0 &&
+            panel.querySelector('a[href*="github.com"]')?.getBoundingClientRect().width > 0
+        })()`, 'Tablet menu must display all five sections, appearance, and the repository')
+        await press('Escape', 27)
+        await expectInPage("document.querySelector('.VPNavBarHamburger').getAttribute('aria-expanded') === 'false'", 'Escape closes the tablet menu')
+        receipt.interactions.push({ tabletMenu: 'all five sections, appearance, and repository available by keyboard' })
       }
       assert.ok(state.revision,`${name}/${route}: revision`)
       assert.equal(state.dark,scheme==='dark',`${name}/${route}: color scheme`)

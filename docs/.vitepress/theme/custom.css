@@ -158,10 +158,14 @@
 @media (max-width: 959px) {
   .VPSidebar a.link { min-height: 44px; align-content: center; }
 }
-@media (min-width: 768px) and (max-width: 900px) {
-  .VPNavBarSearch .DocSearch-Button :is(.DocSearch-Button-Placeholder, .DocSearch-Button-Keys) { display: none; }
-  .VPNavBarSearch .DocSearch-Button .DocSearch-Search-Icon { margin: 0; }
-  .VPNavBarMenu .VPNavBarMenuLink { padding-inline: .45rem; }
+@media (min-width: 768px) and (max-width: 959px) {
+  /* Keep section links, appearance and profiles together until the desktop sidebar fits. */
+  .VPNavBar :is(.VPNavBarMenu, .VPNavBarExtra, .VPNavBarAppearance, .VPNavBarSocialLinks, .VPNavBarTranslations) { display: none; }
+  .VPNavBar .VPNavBarHamburger { display: flex; }
+  .VPNav .VPNavScreen { display: block; }
+  .VPNavBar .VPNavBarSearch { flex: none; padding-inline-start: 0; }
+  .VPNavBarSearch .DocSearch-Button { min-width: 44px; }
+  .VPNavBar .lab-journal-return { margin-inline: .75rem auto; }
 }
 @media (max-width: 480px) {
   .vp-doc [class*='language-'] button.copy { opacity: 1; width: 44px; height: 44px; }

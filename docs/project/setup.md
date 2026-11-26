@@ -44,7 +44,7 @@ Open the successful deployment job for the source commit and follow its reported
 
 The [portfolio edition](https://keithwilliams.org/knowledge-lab/) has its own [build script](https://github.com/kaw393939/kaw393939.github.io/blob/main/scripts/build-knowledge-lab.mjs). It checks out an approved Lab commit, sets the base to `/knowledge-lab/`, validates the generated site and embeds it in the portfolio.
 
-To promote a Lab release, update the pinned source revision and matching checks in the portfolio repository. After its [publish workflow](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml) succeeds, open the changed lesson at the public address. Compare the `revision` in the [mirror manifest](https://keithwilliams.org/knowledge-lab/mirror-manifest.json) and the page’s `lab-docs-revision` with the approved **Lab** commit. The portfolio commit identifies the publishing change.
+To promote a Lab release, update the revision in the portfolio’s shared release configuration. After its [publish workflow](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml) succeeds, open the changed lesson at the public address. Compare the `revision` in the [mirror manifest](https://keithwilliams.org/knowledge-lab/mirror-manifest.json) and the page’s `lab-docs-revision` with the approved **Lab** commit. The portfolio commit identifies the publishing change.
 
 ## Ongoing updates
 
