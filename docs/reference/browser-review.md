@@ -12,9 +12,9 @@ The **Documentation browser review** workflow builds VitePress and serves its st
 
 ## Automated checks
 
-Seven routes are inspected at desktop and narrow-screen sizes and in dark mode: homepage, vision, walkthrough, design, build, glossary and twelve-factor guidance. Each must have one H1, a source-revision marker and no page-level horizontal overflow.
+Chrome visits the homepage, project guides, reference material and student labs in desktop and mobile layouts. It also checks the desktop dark theme. Each page in the run must have one main heading, identify the source revision and fit the screen without making the whole page scroll sideways. On selected chapters, smaller phone and tablet checks cover wide tables, diagrams and keyboard scrolling.
 
-The review also opens local search, checks results remain under the repository path, opens mobile navigation and rejects reported JavaScript exceptions. It captures screenshots and a JSON receipt in the `documentation-browser-review` artifact.
+The review tries tasks a reader might actually do. It opens local search, follows a citation, navigates the mobile menu by keyboard and checks that copying a command or article link puts the right text on the clipboard. It also checks the LinkedIn sharing address and reports JavaScript exceptions. The `documentation-browser-review` artifact contains screenshots and a JSON receipt listing the exact routes and viewports tested.
 
 ## Inspect the artifact
 

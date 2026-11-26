@@ -71,6 +71,14 @@ export default withMermaid(defineConfig({
     }
     delete page.lastUpdated
   },
+  transformHtml(html, _id, { pageData }) {
+    if (pageData.relativePath !== '404.md') return
+    const fallback = `<noscript><main>
+      <h1>Page not found</h1>
+      <p>Find the lesson you’re looking for from the <a href="${base}">Ordo Knowledge Lab homepage</a>.</p>
+    </main></noscript>`
+    return html.replace('</body>', fallback + '</body>')
+  },
   transformHead({ pageData }) {
     const path = pageData.relativePath
     if (path === '404.md') return [['meta', { name: 'robots', content: 'noindex,follow' }]]
