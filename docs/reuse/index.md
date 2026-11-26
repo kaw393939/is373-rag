@@ -16,16 +16,17 @@ The clean build should preserve Ordo's useful behavior while replacing the assum
 
 There are two substantially different implementations in `StudioOrdo/ordo`. The current rebuild contains a small Rust realtime gateway and TypeScript contracts. An accessible historical commit contains the larger Rust/SQLite daemon: DAG validation, transactional job creation, task leases, durable event replay, graph candidates and promotion records. **Inspect both generations before implementing a replacement.** Exact commits, paths and inspection ranges are in the [source audit](source-audit.md).
 
-| Subsystem | Best starting point | Action |
+| Behavior | Donor or reference | Decision |
 | --- | --- | --- |
-| Durable jobs | Historical `kernel.rs`: DAG validation, compiled plan, idempotent creation, claims | Extract a narrow Rust module; strengthen lease fencing and failure tests |
-| Durable events | Historical `events.rs`: transactional append and cursor replay | Adapt with authorization, retention and corruption handling |
-| Knowledge review | Historical `knowledge_graph.rs`: candidates, evidence, promotion records | Preserve the lifecycle; redesign identity, claims and atomic publication |
-| Worker contract | Current `lib/ordo/executor.ts` plus owner-only executor lab | Specify one versioned contract; do not copy inconsistent envelopes unchanged |
-| Live interface | Current Rust gateway plus the streaming workshop | Keep adapter boundaries and batching; repair byte framing, termination and cancellation |
-| UI projections | Current `lib/ordo/projection.ts` | Keep explicit schema, visibility and limitations; replace timestamp/count cursors |
-| Media and import steps | Owner-only executor lab | Review specific executors for later extraction; no private source in this public site |
-| Hosting | Existing server studio and application release lessons | Reuse operational tests; do not reinstall over an uninspected host |
+| Validate plans, create jobs idempotently and claim tasks | [H-01, historical kernel](source-audit.md#h-01) | **Adapt** the claim so completion checks the lease epoch and deadline. |
+| Retain job event names and meanings | [H-02, event log](source-audit.md#h-02) and [C-02, event storage](source-audit.md#c-02) | **Keep** vocabulary that still describes the same state change. |
+| Append events and replay from a cursor | [H-02, transactional events](source-audit.md#h-02) | **Adapt** replay for viewer authorization, expiry and malformed records. |
+| Persist events on disk | [C-02, prototype file store](source-audit.md#c-02) | **Replace** the process-local file adapter with the transaction-owned store. |
+| Review graph candidates and promote claims | [H-03, graph review](source-audit.md#h-03) | **Adapt** identity and publication while preserving evidence and review history. |
+| Describe worker outputs and UI projections | [C-03, envelopes and projections](source-audit.md#c-03) and [E-01, executor](source-audit.md#e-01) | **Keep** explicit limitations. **Replace** metadata-derived artifact hashes and timestamp/count cursors. |
+| Read and deliver a live answer | [C-01, Rust gateway](source-audit.md#c-01) and [W-01, stream consumer](source-audit.md#w-01) | **Adapt** batching and incremental decoding. Test termination and cancellation through the actual transport. |
+| Import media and run additional executors | [E-01, owner-only review](source-audit.md#e-01) | **Defer** extraction until each capability has a scoped review. |
+| Release and recover the service | [Hosting plan](../project/hosting.md) and [release checks](../engineering/clean-build.md) | **Defer** changes to the host until the release and restore checks can be run. |
 
 ## Read in this order
 

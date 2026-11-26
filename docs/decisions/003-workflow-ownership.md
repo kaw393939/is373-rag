@@ -30,4 +30,8 @@ Pure event choreography distributes dependency logic across consumers and makes 
 
 ## Validation
 
+Use the same interrupted publication for Dagster and Temporal. Give revision 1 to a worker and let it commit its output. Lose the acknowledgment, replace the source with revision 2, then restart the worker and redeliver the original task. Let revision 2 finish.
+
+For each engine, keep the attempt history, artifact identities, publication record and the revision a new search returns. The old commit can stay in history. Redelivery must reuse or reject the completed attempt without making revision 1 current again. Only the eligible revision 2 should be searchable after its publication. Engine selection remains open until those traces exist.
+
 Kill a worker before and after commit; redeliver a task; replace or delete a source mid-run; correct an entity merge; interrupt a model call; and verify that completed independent artifacts remain usable. Compare operational recovery and incremental reprocessing with representative document workloads. See [ingestion](/architecture/ingestion).

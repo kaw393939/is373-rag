@@ -99,9 +99,11 @@ Prototype a document-revision workflow with parsing, NLP, embedding, and publica
 
 Reuse routing, per-route rendering choices, and request-scoped SSR state. Implement the [frontend design](/architecture/frontend) against our Rust event contract: authorized snapshot, sequence/attempt validation, incremental answer, and independent source/status panels. Rendering helpers do not provide a resumable chat protocol. Keep streaming Markdown, graph exploration, and document viewers behind separate interfaces and performance tests; this resource does not settle those library choices.
 
-## First implementation study order
+## Independent experiments {#first-implementation-study-order}
 
-1. **Prove the chat boundary:** Axum SSE plus SvelteKit, using deterministic fixture events to test sources, Stop, disconnect, duplicate sequences, and resynchronization.
+Choose an experiment when its fixture and expected result are available. For delivery dependencies, use the [implementation roadmap](/project/roadmap). S1 develops the durable kernel. The application’s streaming interface is S5.
+
+1. **Inspect stream framing.** Start when you have a recorded start, a text delta containing a multibyte character, and an expected terminal state. Feed them to the [standalone consumer fixture](/engineering/examples#stream-framing). Save the fixture, byte-split cases and observed terminal outcome. Add the real Axum/SvelteKit path, source events, Stop and authenticated reconnect when the S5 dependencies are available.
 2. **Prove evidence locations:** Docling conversion/chunking on representative source formats; inspect anchors before adding generated augmentation.
 3. **Establish retrieval truth:** FTS5 plus exact vector search, with tenant/ACL filters, canonical IDs, and fixed relevance examples.
 4. **Measure alternatives:** Vec1 ANN, sqlite-vec's separate alpha experiment, and SQLite-Vector only where justified; compare recall, filtered latency, concurrent ingestion, and native failure behavior.

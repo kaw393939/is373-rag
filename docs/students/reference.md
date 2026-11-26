@@ -36,11 +36,13 @@ Expect five imported sources on the first run. Run it again: expect five **uncha
 
 ### 3. Ask for a passage (about 4 minutes)
 
+You want to know who organizes events. Look at the fixture filenames. Which file would you open to find out whether the Events Committee handles that job? Write down your prediction, then run the search.
+
 ```sh
 python3 student-reference/rag_lab.py search --db student-reference/lab.sqlite --question "Who organizes events?"
 ```
 
-Look at the returned source ID, filename and passage. Open the matching file in `student-reference/fixtures` and read it yourself. Can you point to the words that answer the question?
+Compare your predicted filename with the filename and source ID in the result. Open the returned file in `student-reference/fixtures` and point to the words that identify the organizer. Did the search find the evidence you expected?
 
 **What just ran?** SQLite searched for text and returned a stored passage. You supplied no model and asked it to generate nothing. Keep that distinction when you explain this keyword baseline or compare it with your chosen vector or graph method.
 

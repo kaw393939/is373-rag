@@ -40,6 +40,12 @@ flowchart TD
 
 An `Arc<Mutex<Run>>` coordinates one process, not replicas after a partition. Specify the authoritative store, atomic claim operation, monotonic fencing epoch, renewal rules, and write-time validation before enabling multiple run owners. Check ownership at event/transcript publication, not only when work starts. Keep terminal transitions conditional and monotonic. Acceptance evidence: delay an old owner past lease expiry, allow takeover, then verify that the old attempt cannot commit or contaminate the current stream.
 
+The [historical kernel audit](/reuse/source-audit#h-01) found that a reused worker name could match an earlier attempt. Follow the proof across three boundaries.
+
+1. Run the [synthetic Rust lease test](/engineering/examples#lease-ownership). The predicate should reject a receipt from attempt 1 after the same worker receives attempt 2.
+2. Have two independent store clients submit the old and new receipts. Inspect the rows after both writes. The conditional transaction must accept only the current attempt. This needs a store implementation.
+3. Replay accepted completion events from that store. The old attempt must contribute none. Keep the receipts, committed rows and replay output from the same run. This integration check is still open.
+
 ## P1: Bound blocking work and cancellation leakage
 
 SQLite calls and CPU-heavy parsing must not occupy Tokio execution workers. A blocking pool alone is insufficient if its queue can grow indefinitely. Reserve database/chat permits, bound queued bytes and jobs, and give ingestion a separate budget. Already-started `spawn_blocking` work cannot be aborted through its join handle; shutdown timeouts stop waiting rather than stop that work. Define connection-scoped interruption and late-result disposal. [Tokio blocking behavior](https://docs.rs/tokio/latest/tokio/task/fn.spawn_blocking.html)

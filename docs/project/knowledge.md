@@ -10,6 +10,8 @@ Consider two documents that both mention “A. Lee.” The matching text gives t
 
 **Proposed format and invariants.** The historical graph supplies candidate/review patterns, not a finished research ontology. See H-03 in the [source audit](../reuse/source-audit.md).
 
+In a fictional harbor notebook, A. Lee writes, “The light stayed near the pier.” A worker proposes linking the signature to Alex Lee, a dock worker. A later signed page identifies the writer as Avery Lee, a dispatcher. A reviewer records the new evidence and corrects the assignment in the next revision. Both revisions still point to the original words. A reader can inspect why the identification changed and who approved it.
+
 ## Records and their identities
 
 | Record | Identity and invariant |

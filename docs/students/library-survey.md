@@ -12,6 +12,16 @@ Your FastAPI app answers a question about a club rule. A classmate asks which pa
 
 A **library** supplies reusable code. A **framework** helps you organize components and the order in which they run. An **SDK** gives your code an interface to a service. A **model** generates or classifies content. A **database** stores and searches records. Your app might use all of these, and each helps with a different part of the job.
 
+## A tiny experiment for learning
+
+Choose one question whose expected source passage you already know. Compare *the same input and output contract* using your own retrieval code and one optional library component.
+
+1. Run your existing code and save the query, source ID and passage. Check the returned text against the answer you expected.
+2. Swap just the document loader. Use the same files, question, chunking settings and search method.
+3. Run the same question and compare the two returned source IDs and passages. If the source ID disappears, find the first step that dropped it. If both versions pass, compare the code a teammate has to understand, the new dependencies and the work required to maintain them.
+
+For a speed or cost comparison, measure the same workload in both versions. A single successful response can establish that the path works.
+
 ## The problem that motivates these tools
 
 Imagine answering five questions using five approved club documents. Without a framework, your program must load sources, split text, create embeddings if selected, store and retrieve evidence, assemble context, call a model, and return sources. Those steps are valuable to understand. As a project grows, reusable libraries may eliminate repetitive integration code.
@@ -50,16 +60,6 @@ When a framework returns a citation, open it. An ID can point to a real document
 A production system may combine pieces from several libraries. You are **not required to choose one framework for the whole application**.
 
 For the underlying concepts, use [embeddings](embeddings.md) and [chunking](chunking.md) before you decide which library abstracts them.
-
-## A tiny experiment for learning
-
-Choose one question whose expected source passage you already know. Compare *the same input and output contract* using your own retrieval code and one optional library component.
-
-1. Run your existing code and save the query, source ID and passage. Check the returned text against the answer you expected.
-2. Replace one step, such as the document loader. Hold the documents, chunking settings and retrieval method constant unless one of those is the step being tested.
-3. Run the question again. If the source ID disappears, find the first step that dropped it. If both versions pass, compare the code a teammate has to understand, the new dependencies and the work required to maintain them.
-
-For a speed or cost comparison, measure the same workload in both versions. A single successful response can establish that the path works.
 
 ### Copyable AI research prompt
 

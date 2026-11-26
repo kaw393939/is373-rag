@@ -67,6 +67,14 @@ Cancellation intent is separate from transport disconnect. The run owner seriali
 
 ## Ordering and recovery invariants
 
+Suppose the client has rendered event 42 for `run_example`, attempt 1. Keep the visible answer and the last *contiguous* sequence together when you test recovery.
+
+| Next delivery | Expected client action |
+| --- | --- |
+| Sequence 42 again | Ignore the duplicate. Keep one copy of the text and leave the checkpoint at 42. |
+| Sequence 44 arrives before 43 | Hold 44 and request replay after 42 for the same attempt. Apply 43 and 44 once, in order, when the missing event arrives. |
+| The server no longer retains event 43 | The proposed recovery response would indicate that the cursor expired and supply or identify an authorized snapshot. Replace the partial answer with that snapshot, then subscribe after its checkpoint. The HTTP status, response fields and cursor encoding remain undecided. |
+
 1. Accepted commands are durable before success is acknowledged.
 2. Each append is authorized for the current run attempt and ordered by sequence.
 3. Clients deduplicate replay overlap, detect gaps, and reject stale attempts.

@@ -30,4 +30,11 @@ The split gives the UI responsibility for its event client, state reducer, snaps
 
 ## Validation
 
+Use one recorded sequence containing a source event, the first supported sentence, more text and a terminal event. Fix the history, device and event timing. Cancel at the same event boundary in each trial.
+
+| Comparison | Hold fixed | Record for each run |
+| --- | --- | --- |
+| Compare the two browser clients | Serving path and event recording | Time from the start command until grounded text is visible. Record which text remains when cancellation wins and which terminal state the client shows. |
+| Compare direct Rust SSE with a frontend relay | Browser client and event recording | Repeat the same timings and cancellation. Compare the displayed result with the run owner’s terminal record, including any deltas that arrived late. |
+
 Compare first visible grounded text, input responsiveness, chunk gaps, memory, long tasks, and cancellation under realistic histories. Test slow devices and concurrent streams. Confirm one terminal state and safe replay under reconnects. See [frontend](/architecture/frontend), [backend](/architecture/backend), and [contracts](/architecture/contracts).

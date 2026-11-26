@@ -10,14 +10,16 @@ Imagine a new club member asking who organizes events. Can your app find the rel
 
 That’s the idea behind **retrieval-augmented generation (RAG)**. Your system retrieves relevant material, then gives that material to a model to help it answer. Start with one reader, one useful question, and about five short documents you have permission to use.
 
+**If this is your first RAG project**, [run the club example](reference.md#your-first-15-minutes). You’ll ask who organizes events and open the passage your search returns. Python and the included documents are enough to start.
+
+**If you already have a topic**, [write one question for your reader](plan.md) and point to the sentence in your own documents that should answer it. That prediction will give you a first test.
+
 These pages are optional project support. Use the [individual assignment](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md), [research handout](https://github.com/kaw393939/is373-studio/blob/main/docs/handouts/database-rag-research.md), and Canvas for the actual requirements. You can use a model you already have access to.
 
 ## Choose your next step
 
 | If you want to… | Start here |
 | --- | --- |
-| See retrieval work before choosing a stack | [Find a source passage in 15 minutes, without a model or API key](reference.md#your-first-15-minutes) |
-| Decide what to build | [Choose a reader, sources, and five test questions](plan.md) |
 | Understand how search works | [Try embeddings](embeddings.md), [compare ways to split a document](chunking.md), or [compare databases and retrieval methods](data-choices.md) |
 | Use software you’ve already built | [Extend your FastAPI app and Docker deployment](from-app-studio.md) |
 | Get a complete question-to-answer path working | [Build one small feature at a time](build.md) |

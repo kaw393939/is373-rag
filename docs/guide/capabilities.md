@@ -13,7 +13,7 @@ Pick a row and read it as a request from a user. What would that person need to 
 | Acquire evidence | Import supported material; preserve its bytes, origin and processing history | [Knowledge records](../project/knowledge.md) |
 | Resolve identities | Review aliases and possible matches without name-only merges | [Identity rules](../project/knowledge.md#resolution-is-not-name-deduplication) |
 | Maintain claims | Keep qualified statements, supporting evidence and contradictions | [Confidence and disagreement](../project/knowledge.md#confidence-and-disagreement) |
-| Publish deliberately | Approve an exact proposal and produce a traceable revision | [Atomic publication](../project/knowledge.md#atomic-publication) |
+| Publish deliberately | Approve a draft, then change one word. Publication should reject the changed draft and leave the prior revision intact | [Atomic publication](../project/knowledge.md#atomic-publication) |
 | Ask with evidence | Combine available lexical, vector and graph retrieval; stream a cited answer | [Research interface](../project/streaming.md) |
 | Observe work | Inspect progress, missing capabilities, retries and review requests | [Durable jobs](../project/plugins.md#durable-task-state) |
 | Move the library | Export a verified package and reopen it without the original machine | [Portable package](../project/knowledge.md#portable-package) |

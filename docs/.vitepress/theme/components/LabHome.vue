@@ -15,15 +15,18 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 
 <template>
   <main class="lab-home">
-    <div class="lab-status"><span class="lab-status-dot" aria-hidden="true"></span><span>KEITH WILLIAMS · ORDO KNOWLEDGE LAB</span><a :href="withBase('/status')">Project status <span aria-hidden="true">↗</span></a></div>
+    <div class="lab-status"><span class="lab-byline">A field guide by Keith Williams</span><a :href="withBase('/status')">Project status <span aria-hidden="true">→</span></a></div>
     <section class="lab-hero" aria-labelledby="lab-title">
       <div class="lab-intro">
         <p class="lab-kicker">Retrieval-augmented generation</p>
         <h1 id="lab-title">Build answers you can <em>explain.</em></h1>
         <p class="lab-lead">{{ frontmatter.teaser }}</p>
-        <p class="lab-summary">I use a fictional club handbook to teach students to open the passage behind an answer. Try it on your own collection, or follow the research design for keeping track of claims that change.</p>
-        <div class="lab-actions"><a class="lab-primary" :href="withBase('/students/')">Start your IS373 project <span aria-hidden="true">→</span></a><a class="lab-secondary" :href="withBase('/students/reference')">Try the first 15 minutes</a></div>
+        <div class="lab-actions"><a class="lab-primary" :href="withBase('/students/')">Start your IS373 project <span aria-hidden="true">→</span></a><a class="lab-secondary" :href="withBase('/students/reference#your-first-15-minutes')">Try the first 15 minutes</a></div>
         <p class="lab-scope">Canvas and the original assignment set the requirements. Choose the examples you need from this optional guide.</p>
+        <ul class="lab-reader-paths" aria-label="Teaching and research">
+          <li><strong>Teaching a class?</strong> <a :href="withBase('/guide/walkthrough')">Try the ten-minute source check</a> with three fictional harbor reports.</li>
+          <li><strong>Designing a retrieval system?</strong> <a :href="withBase('/guide/')">Explore the research design</a> for tracing claims when sources disagree.</li>
+        </ul>
         <LabShare />
         <figure class="lab-hero-art">
           <img :src="withBase('/' + cover.path)" :alt="cover.alt" width="1200" height="630" fetchpriority="high" decoding="async">
@@ -68,14 +71,17 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 .lab-home :is(a,summary):focus-visible{outline:3px solid var(--vp-c-brand-1);outline-offset:5px;border-radius:4px}
 .lab-status{display:flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.08em;color:var(--vp-c-text-2);padding:0 0 25px;border-bottom:1px solid var(--vp-c-divider)}
 .lab-status a{margin-left:auto;letter-spacing:0;font-size:13px;color:var(--vp-c-brand-1);text-decoration:underline;text-underline-offset:4px}
-.lab-status-dot{width:7px;height:7px;background:var(--vp-c-brand-1);border-radius:50%;flex-shrink:0}
+.lab-byline{font:500 1rem/1.45 var(--lab-font-editorial);letter-spacing:0}
 .lab-hero-art{margin:1rem 0 0}.lab-hero-art img{display:block;width:100%;height:auto}.lab-hero-art figcaption{font-size:.78rem;margin-top:.28rem;color:var(--vp-c-text-2)}
 .lab-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:64px;align-items:center;padding:64px 0 66px}
 .lab-kicker{font-size:12px;font-weight:650;letter-spacing:.13em;color:var(--vp-c-brand-1);margin:0 0 18px;line-height:1.7}
 .lab-intro h1{max-width:15ch;font-size:clamp(2.75rem,5.2vw,4.65rem);line-height:1.04;letter-spacing:-.036em;font-family:var(--lab-font-editorial);font-optical-sizing:auto;font-weight:550;text-wrap:balance;margin:0 0 24px}
 .lab-intro h1 em{font-style:italic;color:var(--vp-c-brand-1)}
 .lab-lead{font:400 clamp(1.24rem,1.05rem + .65vw,1.55rem)/1.45 var(--lab-font-editorial);font-optical-sizing:auto;max-width:46ch;margin:0 0 16px}
-.lab-summary{font-size:16px;line-height:1.75;color:var(--vp-c-text-2);max-width:490px;margin:0 0 26px}
+.lab-reader-paths { margin: 1.15rem 0; padding: .75rem 0; border-block: 1px solid var(--vp-c-divider); list-style: none; color: var(--vp-c-text-2); font-size: 1rem; line-height: 1.65; }
+.lab-reader-paths li + li { margin-top: .45rem; }
+.lab-reader-paths strong { color: var(--vp-c-text-1); }
+.lab-reader-paths a { color: var(--vp-c-brand-1); font-weight: 600; text-decoration: underline; }
 .lab-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .lab-actions a{display:inline-flex;align-items:center;gap:18px;padding:12px 17px;border-radius:5px;font-weight:600;font-size:14px;line-height:1.5}
 .lab-primary{background:var(--vp-c-brand-1);color:var(--vp-c-bg)}

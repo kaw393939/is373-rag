@@ -8,7 +8,7 @@ teaser: "Something in the design looks unfamiliar. Find out whether you need a d
 
 If the question is “what does this word mean here?”, begin with the glossary. If it is “why do we trust this module?”, begin with the pinned source audit. The links below separate those jobs from the current design and from documents kept for historical context.
 
-Use this section to investigate a decision. Use [Research overview](../guide/index.md), [Design](../design/index.md) and [Build](../build/index.md) for the current reading path.
+Working on IS373? The [student guide](../students/index.md) takes you from a question to a checked result. The [course roadmap](../course-roadmap.md) explains how the individual project fits with your other deliverables. For system design, begin with the [research overview](../guide/index.md), [Design](../design/index.md) or [Build](../build/index.md).
 
 ## Current evidence and terminology
 
@@ -29,10 +29,9 @@ These pages are preserved, not silently adopted as current requirements:
 
 | Collection | Contents |
 | --- | --- |
-| [Earlier architecture](../architecture/overview.md) | Initial frontend, backend, retrieval and ingestion proposals |
-| [Earlier decisions](../decisions/index.md) | Original tradeoffs, including broker-first alternatives |
-| [Design reviews](../reviews/index.md) | Independent application of software-design principles |
-| [Research library](../research/index.md) | Related systems, implementation resources and technical developments |
-| [Course planning reference](../course-roadmap.md) | Earlier IS373 assignment context |
+| [Earlier architecture](../architecture/overview.md) | Historical proposals for the frontend, backend, retrieval and ingestion. Check the [current design](../design/index.md) before implementing them. |
+| [Earlier decisions](../decisions/index.md) | Historical alternatives, including broker-first delivery. The [current decision register](../project/decisions.md) gives each direction a status. |
+| [Design reviews](../reviews/index.md) | Earlier design critiques. Use their questions to plan a check and record the outcome separately. |
+| [Research library](../research/index.md) | Background comparisons, experiments and technical references. The [delivery roadmap](../project/roadmap.md) owns implementation order. |
 
 Newer plan pages take precedence when choices conflict. A historical review is not an endorsement or a current test result. [Status and precedence](../status.md).

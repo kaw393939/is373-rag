@@ -6,7 +6,9 @@ teaser: Before you add chat to the interface, ask one question and look at what 
 
 # Build one complete source-to-answer path
 
-Choose a question that one of your documents answers. Write down its source ID and the words you expect to find. You now have a way to tell whether each part of the application works. If your FastAPI app and Docker/HTTPS setup already run, start there. [App Studio walkthrough](from-app-studio.md)
+Your first result should be a passage you can open. Choose a question, write down the sentence you expect, and keep the model turned off while you build the search. When the app returns text, check its source ID and open the original. If the passage answers the question, you have something worth handing to a model.
+
+Use your existing FastAPI app and Docker/HTTPS setup if they already work. [App Studio walkthrough](from-app-studio.md)
 
 ## Seven small steps
 

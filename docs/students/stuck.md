@@ -6,7 +6,13 @@ teaser: If an answer cites the wrong policy, first ask what the search returned.
 
 # Stuck? Find the first broken step
 
-Pick one question that failed and one document you expected to find. Write down your prediction. Check the steps below in order and stop at the first place where what you see differs from what you expected. [Optional debugging prompt](prompts.md#debug-prompt)
+Take one question that got a wrong answer. Open the first passage your search returned and read it beside the source you expected.
+
+- **The needed words are missing.** Check that the original made it into the index, then inspect the chunks the search returned.
+- **The passage contains the answer.** Check whether those words reached the model. If they did, inspect the model’s response.
+- **The answer is supported but the link opens elsewhere.** Follow the returned source and chunk IDs to the location your app displays.
+
+Use the table below for the first step that failed. [Optional debugging prompt](prompts.md#debug-prompt)
 
 | What you see | Try this first | If that check fails |
 | --- | --- | --- |

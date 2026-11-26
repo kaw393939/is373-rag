@@ -81,3 +81,15 @@ Choose the failure you need to understand before choosing which repository to op
 4. **Microsoft GraphRAG:** use its artifact model and local/global split to decide whether community summaries improve our actual questions.
 
 Any reuse decision should pin a revision, inspect that revision's license and dependencies, and run a small representative corpus through ingestion, restricted retrieval, update/deletion, and citation checks. These references inform the design; our measured relevance, freshness, and streaming behavior will decide adoption.
+
+### Compare the two meeting notices
+
+Use a synthetic archive with a first-term notice naming **Wednesday** and a second-term correction moving meetings to **Thursday**. Give each a stable source ID and effective period. The first notice applies only to the first term. Withdrawal makes the second notice and its derived claims ineligible for a current answer.
+
+| Question or change | Expected evidence | Observed result |
+| --- | --- | --- |
+| What day does the club meet this term? | Thursday, cited to the second-term correction. | Pending |
+| What day did the club meet last term? | Wednesday, cited to the first-term notice. | Pending |
+| Withdraw the second-term correction. What day does the club meet now? | No eligible notice establishes the current day. The older notice still answers the first-term question. | Pending |
+
+With Graphiti, inspect which source episode supports each time-qualified fact and how withdrawal changes valid results. With LightRAG, inspect both retrieval and the reconstructed graph after removing the second-term document. Save the returned passages and citations for each question alongside the versions tested.

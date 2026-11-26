@@ -1,18 +1,25 @@
 ---
 title: "A research walkthrough"
 description: "Follow three fictional harbor reports through source tracing, identity review, publication, an interrupted answer, and portable export."
-teaser: "One witness sees movement. A later report repeats the account. A third describes a stationary light. Try answering a question without losing the disagreement."
+teaser: "Three reports describe a light near a harbor. How many independent witnesses saw it move? Give a classmate the line that supports your count."
 ---
 
 # One incident. Several accounts.
 
-This is a fictional paper exercise. You can do the evidence review with three index cards. It describes how a future Ordo application should behave.
+Open the [ten-minute source-check exercise (.txt)](/kits/three-report-source-check.txt) and read reports A, B, and C. Before you reach the discussion notes, write down how many independent witnesses saw the light move. Quote one line, include its ID, and name one thing these fictional reports leave open.
 
-[Get the ten-minute source-check exercise (.txt)](/kits/three-report-source-check.txt). It includes the three reports, line IDs to cite, and discussion notes you can fold away until the end.
+<details class="source-check-answer">
+<summary>Compare your witness count and quoted line</summary>
+
+One witness describes movement. In A2, Alex Lee says, “I saw a white light move from the crane toward the east pier.” B1 identifies the harbor log as the bulletin’s source. C2 describes a light that stayed still. C3 leaves open whether the witnesses saw the same object.
+
+</details>
+
+The rest of the walkthrough follows the design for a future Ordo application. Use the same three reports to ask what the software would need to preserve.
 
 ## 1. Import three reports
 
-On card A, a harbor witness describes a light moving over the water. Card B is a later report quoting A. On card C, another witness describes a stationary light at roughly the same time. Two reports use different names for the incident. Two people share the name Alex Lee.
+Give the harbor log, the bulletin, and the dispatch note their own records. For a second test, imagine that two reports use different names for the incident and two people share the name Alex Lee.
 
 Preserve each acquisition and source version. Identical bytes can share an artifact without erasing where each copy was obtained.
 
@@ -34,7 +41,7 @@ A later source or changed proposal requires a new review. No half-published resu
 
 Chat retrieves authorized evidence from one published revision. Its answer streams with citations opening exact passages. The evidence panel identifies source dependence and unresolved assessments.
 
-A defensible answer would attribute movement to the witness on A, note that B repeats A, and quote the stationary observation from C. The reports supply no explanation for the discrepancy.
+Compare the draft with your own answer. Can you open each passage and see which report quoted another?
 
 ## 5. Test an interruption
 
@@ -51,3 +58,7 @@ Export the approved revision and open it on Linux without the Mac worker. Eviden
 Hand a classmate your three cards. Can they trace a statement to its source, count independent observations, and name one question the evidence leaves open? Then ask an engineering question: what should still be visible if the application crashes halfway through publishing your review?
 
 Use the [requirements](../project/acceptance.md) for acceptance criteria and the [executable labs](../engineering/examples.md) for runnable, narrower contracts.
+
+## From the journal
+
+What happens when a search returns six articles that all quote one interview? In <JournalLink class="journal-article-link" to="/research/systems/provenance-knowledge-graphs">Six Articles, One Witness</JournalLink>, I explain how I would trace those articles back to the interview and keep a conflicting account visible.

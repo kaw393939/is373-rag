@@ -51,6 +51,16 @@ These are proposed modules, not a requirement to create seven deployable service
 
 The target command should receive an authenticated actor scope, a versioned plan, normalized inputs and a request key. Its store transaction must reject changed inputs for an existing key, insert job/tasks/dependencies, and append the creation events together. External inference and filesystem decoding happen outside that transaction.
 
+Use this specimen for the first duplicate-job test. The proposed location identifies where a future implementation should collect its test receipt.
+
+| Specimen field | Value |
+| --- | --- |
+| Pinned donor | [H-01, `kernel.rs`](source-audit.md#h-01) at `39138562f1`, symbol `create_job_from_template_with_idempotency` |
+| Target command | Create a job for library L with plan P, normalized input A and request key K. |
+| Replay the same request | Under the same actor and library scope, K + P + A returns the original job ID, with no second set of tasks or creation events. |
+| Replay with changed input | K + P + B produces an explicit conflict. The original job, tasks and events remain intact. |
+| Test location and execution receipt | Proposed integration test in `lab-store/tests/job_idempotency.rs`. Pending for both the donor characterization and target integration runs. |
+
 The target result-acceptance command receives a lease receipt containing job/task, worker, epoch and expiry, plus the input digest and output manifest. It validates artifact bytes and scope before a conditional acceptance update. Lease checks must occur in the same transaction as acceptance; checking a lease in memory and writing later creates a race.
 
 ## Example: replace candidate IDs without losing provenance

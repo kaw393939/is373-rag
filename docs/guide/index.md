@@ -6,21 +6,22 @@ teaser: "You can run a small lab today or explore the research system it points 
 
 # Research overview {#start-here}
 
-If you are here for IS373, start by asking a question of your own documents and opening the passage behind the answer. The [student guide](../students/index.md) takes you through that assignment. The research design asks a further question: how do you maintain a library when sources disagree, names change, or somebody corrects an earlier decision?
+When several reports describe an event, how many people actually witnessed it?
+
+- **Try it with a class.** Give students the [ten-minute source check](walkthrough.md). Each reader gets three fictional harbor reports and must quote the line that supports their witness count.
+- **Inspect the system design.** Follow a claim through the [proposed architecture](../design/index.md) to see where a source, a reviewer’s decision, and a disagreement would be recorded.
+
+Taking IS373? The [student guide](../students/index.md) walks you through building an app that answers a question from your own documents.
 
 ## Choose your path
 
 | Your question | Read next |
 | --- | --- |
-| I'm taking IS373 now | [Finish your current RAG assignment](../students/index.md) |
 | Why build this? | [Project vision](vision.md) |
 | What would it do? | [Capabilities](capabilities.md), then [a research walkthrough](walkthrough.md) |
-| How does it work? | [System design](../design/index.md) |
 | What should we build first? | [Build guide](../build/index.md) and [delivery roadmap](../project/roadmap.md) |
 | What can I run today? | [Local documentation setup](../project/setup.md) and [executable examples](../engineering/examples.md) |
 | Where did the design come from? | [Ordo reuse map](../reuse/index.md) and [reference library](../reference/index.md) |
-
-If you have ten minutes and no software, try the [three-report source check](/kits/three-report-source-check.txt). Decide how many people actually observed motion, then give someone else the line they can use to check your count.
 
 ## The idea in one minute
 

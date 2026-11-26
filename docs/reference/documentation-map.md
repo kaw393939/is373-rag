@@ -22,6 +22,8 @@ Each section answers a different reader question.
 
 [Requirements](../project/acceptance.md) own acceptance IDs. The [roadmap](../project/roadmap.md) owns implementation order. The [source audit](../reuse/source-audit.md) owns donor findings. [Status](../status.md) distinguishes delivered artifacts from future work. Other pages link to these instead of copying their tables.
 
+For example, if a repeated import must leave one accepted source version, edit [R-06 and its A-06 scenario](../project/acceptance.md#a-06). Put a runnable, synthetic example beside the [contract exercises](../engineering/examples.md) and explain its particular scope. For the student-facing task, ask the learner to import the file twice and compare IDs and counts in the [student checking guide](../students/check.md). Link back to the rule when readers need the formal guarantee.
+
 ## Writing rules
 
 Lead with the answer. Keep entry pages short; send deeper detail to its canonical page. Explain a term before using its abbreviation. Give one realistic example and one meaningful limitation. Code blocks contain executable commands or clearly labelled design examples.

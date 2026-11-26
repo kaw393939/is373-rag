@@ -12,7 +12,7 @@ The application release is a separate, proposed deliverable. Its command names a
 
 ## Documentation: runnable now
 
-From a clean checkout with Node.js 22 or newer:
+Run these commands from the repository root, the directory containing `package.json`. Install Node.js 22 or newer with npm for the documentation and stream checks. The publication fixture uses Python 3 with the standard `sqlite3` module. The separate lease exercise below uses rustup and the pinned Rust compiler.
 
 ```sh
 npm ci
@@ -23,6 +23,8 @@ npm run build
 node scripts/check-pages.mjs
 ```
 
+The stream fixture should report **10 passed, 0 failed**. The Python publication fixture should finish with **8 tests** and **OK**. The plan checker prints a `PASS` line for the source records, requirements and examples. After the build, the generated-page checker prints its page, link, sitemap and sharing checks. Keep both its output and exit status with the tested revision.
+
 The lease example uses a pinned Rust compiler. The following command runs its seven tests with the compiler’s default edition. The [documentation workflow](https://github.com/kaw393939/is373-rag/blob/main/.github/workflows/docs.yml) shows CI’s exact compiler invocation.
 
 ```sh
@@ -30,6 +32,8 @@ rustup toolchain install 1.90.0 --profile minimal
 rustc +1.90.0 --test docs/examples/lease.rs -o /tmp/ordo-lease-tests
 /tmp/ordo-lease-tests
 ```
+
+A passing lease run ends with **7 passed, 0 failed**, including rejection of an earlier attempt submitted under the same worker name.
 
 This compiler pin applies to a dependency-free documentation exercise, not a decision about the future runtime's supported toolchain. The application toolchain must be selected and security-reviewed at its own setup gate. The examples use synthetic data, no model credentials, no private donor checkout and no external service calls.
 

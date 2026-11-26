@@ -22,13 +22,22 @@ The Python example uses the standard library to exercise SQLite transactions. Th
 
 **Question:** what happens when `worker-a` finishes attempt 1 after attempt 2 has already been assigned to that same worker name?
 
+From the repository root, run the fixture with the pinned compiler. The [clean-build instructions](clean-build.md) cover toolchain installation.
+
+```sh
+rustc +1.90.0 --test docs/examples/lease.rs -o /tmp/ordo-lease-tests
+/tmp/ordo-lease-tests
+```
+
+The test `rejects_old_attempt_even_with_same_worker_name` should pass. It hands the checker an attempt-1 receipt after attempt 2 has been assigned to `worker-a` and expects rejection. The complete fixture has seven tests.
+
 A worker name alone cannot distinguish those claims. The original Rust example below compares the job, task, worker, monotonic epoch, deadline, input digest and running state. Expiry is exclusive: a result at the deadline is too late. A successful predicate is not sufficient by itself; the eventual store must perform this comparison and the conditional state update in the same transaction.
 
 ::: details Inspect the Rust specification and its seven tests
 <<< @/examples/lease.rs
 :::
 
-Run it with the commands in [clean builds](clean-build.md). Deliberately remove the epoch comparison: the stale-attempt test should fail. This mutation is a classroom exercise in a disposable branch, not a change to the accepted contract.
+In a disposable branch, remove the epoch comparison: the stale-attempt test should fail. Restore the comparison after the exercise.
 
 **Transfer gate:** race two real store clients, reuse a worker identity, reclaim an expired claim and deliver the old receipt. Exactly one attempt may be accepted. Clock representation and skew policy need explicit design; this lab's integer timestamps are synthetic.
 

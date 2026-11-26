@@ -16,6 +16,15 @@ Assemble permission-scoped documents with headings, tables, code, OCR where appl
 
 Define corpus size, vector dimensions, update rate, simultaneous chats, hardware, region placement, and model configuration before recording results. Preserve the same relevance target when comparing systems.
 
+For a hypothetical comparison, freeze the synthetic harbor records at a revision called `harbor-v1`. Give both methods the same question about the moving light, the same accessible passages, and the same machine. Before running either, mark A2 as direct evidence of motion and B2 as the bulletin quoting that observation.
+
+| Candidate | Check on the same fixture | Observed |
+| --- | --- | --- |
+| Lexical search | Record whether A2 appears in the first three passages, how B2 ranks and how long retrieval takes. | Pending run |
+| Lexical and vector search | Use the same three-result cutoff, collect the same evidence and record the model and preprocessing revision. | Pending run |
+
+If both methods return A2, inspect whether the answering step counts B2 as an independent witness. A correct search result can still lead to an unsupported answer.
+
 ## Measurements
 
 | Surface | Measurements |
@@ -42,12 +51,7 @@ Choose one interruption and state the expected durable outcome before running it
 
 ## Implementation sequence
 
-1. Fix scope, artifact schemas, evidence contracts, and terminal-state semantics.
-2. Build one document-to-chat vertical slice with lexical/vector retrieval and source citations.
-3. Qualify the SQLite/vector adapter and select a durable workflow engine.
-4. Add source-backed graph extraction, resolution, corrections, and selective expansion.
-5. Add useful augmentation and optional retained multi-viewer output based on evaluated requirements.
-6. Revisit deployment topology only when measurements justify additional boundaries.
+The [delivery roadmap](project/roadmap.md) sets the implementation order. Design the comparison above before implementation. Run it against the application during [S4, retrieval and evidence](project/roadmap.md#s4). Use [S5](project/roadmap.md#s5) to repeat the question through the streaming interface, then [S6](project/roadmap.md#s6) to reopen the published evidence on a second machine.
 
 ## Documentation delivery gates
 

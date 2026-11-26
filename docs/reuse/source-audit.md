@@ -8,7 +8,7 @@ teaser: "A line of code can show how a job was leased. Only a run can show what 
 
 Read an audit entry beside its pinned source. Locate the named function, check the claim against the cited range, then read the proposed changes before adopting it. The pinned-source inspection identifies candidates and gaps; direct execution of the donor suites was outside its scope.
 
-**Source audit.** This is a targeted inspection of the paths and ranges below. It does not certify either Ordo generation as production-ready. Donor tests were not executed in this review. All links identify immutable commits rather than moving default branches.
+The execution notes below refer only to this repository’s synthetic fixtures. In a local run, seven lease checks passed with Rust 1.94.0, ten JavaScript stream checks passed, and eight Python/SQLite publication checks passed. The [clean-build guide](../engineering/clean-build.md) gives the reproduction commands and CI’s Rust 1.90.0 pin. The donor suites and application integration checks still need separate runs.
 
 ## Source register
 
@@ -21,7 +21,11 @@ Read an audit entry beside its pinned source. Locate the named function, check t
 
 The [machine-readable ledger](/source-ledger.json) records blob identities and inspection scope. Commit pins establish which source was reviewed; they do not establish correctness, execution results or permission to relicense it.
 
+<span id="h-01"></span>
+
 ## H-01 · Durable task kernel — adapt first
+
+**Inspected at** `39138562f1`. **Executed here** — [Synthetic lease predicate](../engineering/examples.md#lease-ownership), including rejection of an old receipt when the same worker name is reused. **Still to demonstrate** — Race two independent store clients. Verify that only the current attempt commits and emits a completion.
 
 Source: [`crates/ordo-daemon/src/kernel.rs`](https://github.com/StudioOrdo/ordo/blob/39138562f112bed79babf5824d887dfef1b8ace6/crates/ordo-daemon/src/kernel.rs), inspected lines 1–620 and 1120–1340.
 
@@ -33,7 +37,11 @@ Also review the meaning of `skipped`: `ready_task_keys` and progress calculation
 
 **Transfer tests:** duplicate DAG key; cycle; missing dependency; same request/key replay; same key with changed request; two competing claims; expired result before reclamation; stale result after the same worker name receives a new lease; required-stage skip. See the [lease lab](../engineering/examples.md#lease-ownership).
 
+<span id="h-02"></span>
+
 ## H-02 · Durable event log — adapt, do not expose raw replay
+
+**Inspected at** `39138562f1`. **Executed here** — No donor replay test or local equivalent. **Still to demonstrate** — Roll back a state change with its event, replay under two viewer scopes, and check retention expiry and corrupt rows.
 
 Source: [`crates/ordo-daemon/src/events.rs`](https://github.com/StudioOrdo/ordo/blob/39138562f112bed79babf5824d887dfef1b8ace6/crates/ordo-daemon/src/events.rs), entire file inspected.
 
@@ -43,7 +51,11 @@ The replay helper has no viewer or library argument. Its use behind a public end
 
 **Transfer tests:** rollback leaves neither state nor event; unauthorized run/library cursors reveal no payload; reconnect fetches each committed event once at the consumer; retention gap requests a fresh authorized snapshot; corrupt stored payload is reported. Cursor monotonicity does not imply a gap-free global sequence, nor does a cursor confer permission.
 
+<span id="h-03"></span>
+
 ## H-03 · Candidate graph — preserve review, redesign canonical identity
+
+**Inspected at** `39138562f1`. **Executed here** — [Synthetic publication transaction](../engineering/examples.md#atomic-publication), including rollback after a forced failure. **Still to demonstrate** — Exercise the target graph command with authenticated review, endpoint visibility and persistent recovery.
 
 Source: [`crates/ordo-daemon/src/knowledge_graph.rs`](https://github.com/StudioOrdo/ordo/blob/39138562f112bed79babf5824d887dfef1b8ace6/crates/ordo-daemon/src/knowledge_graph.rs), inspected lines 1–290 and 510–790.
 
@@ -57,7 +69,11 @@ Candidate hashes incorporate labels, evidence and provenance. That can identify 
 
 **Transfer tests:** partial promotion fault rolls back every write; endpoint rejection blocks the edge; new source does not duplicate canonical identity; qualifiers distinguish claims; public traversal reveals no hidden endpoints. See the [publication lab](../engineering/examples.md#atomic-publication).
 
+<span id="c-01"></span>
+
 ## C-01 · Rust realtime gateway — reuse the boundary, repair the transport
+
+**Inspected at** `cea316ac18`. **Executed here** — [Synthetic JavaScript stream fixture](../engineering/examples.md#stream-framing), including split UTF-8 bytes and terminal handling. **Still to demonstrate** — Stream through the Rust gateway and proxy, cancel during generation and verify the stored outcome.
 
 Sources: [`app.rs`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/crates/ordo-realtime-gateway/src/app.rs), [`session.rs`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/crates/ordo-realtime-gateway/src/session.rs), [`provider.rs`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/crates/ordo-realtime-gateway/src/provider.rs), and [`sse.rs`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/crates/ordo-realtime-gateway/src/sse.rs), entire files inspected.
 
@@ -75,7 +91,11 @@ Keep typed command/event boundaries, the separate provider adapter and bounded-t
 
 The business-specific system prompt and client-supplied UI capability descriptions must not become the research service's authorization system. Preserve the idea of context, but derive permission-bearing context on the server.
 
+<span id="c-02"></span>
+
 ## C-02 · Prototype event storage — replace the adapter
+
+**Inspected at** `cea316ac18`. **Executed here** — No prototype file-store test. **Still to demonstrate** — Show that two clients can write through the replacement transaction owner and that malformed stored data produces a diagnostic.
 
 Source: [`lib/workflow/event-store.ts`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/lib/workflow/event-store.ts), entire file inspected.
 
@@ -83,7 +103,11 @@ It serializes writes through a process-local Promise queue, rewrites `.data/work
 
 Retain event vocabulary if useful. Replace persistence with the transaction-owned store. A corrupt library should fail visibly; startup must not erase history by treating corruption as a fresh installation.
 
+<span id="c-03"></span>
+
 ## C-03 · Result envelopes and projections — retain explicit limitations
+
+**Inspected at** `cea316ac18`. **Executed here** — No donor envelope or projection test. **Still to demonstrate** — Verify artifact bytes against their digests and prove that replay cannot cross a viewer’s authorized scope.
 
 Sources: [`lib/ordo/executor.ts`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/lib/ordo/executor.ts) and [`lib/ordo/projection.ts`](https://github.com/StudioOrdo/ordo/blob/cea316ac18bdac70e83a6b63bb60ff5459f8f4be/lib/ordo/projection.ts), entire files inspected.
 
@@ -91,7 +115,11 @@ The invocation, provider mode, artifacts, evidence and limitations fields are go
 
 Projection schema versions and explicit visibility/capability fields are useful. Timestamp plus event-count comparisons are not a replacement for a durable authorized cursor. Regex text filters are defense-in-depth only, not complete secret removal or access control.
 
+<span id="e-01"></span>
+
 ## E-01 · Owner-only executor lab — review, not automatic publication
+
+**Inspected at** `c417ab21e3`. **Executed here** — No owner-only donor code executed in this audit. **Still to demonstrate** — Check ambiguous same-name matches, review binding, byte integrity, and the retrieval baseline against approved fixtures.
 
 Owner-only source: `kaw393939/ordo_executor` at the pinned E commit. Relevant paths are `src/executor.rs`, `src/entity_disambiguate.rs`, `src/graph_promote.rs` and `src/vector_index.rs`.
 
@@ -101,7 +129,11 @@ Graph promotion writes reviewed local artifacts after an explicit approval flag.
 
 Private code stays private unless a later, explicitly scoped extraction authorizes publication and completes the reuse review. The public documentation examples are newly written synthetic fixtures, not copies from that lab.
 
+<span id="w-01"></span>
+
 ## W-01 · Streaming workshop — transfer behavior and tests
+
+**Inspected at** `aea8dc0039`. **Executed here** — [Synthetic framing fixture](../engineering/examples.md#stream-framing), including missing terminal events. **Still to demonstrate** — Switch sessions during a live stream and reconnect from a scoped cursor. Confirm the old session cannot update the new view.
 
 Source: [`frontend/src/api.ts`](https://github.com/kaw393939/is373-ai-chat/blob/aea8dc003975d11dfb978f637887400ff646b55d/frontend/src/api.ts), entire file inspected.
 

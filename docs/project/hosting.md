@@ -6,23 +6,25 @@ teaser: "A public textbook can be working while its proposed research service is
 
 # Portfolio, documentation and dev/prod application hosting
 
-First identify the thing you want to publish. A change to this textbook goes through its static documentation workflow. A release of the proposed interactive research application needs a verified application host and a separate review of its configuration. The address list below records the intended arrangement.
+<span id="selected-addresses"></span>
 
-**Owner-selected layout.** Configuration/code preparation is separate from account changes, registry publication and live deployment. No DNS or server change is established by this document.
+## Published documentation
 
-## Selected addresses
+| Surface | How to identify the release |
+| --- | --- |
+| [Ordo Knowledge Lab on the portfolio](https://keithwilliams.org/knowledge-lab/) | Open the [mirror manifest](https://keithwilliams.org/knowledge-lab/mirror-manifest.json). Its `revision` identifies the Lab source the portfolio built for `/knowledge-lab/`. Match it to the [portfolio publish run](https://github.com/kaw393939/kaw393939.github.io/actions/workflows/publish.yml). |
+| Standalone Lab documentation | Open the deployment URL in the successful [Lab Documentation workflow](https://github.com/kaw393939/is373-rag/actions/workflows/docs.yml). The deploy job checks that the homepage, vision and glossary carry that commit in the `lab-docs-revision` meta tag. |
 
-| Surface | Address | Target |
+The portfolio also ships redirects for older `/is373-rag/` links. If a request follows one of these to `/knowledge-lab/`, you reached the mirror. The [setup guide](setup.md) explains how to check the release actually served.
+
+## Proposed application addresses
+
+| Surface | Intended address | Evidence needed before calling it live |
 | --- | --- | --- |
-| Portfolio | `keithwilliams.org` | `kaw393939/kaw393939.github.io` on GitHub Pages |
-| Portfolio alternate | `www.keithwilliams.org` | GitHub Pages, redirect to the chosen apex |
-| Research application production | `rag.keithwilliams.org` | Verified DigitalOcean application host |
-| Research application development | `dev-rag.keithwilliams.org` | Isolated, access-controlled development route |
-| Project documentation | `kaw393939.github.io/is373-rag/` initially | This repository's static Pages output |
+| Research application development | `dev-rag.keithwilliams.org` | Verify the isolated host, approved access controls, TLS and the exact candidate served. |
+| Research application production | `rag.keithwilliams.org` | Verify the accepted release on the intended host over HTTPS and record the rollback procedure. |
 
-Use `dev-rag`, not `dev_rag`, as the HTTPS hostname. Hostname syntax uses letters, digits and hyphens; DNS underscores used for service/TXT labels do not make an underscore a suitable web hostname. [RFC 1123](https://www.rfc-editor.org/rfc/rfc1123#section-2.1).
-
-This replaces earlier `ordo` / `ordo-qa` recommendations for this project. A portfolio custom domain may also change the inherited project-Pages origin; verify the actual documentation URL before changing `DOCS_ORIGIN` or public links. Keep `/is373-rag/` as the project base. Never point the interactive application subdomains at GitHub Pages.
+The owner's intended portfolio domain is `keithwilliams.org`, with `www.keithwilliams.org` as the alternate. The application hostnames above are reserved in the design. The [release status](../status.md) lists the available artifacts.
 
 ## Current execution boundary
 
@@ -30,12 +32,14 @@ The infrastructure planning review could not inspect authenticated GoDaddy, Dock
 
 The private server manual holds the previous provider inventory and recovery procedure. It does not prove current authenticated shell access or spare host capacity. Do not reset root, change boot mode or modify SSH/firewalls merely to work around the connection limitation.
 
-## Portfolio cutover
+<span id="portfolio-cutover"></span>
+
+## Portfolio domain recovery checklist
 
 Capture the authoritative zone and current GitHub Pages configuration first. Domain registration at GoDaddy does not establish which provider currently hosts DNS. Preserve MX, SPF, DKIM, DMARC, other TXT/service records and unrelated subdomains. Review conflicting A/AAAA/CNAME records and CAA restrictions without changing them blindly.
 
 1. Verify ownership of `keithwilliams.org` in the GitHub account using GitHub's generated TXT name/value. Do not invent the verification token. Retain this record after verification.
-2. Inspect the portfolio publisher. It currently builds into a `gh-pages` branch; source changes alone do not publish it. Prepare `docs/public/CNAME` containing only `keithwilliams.org` so future builds preserve the domain. Update `docs/.vitepress/site.ts` and canonical/sitemap checks at cutover.
+2. Inspect the portfolio publisher. It publishes a `gh-pages` branch. Check that `docs/public/CNAME` contains only `keithwilliams.org` so the next build preserves the domain. Update `docs/.vitepress/site.ts` and canonical/sitemap checks at cutover.
 3. Set the portfolio repository's Pages custom domain to `keithwilliams.org` before pointing DNS at Pages. Preserve its branch/source setting.
 4. Apply only the reviewed website record changes in the authoritative zone. Do not change nameservers or buy hosting.
 5. Verify DNS, HTTPS, `www` redirect, portfolio assets, contact link and existing project URLs. Enable Enforce HTTPS when its certificate is available. Publish again and prove the CNAME survived.

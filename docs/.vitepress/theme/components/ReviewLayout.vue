@@ -42,11 +42,16 @@ const reference = computed(() => /^(architecture|decisions|reviews|research)\//.
 
 <template>
   <Layout>
+    <template #nav-bar-content-before>
+      <JournalLink class="lab-journal-return" aria-label="Back to Keith Williams’s journal">
+        <span aria-hidden="true">←</span> Journal
+      </JournalLink>
+    </template>
     <template #layout-bottom>
       <div class="lab-publication-footer">
         <span>Search runs in your browser using this guide’s index.</span>
         <nav aria-label="Publication information">
-          <a href="https://keithwilliams.org/site-notes">Site notes</a>
+          <JournalLink to="/site-notes">Site notes</JournalLink>
           <a href="https://github.com/kaw393939" rel="me">
             <img :src="withBase('/icons/github.svg')" width="18" height="18" alt="">Keith Williams on GitHub
           </a>

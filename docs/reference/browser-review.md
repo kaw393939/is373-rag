@@ -12,9 +12,9 @@ The **Documentation browser review** workflow builds VitePress and serves its st
 
 ## Automated checks
 
-Seven routes are inspected at desktop and narrow-screen sizes and in dark mode: homepage, vision, walkthrough, design, build, glossary and twelve-factor guidance. Each must have one H1, a source-revision marker and no page-level horizontal overflow.
+Open the [browser review script](https://github.com/kaw393939/is373-rag/blob/main/scripts/review-browser.mjs) at the commit under review. It defines the route lists and viewport matrix. Chrome checks the main list in desktop light, phone light and desktop dark layouts. A smaller reading sample also covers 320-pixel phones and 768-pixel tablets. Each checked route must have one H1, the expected color scheme, a revision marker and no page-wide horizontal overflow.
 
-The review also opens local search, checks results remain under the repository path, opens mobile navigation and rejects reported JavaScript exceptions. It captures screenshots and a JSON receipt in the `documentation-browser-review` artifact.
+The review also opens local search, checks results remain under the repository path, opens mobile navigation and rejects reported JavaScript exceptions. The [Documentation browser review runs](https://github.com/kaw393939/is373-rag/actions/workflows/docs-browser.yml) show the outcome for each commit. Open that run’s `documentation-browser-review` artifact for the screenshots and JSON receipt. Its route and interaction entries show which checks actually ran.
 
 ## Inspect the artifact
 
