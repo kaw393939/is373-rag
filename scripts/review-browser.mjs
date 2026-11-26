@@ -118,10 +118,26 @@ try {
       await expectInPage('document.querySelector(".lab-page-share button")', `${name}/${route}: share controls did not hydrate`)
       const state = await evaluate('({h1:document.querySelectorAll("h1").length, overflow:document.documentElement.scrollWidth>innerWidth+1, revision:document.querySelector("meta[name=lab-docs-revision]")?.content, dark:document.documentElement.classList.contains("dark")})')
       assert.equal(state.h1,1,`${name}/${route}: H1`)
-      assert.equal(state.overflow,false,`${name}/${route}: page overflow`)
+      if (state.overflow) {
+        const outside = await evaluate(`[...document.querySelectorAll('body *')].filter(el => {
+          const box = el.getBoundingClientRect()
+          return box.width && box.right > innerWidth + 1 && !el.closest('.VPSidebar, .lab-scroll')
+        }).slice(0, 8).map(el => el.tagName + '.' + el.className + ' right=' + Math.round(el.getBoundingClientRect().right)).join(', ')`)
+        assert.fail(`${name}/${route}: page overflow: ${outside}`)
+      }
+      if (name === 'small-phone') {
+        const headerFits = await evaluate(`(() => {
+          const selectors = ['.VPNavBarTitle .title', '.lab-journal-return', '.VPNavBarSearch button', '.VPNavBarHamburger']
+          const boxes = selectors.map(selector => document.querySelector(selector)?.getBoundingClientRect())
+          return boxes.every((box, i) => box && box.width > 0 && box.height >= 40 &&
+            box.left >= 0 && box.right <= innerWidth && (!i || box.left >= boxes[i - 1].right - 1))
+        })()`)
+        assert.ok(headerFits, `${name}/${route}: Lab title, journal link, search and menu must all fit`)
+      }
       assert.ok(state.revision,`${name}/${route}: revision`)
       assert.equal(state.dark,scheme==='dark',`${name}/${route}: color scheme`)
-      assert.equal(await evaluate('document.querySelector(\'nav[aria-label="Publication information"] a\')?.href'), 'https://keithwilliams.org/site-notes', `${name}/${route}: site notes`)
+      const notesUrl = base === '/knowledge-lab/' ? origin + '/site-notes' : 'https://keithwilliams.org/site-notes'
+      assert.equal(await evaluate('document.querySelector(\'nav[aria-label="Publication information"] a\')?.href'), notesUrl, `${name}/${route}: site notes`)
       if (readingRoutes.includes(route) && route && routes === readingRoutes) {
         if (route === 'architecture/overview') {
           await expectInPage('document.querySelector(".lab-scroll-diagram svg")', `${name}: diagram did not render`)
