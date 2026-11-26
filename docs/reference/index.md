@@ -32,7 +32,7 @@ These pages are preserved, not silently adopted as current requirements:
 | [Earlier architecture](../architecture/overview.md) | Initial frontend, backend, retrieval and ingestion proposals |
 | [Earlier decisions](../decisions/index.md) | Original tradeoffs, including broker-first alternatives |
 | [Design reviews](../reviews/index.md) | Independent application of software-design principles |
-| [Research library](../research/index.md) | Related systems, implementation resources and dated developments |
+| [Research library](../research/index.md) | Related systems, implementation resources and technical developments |
 | [Course planning reference](../course-roadmap.md) | Earlier IS373 assignment context |
 
 Newer plan pages take precedence when choices conflict. A historical review is not an endorsement or a current test result. [Status and precedence](../status.md).

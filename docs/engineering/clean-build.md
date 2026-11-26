@@ -8,7 +8,7 @@ teaser: "What does a green build certify? Here it certifies a concrete set of do
 
 If a teammate starts from a clean checkout, they can build the documentation and run the synthetic exercises below. Each command has a visible result. Keep that record with the source revision so the next person can reproduce it.
 
-The application release is a separate, proposed deliverable. Its command names and release gates are included here for design review. Only the documentation and example commands in the first section are runnable in this repository today.
+The application release is a separate, proposed deliverable. Its command names and release gates are included here for design review. Only the documentation and example commands in the first section are runnable in this repository.
 
 ## Documentation: runnable now
 
@@ -23,11 +23,11 @@ npm run build
 node scripts/check-pages.mjs
 ```
 
-The lease example uses an explicitly selected Rust compiler in CI:
+The lease example uses a pinned Rust compiler. The following command runs its seven tests with the compiler’s default edition. The [documentation workflow](https://github.com/kaw393939/is373-rag/blob/main/.github/workflows/docs.yml) shows CI’s exact compiler invocation.
 
 ```sh
 rustup toolchain install 1.90.0 --profile minimal
-rustc +1.90.0 --edition=2021 --test docs/examples/lease.rs -o /tmp/ordo-lease-tests
+rustc +1.90.0 --test docs/examples/lease.rs -o /tmp/ordo-lease-tests
 /tmp/ordo-lease-tests
 ```
 

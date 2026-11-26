@@ -6,7 +6,7 @@ teaser: "A single database can simplify deployment. The test is whether it still
 
 # ADR 002 · Retrieval storage
 
-*Architecture decision record · November 5, 2026 · Storage selection under evaluation.*
+*Architecture decision record · Storage selection under evaluation.*
 
 The candidate is a local SQLite database that holds text, vectors, and relationships. The decision depends on a representative workload and on what happens to search when the index changes.
 

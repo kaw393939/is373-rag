@@ -43,4 +43,4 @@ Your **individual RAG app** answers questions from your chosen sources. Your **p
 
 At **Plan**, show your reader, sources, retrieval choice, and expected evidence. At **Build**, show a small hosted journey from import through retrieval to an answer. At **Checked Release**, verify persistence, citations, and repeatable setup. At **Improve**, use real peer feedback, make a change, and try the same check again.
 
-Individual and group projects finish in the **last week of class**. Use Canvas for the dates and demo slots. The [course roadmap](../course-roadmap.md) links to each Canvas assignment and explains the exception for extenuating circumstances. [Course milestone guide](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md)
+Individual and group projects finish in the **final week of class**. Use Canvas for the dates and demo slots. The [course roadmap](../course-roadmap.md) links to each Canvas assignment and explains the exception for extenuating circumstances. [Course milestone guide](https://github.com/kaw393939/is373-studio/blob/main/docs/course/milestones.md)

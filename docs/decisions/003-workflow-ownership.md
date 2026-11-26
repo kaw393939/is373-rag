@@ -6,7 +6,7 @@ teaser: "A worker finishes just after its source is replaced. Who can accept the
 
 # ADR 003 · Workflow ownership
 
-*Architecture decision record · November 5, 2026 · Single-owner rule adopted for the draft. Execution engine open.*
+*Architecture decision record · Single-owner rule adopted for the draft. Execution engine open.*
 
 This decision assigns responsibility for moving background work forward. Dagster and Temporal remain candidates. Both must be compared on the same recovery cases.
 

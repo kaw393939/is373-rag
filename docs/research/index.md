@@ -6,7 +6,7 @@ teaser: "A library name is easy to put in a proposal. Use these readings to find
 
 # Research library
 
-<span class="status-label">PRIMARY SOURCES CHECKED · NOVEMBER 5, 2026</span>
+<span class="status-label">PRIMARY SOURCE READING GUIDE</span>
 
 Suppose an answer cites an old version of a handbook. The model may have written a perfectly clear sentence. The failure could still be in retrieval, the version record, or a stale index. Choose the collection below that can help you distinguish those explanations.
 
@@ -17,7 +17,7 @@ Suppose an answer cites an old version of a handbook. The model may have written
 | [Similar projects](/research/similar-projects) | Eight systems and frameworks, teams, repositories, design overlap, and differences | LightRAG, Graphiti, LlamaIndex, Microsoft GraphRAG |
 | [Implementation resources](/research/implementation-resources) | Twelve concrete repositories and documentation paths grouped by subsystem | SQLite candidates, Docling, spaCy, Rust adapters, orchestration |
 | [Concept reading guide](/research/concepts) | Fourteen annotated explanations connected to our own architecture | BM25, ANN, RRF, entity linking, DAGs, SSE |
-| [Recent developments](/research/recent-developments) | Seven dated releases, research updates, and project changes | Dependency status, vector indexing, extraction, Rust workflows |
+| [Engineering lessons from releases](/research/recent-developments) | Seven changes with lessons for engineering decisions | Dependency status, vector indexing, extraction, Rust workflows |
 
 For a short first session, follow one claim from a project’s documentation to one example you could try. Search terms such as “entity resolution,” “DiskANN,” “Graphiti,” and “replay” take you to narrower questions.
 
@@ -44,4 +44,4 @@ For a short first session, follow one claim from a project’s documentation to 
 
 A useful portfolio entry can be one paragraph and a link. Name the choice you faced, link the primary source, show the test you ran, and explain the result that would change your recommendation. The [IS373 assignment roadmap](/course-roadmap) connects that evidence to the project milestones.
 
-Release dates and document-update dates are labeled separately. Linked projects and their claims are reference material, not proof that our proposed system is faster or that a dependency satisfies our requirements.
+Each entry distinguishes a release, a paper revision, or a change in documentation. Linked projects and their claims are reference material, not proof that our proposed system is faster or that a dependency satisfies our requirements.

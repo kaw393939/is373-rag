@@ -82,6 +82,6 @@ Finish by asking which tradeoff matters most to me.
 
 Regardless of library: explain your source permissions, chunk/graph representation, retrieval method, model/provider, access controls, persistence, missing-evidence behavior, costs and test results. Compare a simple keyword/structured baseline with your chosen vector or graph approach. The [course brief](https://github.com/kaw393939/is373-studio/blob/main/docs/projects/individual.md) and Canvas are authoritative.
 
-*Primary documentation reviewed November 11, 2026. Library APIs and versions change: check official documentation and pin compatible dependencies before implementing anything.*
+*Before adopting a library, open its official documentation, confirm the APIs you need, and pin compatible dependencies.*
 
 [Start with your existing FastAPI application](from-app-studio.md) · [Compare database approaches](data-choices.md) · [Evaluate your RAG](check.md)

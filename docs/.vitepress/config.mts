@@ -12,7 +12,7 @@ if (!/^https?:$/.test(new URL(origin).protocol)) throw new Error('DOCS_ORIGIN mu
 export default withMermaid(defineConfig({
   title: 'Ordo Knowledge Lab',
   description: 'Portable, evidence-backed knowledge. A Rust-first IS373 research system built from Ordo: vision, design, implementation roadmap and executable contracts.',
-  lang: 'en-US', base, cleanUrls: true, lastUpdated: true,
+  lang: 'en-US', base, cleanUrls: true, lastUpdated: false,
   outDir: fileURLToPath(new URL('../../dist', import.meta.url)),
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}mark.svg` }],
@@ -34,7 +34,16 @@ export default withMermaid(defineConfig({
   },
   sitemap: {
     hostname: new URL(base, origin).href,
-    transformItems: items => items.filter(item => !/(^|\/)404(?:\.html)?\/?$/.test(item.url))
+    transformItems: items => items
+      .filter(item => !/(^|\/)404(?:\.html)?\/?$/.test(item.url))
+      .map(({ lastmod, ...item }) => item)
+  },
+  transformPageData(page) {
+    // Keep editorial dates out of the client-side navigation payload as well as the page itself.
+    for (const key of ['date', 'dateLabel', 'datePublished', 'dateModified', 'lastUpdated']) {
+      delete page.frontmatter[key]
+    }
+    delete page.lastUpdated
   },
   transformHead({ pageData }) {
     const path = pageData.relativePath

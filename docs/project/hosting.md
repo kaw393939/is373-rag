@@ -8,7 +8,7 @@ teaser: "A public textbook can be working while its proposed research service is
 
 First identify the thing you want to publish. A change to this textbook goes through its static documentation workflow. A release of the proposed interactive research application needs a verified application host and a separate review of its configuration. The address list below records the intended arrangement.
 
-**Owner-selected layout · November 10, 2026.** Configuration/code preparation is separate from account changes, registry publication and live deployment. No DNS or server change is established by this document.
+**Owner-selected layout.** Configuration/code preparation is separate from account changes, registry publication and live deployment. No DNS or server change is established by this document.
 
 ## Selected addresses
 
@@ -26,7 +26,7 @@ This replaces earlier `ordo` / `ordo-qa` recommendations for this project. A por
 
 ## Current execution boundary
 
-The November 10 planning review could not inspect authenticated GoDaddy, Docker Hub or DigitalOcean account state. It did not verify a DNS edit, registry publication, server access or deployment. The reviewer’s environment could not resolve the public records, leaving their status unverified. Use current provider records and a public HTTPS check when recording a later release.
+The infrastructure planning review could not inspect authenticated GoDaddy, Docker Hub or DigitalOcean account state. It did not verify a DNS edit, registry publication, server access or deployment. The reviewer’s environment could not resolve the public records, leaving their status unverified. Use current provider records and a public HTTPS check when recording a later release.
 
 The private server manual holds the previous provider inventory and recovery procedure. It does not prove current authenticated shell access or spare host capacity. Do not reset root, change boot mode or modify SSH/firewalls merely to work around the connection limitation.
 

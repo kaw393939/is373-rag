@@ -8,7 +8,7 @@ teaser: "A newer repository snapshot has a smaller gateway. An older one contain
 
 Suppose the next slice must recover a queued task after restart. The current gateway at first glance looks like the natural starting point. The earlier daemon contains the durable kernel worth inspecting. Choosing between the two revisions is a question about behavior, contracts and proof.
 
-**Decision guide · reviewed November 10, 2026 · application implementation remains pending.**
+**Decision guide.** Application implementation remains pending.
 
 The clean build should preserve Ordo's useful behavior while replacing the assumptions that would undermine a portable, evidence-backed research library. A new folder is not a reason to discard working ideas; an existing function is not proof that it is safe to transplant.
 

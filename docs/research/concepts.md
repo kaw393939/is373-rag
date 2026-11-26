@@ -6,7 +6,7 @@ teaser: "Start with a phrase nobody paraphrases, a sentence everyone paraphrases
 
 # Concept reading guide
 
-**Reading snapshot, November 5, 2026.** Use one small document collection while you read. Ask for an exact identifier first, then paraphrase a sentence, then ask about an ambiguous name. Which passage comes back in each case? The annotated readings explain why the three results can differ.
+Use one small document collection while you read. Ask for an exact identifier first, then paraphrase a sentence, then ask about an ambiguous name. Which passage comes back in each case? The annotated readings explain why the three results can differ.
 
 ## Suggested reading order
 

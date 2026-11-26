@@ -6,7 +6,7 @@ teaser: "A reader gets the first line of an answer and then loses the connection
 
 # ADR 001 · Serving boundaries
 
-*Architecture decision record · November 5, 2026 · Proposed baseline.*
+*Architecture decision record · Proposed baseline.*
 
 This record asks where live chat should run after the first page loads. It sets out a starting architecture and the measurements that could change the choice.
 

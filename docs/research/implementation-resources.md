@@ -6,7 +6,7 @@ teaser: "Before adding a dependency, decide what would make you remove it. Here 
 
 # Implementation resources
 
-**Research snapshot, November 5, 2026.** Trace one section of a handbook from upload to citation. Pick the point most likely to fail in your system. The twelve resources below address specific responsibilities in [retrieval](/architecture/retrieval), the [ingestion pipeline](/architecture/ingestion), and the [Rust service](/architecture/backend). The recommendations describe experiments to run. Record the release or commit you use so another person can repeat your comparison.
+Trace one section of a handbook from upload to citation. Pick the point most likely to fail in your system. The twelve resources below address specific responsibilities in [retrieval](/architecture/retrieval), the [ingestion pipeline](/architecture/ingestion), and the [Rust service](/architecture/backend). The recommendations describe experiments to run. Record the release or commit you use so another person can repeat your comparison.
 
 ## Retrieval and SQLite adapters
 

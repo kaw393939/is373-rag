@@ -6,9 +6,9 @@ teaser: "The direction to keep state in Rust is settled. The choice of a storage
 
 # Decisions and open questions
 
-Use the **status** column before treating any row as an implementation instruction. For example, the team can design a worker interface around Rust-owned state today. Committing to a particular portable package requires the transaction and export checks attached to that choice.
+Use the **status** column before treating any row as an implementation instruction. For example, the team can design a worker interface around Rust-owned state. Committing to a particular portable package requires the transaction and export checks attached to that choice.
 
-Planning baseline: November 10, 2026. Confirmed direction comes from the user; detailed implementation choices remain proposed until their review gates. Earlier ADRs remain reference material.
+The project owner selected the directions marked confirmed. Detailed implementation choices remain proposed until the corresponding review gates pass. Earlier ADRs remain reference material.
 
 | ID | Decision | Status / consequence |
 | --- | --- | --- |

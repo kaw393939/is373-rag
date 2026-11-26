@@ -14,9 +14,9 @@ An **embedding** is a list of numbers a model produces to represent an input suc
 
 ## The people and the question
 
-Researchers had the *document matching* problem long before modern LLMs. Gerard Salton and colleagues' information-retrieval work explored representing documents in mathematical spaces. [Read the 1974 Cornell paper](https://ecommons.cornell.edu/entities/publication/dc340f22-1c38-4f0a-921e-27706685b1bf). The vector-space concept evolved over time; don't confuse early term-weighted document vectors with today's neural embeddings.
+Researchers had the *document matching* problem long before modern LLMs. Gerard Salton and colleagues' information-retrieval work explored representing documents in mathematical spaces. [Read the Cornell paper](https://ecommons.cornell.edu/entities/publication/dc340f22-1c38-4f0a-921e-27706685b1bf). The vector-space concept evolved over time; don't confuse early term-weighted document vectors with neural embeddings.
 
-In 2013, **Tomas Mikolov and colleagues** published [efficient neural word representations](https://arxiv.org/abs/1301.3781). In 2019, **Nils Reimers and Iryna Gurevych** introduced [Sentence-BERT](https://aclanthology.org/D19-1410/) for useful sentence representations in similarity search. For retrieval today, one practical advantage is that a system can encode documents ahead of time and compare a new question with the stored vectors.
+**Tomas Mikolov and colleagues** published [efficient neural word representations](https://arxiv.org/abs/1301.3781). **Nils Reimers and Iryna Gurevych** introduced [Sentence-BERT](https://aclanthology.org/D19-1410/) for useful sentence representations in similarity search. For retrieval, one practical advantage is that a system can encode documents ahead of time and compare a new question with the stored vectors.
 
 ## Word, sentence, paragraph and chunk
 
@@ -102,4 +102,4 @@ Ask me to check whether the retrieved passage really answers the question.
 - [Chunking handout](chunking.md) — how you choose the text units to embed.
 - [How to evaluate](check.md) — accuracy and references, not just a plausible response.
 
-*Educational examples, not measurements of any specific embedding model. References checked November 11, 2026.*
+*The numerical examples illustrate the geometry. To evaluate a specific model, run the same questions against your own sources.*

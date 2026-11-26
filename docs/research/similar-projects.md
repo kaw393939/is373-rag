@@ -6,7 +6,7 @@ teaser: "Which project would you study to correct a fact without erasing its his
 
 # Similar projects
 
-**Research snapshot, November 5, 2026.** Consider a time-sensitive claim: a club used to meet on Wednesday and now meets on Thursday. A useful system must recover the current day and explain the older announcement. Look through these eight projects for one mechanism you could test against that pair of documents.
+Consider a time-sensitive claim: a club used to meet on Wednesday and now meets on Thursday. A useful system must recover the current day and explain the older announcement. Look through these eight projects for one mechanism you could test against that pair of documents.
 
 For a comparison, write down the expected answer, the source it should cite, and one change the index must survive. None of the eight systems has been benchmarked here against the proposed Ordo service. Use these references alongside our [ingestion DAG](/architecture/ingestion), [retrieval design](/architecture/retrieval), and [service contracts](/architecture/contracts).
 

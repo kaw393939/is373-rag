@@ -6,9 +6,9 @@ teaser: "The student guide is public. The proposed research application has a di
 
 # Status and evidence
 
-Ask one short question before relying on a status claim: which artifact? The published documentation, a synthetic contract lab and a proposed Rust service require different evidence. This page records the November 11 baseline and tells you where to verify a later release.
+Ask one short question before relying on a status claim: which artifact? The published documentation, a synthetic contract lab and a proposed Rust service require different evidence. This page records the reviewed baseline and shows where to verify a release.
 
-**Review baseline: November 11, 2026.** Software availability and publication are separate claims.
+**Review scope.** Software availability and publication are separate claims.
 
 ## Available in this repository
 

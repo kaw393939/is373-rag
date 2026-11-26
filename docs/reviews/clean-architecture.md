@@ -1,7 +1,7 @@
 ---
 title: "Robert C. Martin principles review"
 description: "An independent reading of Clean Architecture applied to run ownership, evidence publication, and the boundary between application rules and infrastructure."
-teaser: "If you replaced the HTTP framework or database tomorrow, which rule would still stop an obsolete answer from being published?"
+teaser: "If you replaced the HTTP framework or database, which rule would still stop an obsolete answer from being published?"
 ---
 
 # Robert C. Martin principles review

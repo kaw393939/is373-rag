@@ -85,13 +85,13 @@ Its [hybrid search](https://docs.weaviate.io/weaviate/search/hybrid) combines ve
 Weaviate does not inherently shrink an LLM prompt. You still choose which retrieved evidence to send, measure answer quality and account separately for embedding, generation and hosting costs. Compare it with your baseline before adding another service. [Source code](https://github.com/weaviate/weaviate)
 
 
-[Compare model prices and token budgets](ai-costs.md). Product references were reviewed November 11, 2026. Check current licenses, editions and service terms before adopting a tool.
+[Compare model prices and token budgets](ai-costs.md). Check the publisher’s license, edition, and service terms before adopting a tool.
 
 ## Chroma, Pinecone or a graph-and-vector combination?
 
 [Chroma](https://docs.trychroma.com/docs/overview/introduction) is Apache-2.0-licensed retrieval infrastructure: run locally, self-host, or use Chroma Cloud. It stores documents, embeddings and metadata and supports dense, sparse and hybrid search. It is a useful option for exploring retrieval without committing immediately to a hosted service. Check which features your chosen deployment supports.
 
-[Pinecone](https://docs.pinecone.io/guides/get-started/overview) is a commercial managed option. At the November review, its Documents API combined full-text, semantic and sparse-vector retrieval, metadata filters and optional integrated embedding. It can reduce infrastructure work, but service charges, provider dependence, data export and feature limits remain design decisions. Do not confuse an SDK or local testing facility with an open-source production database.
+[Pinecone](https://docs.pinecone.io/guides/get-started/overview) is a commercial managed option. The reviewed Documents API combined full-text, semantic and sparse-vector retrieval, metadata filters and optional integrated embedding. It can reduce infrastructure work, but service charges, provider dependence, data export and feature limits remain design decisions. Do not confuse an SDK or local testing facility with an open-source production database.
 
 **Two meanings of hybrid:** keyword + vector search combines exact terms with semantic similarity. Graph + vector retrieval also follows explicit entity relationships. They can coexist, but they are not the same technique.
 

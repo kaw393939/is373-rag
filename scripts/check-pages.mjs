@@ -91,6 +91,59 @@ function jpegSize(file) {
   throw Error('Missing JPEG frame dimensions: ' + file)
 }
 
+function publicDateFinding(html) {
+  // Strip non-visible program data before inspecting reader-facing copy and accessible labels.
+  const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || ''
+  const body = (html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] || '')
+    .replace(/<!--[^]*?-->/g, '').replace(/<(script|style|template)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+  const clean = value => value.replace(/&(?:amp|quot|#39|apos|nbsp|#160|#xA0);/gi,
+    entity => ({ '&amp;': '&', '&quot;': '"', '&#39;': "'", '&apos;': "'", '&nbsp;': ' ', '&#160;': ' ', '&#xa0;': ' ' })[entity.toLowerCase()])
+    .replace(/[\s\u200b]+/g, ' ').trim()
+  const fields = [body.replace(/<[^>]*>/g, ' '), head.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '']
+  for (const match of body.matchAll(/<[a-z][^>]*>/gi)) {
+    for (const attr of match[0].matchAll(/\s(?:alt|title|aria-label|placeholder|datetime)="([^"]*)"/gi)) fields.push(attr[1])
+  }
+  const timestamp = /^(?:(?:article|og|video|book|music):(?:published_time|modified_time|updated_time|release_date|expiration_time)|(?:(?:dc|dcterms)[.:])?(?:date(?:created|published|modified|issued|updated)?|created|modified|issued)|last-modified|pubdate)$/i
+  for (const [tag] of head.matchAll(/<meta\b[^>]*>/gi)) {
+    const key = tag.match(/\s(?:name|property|http-equiv)="([^"]+)"/i)?.[1] || ''
+    if (timestamp.test(key)) return 'publishing timestamp metadata: ' + key
+    if (/^(?:(?:og|twitter):(?:title|description|image:alt)|description)$/i.test(key)) {
+      fields.push(tag.match(/\scontent="([^"]+)"/i)?.[1] || '')
+    }
+  }
+  for (const [, json] of head.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
+    const visit = item => {
+      if (!item || typeof item !== 'object') return undefined
+      for (const [key, value] of Object.entries(item)) {
+        if (/^(?:date(?:Published|Modified|Created|Updated)|uploadDate|releaseDate|copyrightYear|sdDatePublished)$/.test(key)) return key
+        if (typeof value === 'string' && /^(?:description|headline|abstract|caption|name)$/.test(key)) fields.push(value)
+        const found = visit(value)
+        if (found) return found
+      }
+    }
+    const bad = visit(JSON.parse(json))
+    if (bad) return 'publishing timestamp in structured data: ' + bad
+  }
+  const month = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)'
+  const day = '(?:0?[1-9]|[12]\\d|3[01])(?:st|nd|rd|th)?'
+  const exact = new RegExp('\\b(?:' + month + '\\.?\\s+(?:the\\s+)?' + day + '|' + day + '\\s+(?:of\\s+)?' + month + '|(?:0?[1-9]|1[0-2])[/.-](?:0?[1-9]|[12]\\d|3[01])[/.-](?:\\d{4}|\\d{2})|(?:0?[1-9]|[12]\\d|3[01])/(?:0?[1-9]|1[0-2])/(?:(?:\\d{4}|\\d{2})))\\b', 'i')
+  for (const value of fields) {
+    const text = clean(value)
+      // Keep actual references and tool identifiers intact (URLs, file paths, and Rust edition flags).
+      .replace(/\{#[a-z][\w:.-]*\}/gi, ' ')
+      .replace(/(?:https?:\/\/|www\.)\S+|(?:^|\s)(?:\.\.?\/|\/)[^\s<>]+/gi, ' ')
+      .replace(/\b[\w.-]*\d{4}[-.\w]*\.(?:json|csv|pdf|md|png|jpe?g|webp)\b|--edition(?:\s*=\s*|\s+)\d{4}\b|\b(?:RFC|ISO|IEEE)\s+\d{4}(?=\b)/gi, ' ')
+    const visibleYear = /(?<![\w/])(?:1[6-9]|20)\d{2}(?:s)?(?![\w/])/i
+    const iso = /\b(?:1[6-9]|20)\d{2}[-/](?:0[1-9]|1[0-2])[-/](?:0[1-9]|[12]\d|3[01])\b/
+    const spelledMonth = /\b(?:January|February|April|June|July|August|September|October|November|December)\b/
+    const monthContext = /\b(?:in|by|since|during|until|through|of|from|each|every|last|this|next)\s+(?:May|March)\b/
+    const shortDate = /\b(?:dated?|updated?|on|due|checked|deadline|as of|posted)\s+(?:0?[1-9]|1[0-2])\/(?:0?[1-9]|[12]\d|3[01])\b/i
+    const date = text.match(iso) || text.match(exact) || text.match(visibleYear) ||
+      text.match(spelledMonth) || text.match(monthContext) || text.match(shortDate)
+    if (date) return 'reader-facing date: ' + text.slice(Math.max(0, date.index - 26), date.index + date[0].length + 25)
+  }
+}
+
 function checkEditorial(file, html) {
   const relative = path.relative(root, file).split(path.sep).join('/')
   const isHome = relative === 'index.html'
@@ -105,6 +158,8 @@ function checkEditorial(file, html) {
   function expect(condition, message) {
     if (!condition) failures.push(relative + ': ' + message)
   }
+  const dateProblem = publicDateFinding(html)
+  expect(!dateProblem, dateProblem)
   if (relative === '404.html') {
     expect(meta('robots').split(',').map(item => item.trim()).includes('noindex'), '404 needs noindex')
     expect(!canonical.length && !meta('og:url') && !head.includes('application/ld+json'), '404 must not be advertised as a canonical page')
@@ -164,11 +219,21 @@ for (const file of pages) {
   catch (error) { failures.push(path.relative(root, file) + ': ' + error.message) }
 }
 
+// Catch an authored guide lost from the build, even when it has no incoming links.
+for (const markdown of walk(sourceRoot).filter(file => file.endsWith('.md'))) {
+  const relative = path.relative(sourceRoot, markdown)
+  const segments = relative.split(path.sep)
+  if (segments.some(segment => segment.startsWith('.')) || segments[0] === 'public' || relative === '404.md') continue
+  const built = path.join(root, relative.replace(/\.md$/, '.html'))
+  if (!contentRoutes.has(built)) failures.push('Unpublished Markdown route: ' + relative)
+}
+
 const sitemapPath = path.join(root, 'sitemap.xml')
 if (!fs.existsSync(sitemapPath)) failures.push('Missing sitemap.xml')
 else {
   const locations = [...fs.readFileSync(sitemapPath, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)]
   if (!locations.length) failures.push('Sitemap has no locations')
+  if (/<lastmod\b/i.test(fs.readFileSync(sitemapPath, 'utf8'))) failures.push('Sitemap must be date-free')
   const mappedFiles = new Set()
   for (const [, location] of locations) {
     const url = new URL(location.replaceAll('&amp;', '&'))
@@ -176,11 +241,14 @@ else {
     else {
       const mapped = targetFile(decodeURIComponent(url.pathname.slice(base.length)))
       if (!mapped || !contentRoutes.has(mapped)) failures.push(`Missing or non-indexable sitemap target: ${location}`)
+      else if (mappedFiles.has(mapped)) failures.push('Duplicate sitemap route: ' + location)
       else mappedFiles.add(mapped)
     }
   }
   for (const file of contentRoutes) if (!mappedFiles.has(file)) failures.push('Missing sitemap entry: ' + path.relative(root, file))
 }
+const sourceLedger = JSON.parse(fs.readFileSync(path.join(root, 'source-ledger.json'), 'utf8'))
+if (Object.hasOwn(sourceLedger, 'reviewedAt')) failures.push('Public source ledger still exposes reviewedAt')
 if (failures.length) {
   console.error([...new Set(failures)].join('\n'))
   process.exit(1)

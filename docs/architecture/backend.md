@@ -8,7 +8,7 @@ teaser: "A reader clicks Cancel just as the last answer arrives. Which part of t
 
 A student opens a question, starts receiving a cited answer, and hits Cancel. At almost the same moment, the model sends its final response. The browser and the worker have seen different events. One owner has to decide which outcome becomes part of the record.
 
-This November 5, 2026 design draft assigns that responsibility and describes the failure cases a future implementation must pass. The services and performance measurements remain proposed.
+This design draft assigns that responsibility and describes the failure cases a future implementation must pass. The services and performance measurements remain proposed.
 
 ## Serving and enrichment boundaries
 

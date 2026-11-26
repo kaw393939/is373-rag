@@ -77,7 +77,7 @@ Replay of persisted deltas restores output. It does not reconstruct a provider's
 
 ## Durability policy to decide
 
-Direct delivery with asynchronous batched persistence minimizes synchronous storage work, but recently displayed text may be absent after a crash. Persist-and-ack before delivery provides a stronger displayed-output guarantee at additional cost. Measure both before choosing. Record transcript durability separately from short-lived status events.
+Direct delivery with asynchronous batched persistence minimizes synchronous storage work, but text displayed since the last persistence checkpoint may be absent after a crash. Persist-and-ack before delivery provides a stronger displayed-output guarantee at additional cost. Measure both before choosing. Record transcript durability separately from short-lived status events.
 
 ## Evidence and publication contracts
 

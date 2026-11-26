@@ -46,7 +46,7 @@ Each stored chunk should identify:
 
 \`\`\`text
 source_id          S-events
-source_version     2026-11-11-teaching-fixture
+source_version     teaching-fixture-v1
 chunk_id           S-events-C02
 ordinal            2
 source_location    section: Events / paragraph: 2

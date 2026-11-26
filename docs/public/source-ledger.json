@@ -1,6 +1,5 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-10",
   "scope": "Targeted static inspection. Donor tests not executed. No donor source imported by this documentation change.",
   "sources": [
     {"id":"H-01","repository":"StudioOrdo/ordo","commit":"39138562f112bed79babf5824d887dfef1b8ace6","path":"crates/ordo-daemon/src/kernel.rs","blob":"75e44a46cfa32e9d41909a16d9f20c0e48f58b7c","visibility":"public","inspected":"lines 1-620 and 1120-1340","decision":"adapt","symbols":["validate_task_dag","create_job_from_template_with_idempotency","claim_ready_task","complete_leased_task_with_result_envelope","ensure_task_lease_owner"]},

@@ -1,7 +1,7 @@
 ---
 title: "Capability workers and durable jobs"
 description: "Design versioned worker capabilities for optional hardware, portable research jobs and safe acceptance of results after retries or interruptions."
-teaser: "Move a library from a Mac to a Linux machine without its image processor. A reader should still be able to inspect yesterday’s evidence and see why a new job is waiting."
+teaser: "Move a library from a Mac to a Linux machine without its image processor. A reader should still be able to inspect evidence the library already contains and see why a new job is waiting."
 ---
 
 # Capability workers and durable jobs

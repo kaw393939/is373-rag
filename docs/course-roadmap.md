@@ -6,9 +6,9 @@ teaser: One portfolio shows your professional direction, one app shows what you 
 
 # IS373 assignment roadmap
 
-This guide is for **Fall 2026, IS373-001**. Canvas is the source for exact deadlines, demo slots, instructions, and rubrics. Use the linked assignments below to check your section.
+Use this guide to organize the work for IS373. Your section’s Canvas course has the official schedule, demonstration arrangements, instructions, and rubrics. The assignment links below point to the instructor’s example section.
 
-Finish the individual and group projects during the **last week of class**. You have the full week after Thanksgiving break and the following week to finish and demonstrate the work. The final exam period is reserved for extenuating circumstances with Dean of Students verification or your instructor’s approval.
+Finish and demonstrate the individual and group projects during the **final week of class**. The final exam period is reserved for extenuating circumstances with Dean of Students verification or your instructor’s approval.
 
 ## Keep three deliverables distinct
 
@@ -30,7 +30,7 @@ For Plan, a diagram and a prediction are useful evidence of design. Label a plan
 
 ## Course milestones
 
-Each link opens a Canvas assignment and requires course access. Check Canvas for the date and time. Course times are Eastern.
+Each link opens a Canvas assignment and requires course access. Follow the schedule in your own Canvas section.
 
 | Review | Links | What to show |
 | --- | --- | --- |

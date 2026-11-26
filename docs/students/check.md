@@ -16,7 +16,7 @@ Write your question and expected source ID before you ask the model. Run the que
 | Paraphrase | How does a new member ask for help? | The passage gives the right instructions even if it uses different words. |
 | Relationship | Which committee organizes events? | A passage or sourced graph relationship connects the committee and events. |
 | Practical | What should a visitor do before attending? | Each important step appears in the sources. |
-| Unanswerable | What is the date of next year’s annual meeting? | If the date is missing, the answer says so. |
+| Unanswerable | Which room has been booked for the annual meeting? | If the sources omit the room, the answer says so. |
 
 Use questions from your own domain and include a missing-evidence case you have checked yourself. A text passage can support a relationship even if your project uses vector search. Five questions give you a small, repeatable check for this project.
 

@@ -8,13 +8,13 @@ teaser: "A Rust lock can coordinate a process. A restarted worker still needs a 
 
 A worker loses its connection, waits, and comes back carrying a completed answer. Another worker has already taken over. The safety question is whether that late answer can change the record now. Local ownership inside a Rust process resolves only part of the problem.
 
-This November 5, 2026 review examines the proposed backend through historical Rust design priorities. It identifies guarantees to specify and demonstrate. No application implementation was inspected.
+This review examines the proposed backend through historical Rust design priorities. It identifies guarantees to specify and demonstrate. No application implementation was inspected.
 
 ## Attribution and method
 
 Graydon Hoare created Rust's initial design and implementation, as the Rust project's own alumni page records. Rust subsequently evolved through a wider project and community; its current design must not be attributed entirely to one person. Hoare's author-published archive describes the personal project and later Mozilla work. [Rust attribution](https://rust-lang.org/governance/people/graydon/), [Hoare's archive](https://github.com/graydon/rust-prehistory)
 
-This is our analysis through documented priorities, not a simulated review, quotation, or endorsement by Hoare. His 2010 presentation emphasizes safety, concurrency, isolation, controlled mutation, auditable departures from safety, and established techniques. It also describes supervision and task ownership. These are historical positions, not evidence that he endorses Axum, Tokio, a particular database, or today's Rust feature set. [Hoare's primary presentation, slides 3–6 and 13–19](https://venge.net/graydon/talks/intro-talk-2.pdf)
+This is our analysis through documented priorities, not a simulated review, quotation, or endorsement by Hoare. His early design presentation emphasizes safety, concurrency, isolation, controlled mutation, auditable departures from safety, and established techniques. It also describes supervision and task ownership. These are historical positions, not evidence that he endorses Axum, Tokio, a particular database, or the modern Rust feature set. [Hoare's primary presentation, slides 3–6 and 13–19](https://venge.net/graydon/talks/intro-talk-2.pdf)
 
 Use the early presentation to understand the historical priorities. Use modern Rust and Tokio documentation when a conclusion depends on what the current language or runtime actually does. The distinction matters when a design review becomes a test plan.
 

@@ -72,4 +72,4 @@ Evaluate Dagster's asset/dependency model for ETL lineage and backfills and Temp
 
 ## Study and compare
 
-The [implementation resources](/research/implementation-resources) link parsing, extraction, and orchestration repositories. The [concept guide](/research/concepts) explains entity linking and workflow durability. Read the [dated developments](/research/recent-developments) before choosing an upstream dependency or assuming a release is stable.
+The [implementation resources](/research/implementation-resources) link parsing, extraction, and orchestration repositories. The [concept guide](/research/concepts) explains entity linking and workflow durability. Read the [research and release notes](/research/recent-developments) before choosing an upstream dependency or assuming a release is stable.

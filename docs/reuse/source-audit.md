@@ -6,9 +6,9 @@ teaser: "A line of code can show how a job was leased. Only a run can show what 
 
 # Source audit and reuse decisions
 
-Read an audit entry beside its pinned source. Locate the named function, check the claim against the cited range, then read the proposed changes before adopting it. The November 10 inspection identifies candidates and gaps; direct execution of the donor suites was outside its scope.
+Read an audit entry beside its pinned source. Locate the named function, check the claim against the cited range, then read the proposed changes before adopting it. The pinned-source inspection identifies candidates and gaps; direct execution of the donor suites was outside its scope.
 
-**Snapshot: November 10, 2026.** This is a targeted inspection of the paths and ranges below. It does not certify either Ordo generation as production-ready. Donor tests were not executed in this review. All links identify immutable commits rather than moving default branches.
+**Source audit.** This is a targeted inspection of the paths and ranges below. It does not certify either Ordo generation as production-ready. Donor tests were not executed in this review. All links identify immutable commits rather than moving default branches.
 
 ## Source register
 
