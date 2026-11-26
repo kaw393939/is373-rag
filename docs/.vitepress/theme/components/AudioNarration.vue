@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { withBase } from 'vitepress'
+import { useData, withBase } from 'vitepress'
 import manifest from '../../narration.json'
 
 const props = defineProps<{ route: string; kind: 'article' | 'chapter' }>()
+const { site } = useData()
 const recordings: Record<string, { src: string; seconds: number }> = manifest
 const refreshed = ref<Record<string, { src: string; seconds: number }> | null>(null)
 onMounted(async () => {
+  if (site.value.base === '/knowledge-lab/' && recordings[props.route]) return
   try {
     const res = await fetch('https://keithwilliams.org/listen/lab.json', { credentials: 'omit' })
     if (res.ok) refreshed.value = await res.json()
