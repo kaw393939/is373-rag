@@ -19,7 +19,7 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
     <section class="lab-hero" aria-labelledby="lab-title">
       <div class="lab-intro">
         <p class="lab-kicker">Retrieval-augmented generation</p>
-        <h1 id="lab-title">Build answers you<br>can <em>explain.</em></h1>
+        <h1 id="lab-title">Build answers you can <em>explain.</em></h1>
         <p class="lab-lead">{{ frontmatter.teaser }}</p>
         <p class="lab-summary">I use a fictional club handbook to teach students to open the passage behind an answer. Try it on your own collection, or follow the research design for keeping track of claims that change.</p>
         <div class="lab-actions"><a class="lab-primary" :href="withBase('/students/')">Start your IS373 project <span aria-hidden="true">→</span></a><a class="lab-secondary" :href="withBase('/students/reference')">Try the first 15 minutes</a></div>
@@ -72,9 +72,9 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 .lab-hero-art{margin:1rem 0 0}.lab-hero-art img{display:block;width:100%;height:auto}.lab-hero-art figcaption{font-size:.78rem;margin-top:.28rem;color:var(--vp-c-text-2)}
 .lab-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:64px;align-items:center;padding:64px 0 66px}
 .lab-kicker{font-size:12px;font-weight:650;letter-spacing:.13em;color:var(--vp-c-brand-1);margin:0 0 18px;line-height:1.7}
-.lab-intro h1{font-size:clamp(40px,4.7vw,64px);line-height:1.07;letter-spacing:-.055em;font-family:Georgia,serif;font-weight:500;margin:0 0 24px}
+.lab-intro h1{max-width:15ch;font-size:clamp(2.75rem,5.2vw,4.65rem);line-height:1.04;letter-spacing:-.036em;font-family:var(--lab-font-editorial);font-optical-sizing:auto;font-weight:550;text-wrap:balance;margin:0 0 24px}
 .lab-intro h1 em{font-style:italic;color:var(--vp-c-brand-1)}
-.lab-lead{font-size:21px;line-height:1.55;letter-spacing:-.018em;max-width:500px;margin:0 0 16px}
+.lab-lead{font:400 clamp(1.24rem,1.05rem + .65vw,1.55rem)/1.45 var(--lab-font-editorial);font-optical-sizing:auto;max-width:46ch;margin:0 0 16px}
 .lab-summary{font-size:16px;line-height:1.75;color:var(--vp-c-text-2);max-width:490px;margin:0 0 26px}
 .lab-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .lab-actions a{display:inline-flex;align-items:center;gap:18px;padding:12px 17px;border-radius:5px;font-weight:600;font-size:14px;line-height:1.5}
@@ -85,22 +85,22 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 .lab-evidence{padding:25px;border:1px solid var(--vp-c-divider);border-radius:10px;background:var(--vp-c-bg-alt);box-shadow:0 12px 45px rgba(20,45,30,.04)}
 .lab-evidence-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;letter-spacing:.09em;color:var(--vp-c-text-2)}
 .lab-tag{font-size:12px;border:1px solid var(--vp-c-divider);padding:3px 7px;border-radius:4px;letter-spacing:0}
-.lab-evidence h2{font-size:29px;line-height:1.18;letter-spacing:-.035em;font-weight:600;margin:22px 0}
+.lab-evidence h2{font-family:var(--lab-font-editorial);font-size:clamp(1.75rem,2.35vw,2.2rem);line-height:1.18;letter-spacing:-.035em;font-weight:600;margin:22px 0}
 .lab-example{list-style:none;padding:0;margin:0}.lab-example a{color:var(--vp-c-brand-1);text-decoration:underline}.lab-report:target{outline:2px solid var(--vp-c-brand-1);outline-offset:6px;scroll-margin-top:90px}.lab-research{margin:10px 0 35px;padding:20px 24px;border:1px solid var(--vp-c-divider);border-radius:8px}.lab-research summary{cursor:pointer;font-weight:600;font-size:15px}.lab-research summary:focus-visible{outline:3px solid var(--vp-c-brand-1);outline-offset:5px}.lab-research>p{font-size:14px;color:var(--vp-c-text-2);line-height:1.7;margin-top:14px}
 .lab-report{padding:12px 0;border-top:1px solid var(--vp-c-divider)}
 .lab-report-id{font-family:var(--vp-font-family-mono);font-size:12px;letter-spacing:.09em;color:var(--vp-c-brand-1)}
-.lab-report p{font-size:14px;line-height:1.6;margin:4px 0 2px}
+.lab-report p{font-size:1rem;line-height:1.6;margin:4px 0 2px}
 .lab-report-note{font-size:12px;color:var(--vp-c-text-2);line-height:1.6}
 .lab-verdict{padding:13px 14px;background:var(--vp-c-brand-soft);border-left:3px solid var(--vp-c-brand-1);margin:10px 0 14px}
 .lab-verdict strong,.lab-verdict span{display:block;font-size:12px;line-height:1.7}.lab-verdict span{color:var(--vp-c-text-2);font-size:12px}
 .lab-case-link{font-size:12px;color:var(--vp-c-brand-1);text-decoration:underline;text-underline-offset:4px}
-.lab-student{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px;margin:0 0 22px;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg-alt)}.lab-student .lab-kicker{margin-bottom:5px}.lab-student h2{font-size:21px;font-weight:600;letter-spacing:-.025em}.lab-student p:not(.lab-kicker){font-size:15px;color:var(--vp-c-text-2);line-height:1.65;max-width:700px;margin:7px 0 0}.lab-student a{color:var(--vp-c-brand-1);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.lab-student{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px;margin:0 0 22px;border:1px solid var(--vp-c-divider);border-radius:8px;background:var(--vp-c-bg-alt)}.lab-student .lab-kicker{margin-bottom:5px}.lab-student h2{font:600 clamp(1.45rem,2.1vw,1.75rem)/1.16 var(--lab-font-editorial);letter-spacing:-.02em}.lab-student p:not(.lab-kicker){font-size:15px;color:var(--vp-c-text-2);line-height:1.65;max-width:700px;margin:7px 0 0}.lab-student a{color:var(--vp-c-brand-1);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:4px}
 .lab-flow{display:grid;grid-template-columns:1fr 2fr;gap:30px;align-items:center;border-top:1px solid var(--vp-c-divider);border-bottom:1px solid var(--vp-c-divider);padding:26px 0}
-.lab-flow .lab-kicker{margin-bottom:7px;font-size:12px}.lab-flow h2{font-size:22px;letter-spacing:-.03em;font-weight:600}
+.lab-flow .lab-kicker{margin-bottom:7px;font-size:12px}.lab-flow h2{font:600 clamp(1.45rem,2.15vw,1.85rem)/1.16 var(--lab-font-editorial);letter-spacing:-.02em}
 .lab-flow ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin:0;list-style:none;padding:0}
-.lab-flow li{font-size:12px;line-height:1.6}.lab-step-number{display:block;font-family:var(--vp-font-family-mono);color:var(--vp-c-brand-1);margin-bottom:6px;font-size:12px}
+.lab-flow li{font-size:.95rem;line-height:1.6}.lab-step-number{display:block;font-family:var(--vp-font-family-mono);color:var(--vp-c-brand-1);margin-bottom:6px;font-size:12px}
 .lab-explore{padding:60px 0}.lab-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;margin-bottom:24px}
-.lab-section-heading .lab-kicker{margin-bottom:10px}.lab-section-heading h2,.lab-practice h2{font-size:32px;line-height:1.2;letter-spacing:-.04em;font-weight:600}
+.lab-section-heading .lab-kicker{margin-bottom:10px}.lab-section-heading h2,.lab-practice h2{font:600 clamp(1.8rem,3vw,2.5rem)/1.14 var(--lab-font-editorial);letter-spacing:-.025em}
 .lab-section-heading>p{font-size:14px;color:var(--vp-c-text-2);max-width:245px;line-height:1.65;margin:0}
 .lab-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .lab-card{padding:22px 19px;border:1px solid var(--vp-c-divider);border-radius:7px;display:flex;flex-direction:column;min-height:235px;transition:border-color .15s}
@@ -110,9 +110,9 @@ const steps = ['Ask a question', 'Retrieve a passage', 'Write an answer', 'Check
 .lab-practice-links a{display:flex;justify-content:space-between;gap:18px;padding:16px 0;border-bottom:1px solid var(--vp-c-divider);font-size:14px;color:var(--vp-c-brand-1)}
 .lab-ending{border-top:1px solid var(--vp-c-divider);padding-top:24px;font-size:12px;line-height:1.8;color:var(--vp-c-text-2)}.lab-ending a{color:var(--vp-c-brand-1);text-decoration:underline;margin-left:6px}
 @media(max-width:960px){.lab-hero{gap:32px}.lab-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-card{min-height:210px}.lab-flow{grid-template-columns:1fr}.lab-principle,.lab-practice{gap:32px}}
-@media(max-width:640px){.lab-student{display:block}.lab-student a{display:inline-block;margin-top:12px}.lab-home{padding:22px 22px 32px}.lab-status{flex-wrap:wrap;font-size:12px;gap:7px;padding-bottom:18px}.lab-status a{font-size:12px}.lab-hero{grid-template-columns:1fr;padding:38px 0;gap:32px}.lab-intro h1{font-size:42px}.lab-lead{font-size:19px}.lab-evidence{padding:21px}.lab-flow ol{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.lab-section-heading{display:block}.lab-section-heading>p{margin-top:12px;max-width:none}.lab-cards{grid-template-columns:1fr}.lab-card{min-height:0}.lab-card h3{margin-top:12px}.lab-explore{padding:38px 0}.lab-principle,.lab-practice{grid-template-columns:1fr;gap:22px}.lab-principle{padding:25px}.lab-principle h2,.lab-section-heading h2{font-size:29px}.lab-practice{padding:38px 0}.lab-ending a{display:block;margin:6px 0 0}}
+@media(max-width:640px){.lab-student{display:block}.lab-student a{display:inline-block;margin-top:12px}.lab-home{padding:22px 22px 32px}.lab-status{flex-wrap:wrap;font-size:12px;gap:7px;padding-bottom:18px}.lab-status a{font-size:12px}.lab-hero{grid-template-columns:1fr;padding:38px 0;gap:32px}.lab-intro h1{font-size:42px}.lab-lead{font-size:1.25rem}.lab-evidence{padding:21px}.lab-flow ol{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.lab-section-heading{display:block}.lab-section-heading>p{margin-top:12px;max-width:none}.lab-cards{grid-template-columns:1fr}.lab-card{min-height:0}.lab-card h3{margin-top:12px}.lab-explore{padding:38px 0}.lab-principle,.lab-practice{grid-template-columns:1fr;gap:22px}.lab-principle{padding:25px}.lab-principle h2,.lab-section-heading h2{font-size:29px}.lab-practice{padding:38px 0}.lab-ending a{display:block;margin:6px 0 0}}
 @media(min-width:641px) and (max-width:850px){.lab-hero{grid-template-columns:minmax(0,1fr);gap:30px;padding:44px 0}.lab-hero-art{max-width:560px}.lab-lead,.lab-summary{max-width:65ch}}
-@media(max-width:420px){.lab-home{padding-inline:16px}.lab-status{gap:0 8px}.lab-status a{margin-left:15px}.lab-evidence,.lab-student,.lab-research{padding:16px}.lab-intro h1{font-size:clamp(2.25rem,10.5vw,2.65rem)}.lab-evidence-head{flex-wrap:wrap}.lab-actions{align-items:stretch;flex-direction:column}.lab-actions a{justify-content:center;text-align:center}}
+@media(max-width:420px){.lab-home{padding-inline:16px}.lab-status{gap:0 8px}.lab-status a{margin-left:15px}.lab-evidence,.lab-student,.lab-research{padding:16px}.lab-intro h1{font-size:clamp(2.5rem,10vw,2.9rem)}.lab-evidence-head{flex-wrap:wrap}.lab-actions{align-items:stretch;flex-direction:column}.lab-actions a{justify-content:center;text-align:center}}
 .lab-status a,.lab-case-link,.lab-student a{display:inline-flex;align-items:center;min-height:44px}.lab-student a{max-width:100%;line-height:1.5}.lab-evidence-head,.lab-tag,.lab-kicker,.lab-flow .lab-kicker{line-height:1.5}.lab-report-note,.lab-verdict span,.lab-scope,.lab-card-link,.lab-ending{font-size:.875rem}.lab-card-link{line-height:1.5}.lab-case-link{font-size:.9rem}.lab-card,.lab-evidence,.lab-student{overflow-wrap:break-word}
 @media(prefers-reduced-motion:reduce){.lab-card{transition:none}}
 </style>
