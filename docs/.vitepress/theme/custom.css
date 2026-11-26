@@ -53,12 +53,19 @@
 }
 @media (max-width: 420px) {
   .VPNavBar .wrapper { padding-inline: 12px; }
-  .VPNavBarTitle .title { font-size: 1rem; }
+  .VPNavBar .wrapper > .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    align-items: center;
+  }
+  .VPNavBar .container > .title { min-width: 0; }
+  .VPNavBarTitle .title { white-space: normal; font-size: 1rem; }
+  .VPNavBarTitle .title > span { min-width: 0; }
   .VPNavBar .lab-journal-return { font-size: .875rem; padding-inline: .25rem; }
 }
 @media (max-width: 360px) {
   .VPNavBar .content-body { column-gap: 0; }
-  .VPNavBarTitle .logo { margin-inline-end: 4px; }
+  .VPNavBarTitle .logo { display: none; }
 }
 .VPHomeHero .name { font-size: 17px; line-height: 1.6; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 20px; }
 .VPHomeHero .text { font-weight: 650; letter-spacing: -.055em; max-width: 620px; }
